@@ -22,14 +22,14 @@ class Weather {
     ////this.tempUnit = tempUnit;
     reachable = checkConnection();
     println("connection: " + reachable);
-    
+
     if (reachable) {
       root = loadXML("http://api.openweathermap.org/data/2.5/weather?q=Turku,fi&appid=252d087e98bfe7e2d4bfa4991e0f4671&units=metric&mode=xml");
     } else {
       println("No connection");
     }
   }
-  
+
   /*
    * General methods
    */
@@ -45,17 +45,17 @@ class Weather {
       return false;
     }
   }
-  
+
   public void update() {
     reachable = checkConnection();
-    
+
     if (reachable) {
       root = loadXML("http://api.openweathermap.org/data/2.5/weather?id=2172797&appid=252d087e98bfe7e2d4bfa4991e0f4671&units=metric&mode=xml");
     } else {
       println("No connection");
     }
   }
-  
+
   public String lastUpdate(){
     Date date = new Date();
     return date.toString();
@@ -67,7 +67,7 @@ class Weather {
   public String getCityName() {
     return root.getChild("city").getString("name");
   }
-  
+
   public String getCountryName() {
     return root.getChild("city/country").getContent();
   }
@@ -75,7 +75,7 @@ class Weather {
   public String getSunrise() {
     return root.getChild("city/sun").getString("rise");
   }
-  
+
   public String getSunset() {
     return root.getChild("city/sun").getString("set");
   }
@@ -95,7 +95,7 @@ class Weather {
   public int getTemperatureMin() {
     return root.getChild("temperature").getInt("min"); //unit?
   }
-  
+
   public int getTemperatureMax() {
     return root.getChild("temperature").getInt("max"); //unit?
   }
@@ -108,7 +108,7 @@ class Weather {
   public int getWeatherConditionCode() {
     return channel.getChild("item").getChild("yweather:condition").getInt("code");
   }
-  
+
   public String getWeekday() {
     return channel.getChild("item").getChild(15).getString("day");
   }
@@ -121,21 +121,21 @@ class Weather {
   public int getTemperatureLowTomorrow() {
     return channel.getChild("item").getChild(17).getInt("low");
   }
-  
+
   public int getTemperatureHighTomorrow() {
     return channel.getChild("item").getChild(17).getInt("high");
   }
-  
-  
+
+
   public String getWeatherConditionTomorrow() {
     return channel.getChild("item").getChild(17).getString("text");
   }
-  
+
   public int getWeatherConditionCodeTomorrow(){
     return channel.getChild("item").getChild(17).getInt("code");
   }
-  
-  
+
+
   public String getWeekdayTomorrow() {
     return channel.getChild("item").getChild(17).getString("day");
   }
@@ -146,21 +146,21 @@ class Weather {
   public int getTemperatureLowDayAfterTomorrow() {
     return channel.getChild("item").getChild(19).getInt("low");
   }
-  
+
   public int getTemperatureHighDayAfterTomorrow() {
     return channel.getChild("item").getChild(19).getInt("high");
   }
-  
-  
+
+
   public String getWeatherConditionDayAfterTomorrow() {
     return channel.getChild("item").getChild(19).getString("text");
   }
-  
+
   public int getWeatherConditionCodeDayAfterTomorrow(){
     return channel.getChild("item").getChild(19).getInt("code");
   }
-  
-  
+
+
   public String getWeekdayDayAfterTomorrow() {
     return channel.getChild("item").getChild(19).getString("day");
   }
