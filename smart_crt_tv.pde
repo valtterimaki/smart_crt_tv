@@ -2,15 +2,20 @@ import org.gicentre.utils.move.Ease;
 
 // this will be the switch for the xy mode in the future
 public boolean xy_draw_mode = false;
+public int program_number = 0;
+
+// counter variable that can be set inside programs
+int counterstart = millis();
+public int counter = 0;
 
 // Flash object
 ObjFlash objFlash1;
-
 // Weather object init
 Weather weather;
-
-// Fonts
+// Init fonts
 PFont source_code_thin;
+PFont source_code_light;
+
 
 void setup() {
   //fullScreen(P2D);
@@ -23,31 +28,56 @@ void setup() {
   // Weather object
   weather = new Weather();
 
-  // Set font
+  // Set fonts
   source_code_thin = createFont("SourceCodePro-ExtraLight.ttf", 128);
+  source_code_light = createFont("SourceCodePro-Light.ttf", 20);
 
 }
 
 void draw() {
+
+  // count milliseconds
+  if( (millis() - counterstart) > 1000 ){
+    counter++;
+    counterstart = millis();
+  }
+
+  // clear screen
   background(0);
 
-  objFlash1.update();
-  objFlash1.display();
+  // 0 is FLASH
+  if (program_number == 0) {
+    objFlash1.update();
+    objFlash1.display();
+  }
 
-  fill(255);
-  textFont(source_code_thin);
-  textSize(20);
+  // 1 is WEATHER
+  if (program_number == 1) {
 
-  text(weather.getWeatherCondition(), 16, 60);
-  text(weather.getSunrise(), 16, 80);
-  text(weather.getSunset(), 16, 100);
-  text(weather.getPressure(), 16, 120);
-  text(weather.getHumidity(), 16, 140);
-  text(weather.getTemperatureMin(), 16, 180);
-  text(weather.getTemperatureMax(), 16, 200);
+    /* TODO remember to add update interval */
 
-  textSize(128);
-  text(weather.getTemperature() + "°c", 16, 300);
+    fill(255);
+
+    textFont(source_code_light);
+    textSize(20);
+    text(weather.getWeatherCondition(), 16, 60);
+    text(weather.getSunrise(), 16, 80);
+    text(weather.getSunset(), 16, 100);
+    text(weather.getPressure(), 16, 120);
+    text(weather.getHumidity(), 16, 140);
+    text(weather.getTemperatureMin(), 16, 180);
+    text(weather.getTemperatureMax(), 16, 200);
+
+    textFont(source_code_thin);
+    textSize(128);
+    text(weather.getTemperature() + "°c", 16, 300);
+
+    if (counter == 5) {
+      counter = 0;
+      program_number = 0;
+    }
+
+  }
 
 }
 

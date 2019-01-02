@@ -3,7 +3,7 @@
 
 
 class ObjFlash{
-  
+
   float xinit, yinit, increment;
   float phase = 0;
   float phase_eased, invph;
@@ -15,13 +15,13 @@ class ObjFlash{
   PVector target_a = new PVector(lerp(width*0.05, width*0.4, random(1)),lerp(height*0.3, height*0.7, random(1)));
   PVector target_b = new PVector(lerp(width*0.6, width*0.95, random(1)),lerp(height*0.3, height*0.7, random(1)));
 
-  ObjFlash (float xd, float yd, float dr) {  
-    xinit = xd; 
-    yinit = yd; 
+  ObjFlash (float xd, float yd, float dr) {
+    xinit = xd;
+    yinit = yd;
     increment = 1/dr;
-  } 
-  
-  void update() { 
+  }
+
+  void update() {
 
     if (phase < 1) {
 
@@ -41,10 +41,15 @@ class ObjFlash{
       phase = 0;
       target_a.set(lerp(width*0.05, width*0.4, random(1)),lerp(height*0.3, height*0.7, random(1)));
       target_b.set(lerp(width*0.6, width*0.95, random(1)),lerp(height*0.3, height*0.7, random(1)));
+
+      // When flash is over, set a new program 
+      program_number = 1;
+      // & reset counter
+      counter = 0;
     }
 
-  } 
-  
+  }
+
   void display() {
 
     if (phase < 1) {
@@ -58,7 +63,7 @@ class ObjFlash{
       vertex(b.x, b.y);
       vertex(c.x, c.y);
       vertex(d.x, d.y);
-      endShape(CLOSE); 
+      endShape(CLOSE);
     }
-  } 
-} 
+  }
+}
