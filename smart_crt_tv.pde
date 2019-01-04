@@ -17,7 +17,7 @@ PFont source_code_thin;
 PFont source_code_light;
 
 // SVG TEST
-public String xml_test = "img/sunny_flat.svg";
+public String xml_test = "img/cloudy.svg";
 
 void setup() {
   //fullScreen(P2D);
