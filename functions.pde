@@ -1,15 +1,11 @@
 /* Simple one-purpose SVG path & polygon parser  */
 
-PVector svgParse(String xml_init, String set, int shape, int coordinate) {
+PVector[][][] svgParse(String xml_init) {
   XML xml;
   xml = loadXML(xml_init);
 
-  // Initiate final arrays to be exported
-  PVector[][] final_paths = new PVector[100][2];
-  PVector[][] final_polys = new PVector[100][100];
-
-  // Initiate exportable pvector
-  PVector result = new PVector();
+  // Initiate exportable pvector array
+  PVector[][][] result = new PVector[2][50][50];
 
   // Go through all paths
   XML[] paths = xml.getChildren("g/path");
@@ -31,7 +27,7 @@ PVector svgParse(String xml_init, String set, int shape, int coordinate) {
 
       PVector converted = new PVector(xCoord, yCoord);
 
-      final_paths[i][k] = converted;
+      result[0][i][k] = converted;
     }
   }
 
@@ -51,21 +47,13 @@ PVector svgParse(String xml_init, String set, int shape, int coordinate) {
 
       PVector converted = new PVector(xCoord, yCoord);
 
-      final_polys[i][dividercounter] = converted;
+      result[1][i][dividercounter] = converted;
 
       dividercounter += 1;
     }
   }
 
-  // return a single coordinate by input parameters
-
-  if (set == "paths") {
-    result = final_paths[shape][coordinate];
-  }
-  if (set == "polys") {
-    result = final_polys[shape][coordinate];
-  }
-
+  // Return the whole 3-dimensional array
   return result;
 
 }
@@ -73,7 +61,62 @@ PVector svgParse(String xml_init, String set, int shape, int coordinate) {
 
 /* Function that draws the svg paths */
 
-void svgDraw() {
+void svgDraw(String xml_init) {
+
+  noFill();
+  stroke(255);
+
+  // draw path
+
+  // go through paths
+  for (int i = 0; i < 50; ++i) {
+    // go through points
+    if (svgParse(xml_test)[0][i][0] != null) {
+
+      line(
+      svgParse(xml_test)[0][i][0].x,
+      svgParse(xml_test)[0][i][0].y,
+      svgParse(xml_test)[0][i][1].x,
+      svgParse(xml_test)[0][i][1].y
+      );
+    }
+  }
+
+  // draw poly
+
+  beginShape();
+  // go through polys
+  for (int i = 0; i < 50; ++i) {
+    // go through points
+    for (int k = 0; k < 50; ++k) {
+      if (svgParse(xml_test)[1][i][k] != null) {
+        vertex(svgParse(xml_test)[1][i][k].x , svgParse(xml_test)[1][i][k].y);
+      }
+    }
+  }
+  endShape(CLOSE);
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

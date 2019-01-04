@@ -17,7 +17,7 @@ PFont source_code_thin;
 PFont source_code_light;
 
 // SVG TEST
-String xml_test = "img/sunny_flat.svg";
+public String xml_test = "img/sunny_flat.svg";
 
 void setup() {
   //fullScreen(P2D);
@@ -33,9 +33,6 @@ void setup() {
   // Set fonts
   source_code_thin = createFont("SourceCodePro-ExtraLight.ttf", 128);
   source_code_light = createFont("SourceCodePro-Light.ttf", 20);
-
-  // SVG TEST
-  println(svgParse(xml_test, "polys", 0, 1) + "  BOOOOOOOOM");
 
 }
 
@@ -76,6 +73,9 @@ void draw() {
     textFont(source_code_thin);
     textSize(128);
     text(weather.getTemperature() + "°c", 16, 300);
+
+    // SVG TEST
+    svgDraw(xml_test);
 
     if (counter == 5) {
       counter = 0;
