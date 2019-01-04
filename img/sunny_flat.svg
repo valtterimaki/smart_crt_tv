@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256px" height="256px" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>sunny_flat</title>
+    <desc>Created with Sketch.</desc>
+    <g id="sunny_flat" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M128,16 L128,48" id="Line" stroke="#FFFFFF" stroke-width="4"></path>
+        <path d="M128,208 L128,240" id="Line-Copy" stroke="#FFFFFF" stroke-width="4"></path>
+        <path d="M224.994845,184 L197.282032,168" id="Line" stroke="#FFFFFF" stroke-width="4"></path>
+        <path d="M58.7179677,88 L31.0051548,72" id="Line-Copy" stroke="#FFFFFF" stroke-width="4"></path>
+        <path d="M224.994845,72 L197.282032,88" id="Line" stroke="#FFFFFF" stroke-width="4"></path>
+        <path d="M58.7179677,168 L31.0051548,184" id="Line-Copy" stroke="#FFFFFF" stroke-width="4"></path>
+        <polygon id="Polygon" stroke="#FFFFFF" stroke-width="4" points="128 80 156.213692 89.1671843 173.650713 113.167184 173.650713 142.832816 156.213692 166.832816 128 176 99.7863079 166.832816 82.3492872 142.832816 82.3492872 113.167184 99.7863079 89.1671843"></polygon>
+    </g>
+</svg>
