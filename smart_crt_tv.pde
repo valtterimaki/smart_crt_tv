@@ -16,7 +16,7 @@ Weather weather;
 PFont source_code_thin;
 PFont source_code_light;
 
-// test
+// SVG TEST
 String xml_test = "img/sunny_flat.svg";
 
 void setup() {
@@ -34,8 +34,8 @@ void setup() {
   source_code_thin = createFont("SourceCodePro-ExtraLight.ttf", 128);
   source_code_light = createFont("SourceCodePro-Light.ttf", 20);
 
-  // test
-  svgParse(xml_test);
+  // SVG TEST
+  println(svgParse(xml_test, "polys", 0, 1) + "  BOOOOOOOOM");
 
 }
 
