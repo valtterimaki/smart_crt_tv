@@ -18,6 +18,7 @@ PFont source_code_light;
 
 // SVG TEST
 public String xml_test = "img/sunny.svg";
+ObjSvg objSvg1;
 
 void setup() {
   //fullScreen(P2D);
@@ -26,6 +27,9 @@ void setup() {
 
   // Creating always-on flash object
   objFlash1 = new ObjFlash(0.9, 0.9, 50);
+
+  // Svg test (this needs to have an array for multiple images)
+  objSvg1 = new ObjSvg(xml_test, 100, 300, 2);
 
   // Weather object
   weather = new Weather();
@@ -75,7 +79,7 @@ void draw() {
     text(weather.getTemperature() + "°c", 16, 300);
 
     // SVG TEST
-    svgDraw(xml_test, 300, 100, 10);
+    objSvg1.display();
     println(frameRate);
 
     if (counter == 5) {
