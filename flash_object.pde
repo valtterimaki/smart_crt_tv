@@ -44,6 +44,7 @@ class ObjFlash{
 
       // When flash is over, set a new program
       program_number = 1; // This should be set later to randomize the program
+      program_started = true;
       // & reset counter
       counter = 0;
     }

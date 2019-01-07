@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="256px" height="256px" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
-    <title>sunny_flat</title>
+    <title>sunny copy</title>
     <desc>Created with Sketch.</desc>
-    <g id="sunny_flat" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M128,16 L128,48" id="Line" stroke="#FFFFFF" stroke-width="4"></path>
-        <path d="M128,208 L128,240" id="Line-Copy" stroke="#FFFFFF" stroke-width="4"></path>
-        <path d="M224.994845,184 L197.282032,168" id="Line" stroke="#FFFFFF" stroke-width="4"></path>
-        <path d="M58.7179677,88 L31.0051548,72" id="Line-Copy" stroke="#FFFFFF" stroke-width="4"></path>
-        <path d="M224.994845,72 L197.282032,88" id="Line" stroke="#FFFFFF" stroke-width="4"></path>
-        <path d="M58.7179677,168 L31.0051548,184" id="Line-Copy" stroke="#FFFFFF" stroke-width="4"></path>
-        <polygon id="Polygon" stroke="#FFFFFF" stroke-width="4" points="128 80 156.213692 89.1671843 173.650713 113.167184 173.650713 142.832816 156.213692 166.832816 128 176 99.7863079 166.832816 82.3492872 142.832816 82.3492872 113.167184 99.7863079 89.1671843"></polygon>
+    <g id="sunny-copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <polygon id="Line" stroke="#FFFFFF" stroke-width="4" points="128 16 128 44 128 72"></polygon>
+        <polygon id="Line-Copy" stroke="#FFFFFF" stroke-width="4" points="128 184 128 212 128 240"></polygon>
+        <path d="M224.994845,184 L176.497423,156" id="Line" stroke="#FFFFFF" stroke-width="4"></path>
+        <path d="M79.5025774,100 L31.0051548,72" id="Line-Copy" stroke="#FFFFFF" stroke-width="4"></path>
+        <path d="M224.994845,72 L176.497423,100" id="Line" stroke="#FFFFFF" stroke-width="4"></path>
+        <path d="M79.5025774,156 L31.0051548,184" id="Line-Copy" stroke="#FFFFFF" stroke-width="4"></path>
+        <polygon id="Polygon" stroke="#FFFFFF" stroke-width="4" points="128 96 146.809128 102.111456 158.433809 118.111456 158.433809 137.888544 146.809128 153.888544 128 160 109.190872 153.888544 97.5661915 137.888544 97.5661915 118.111456 109.190872 102.111456"></polygon>
     </g>
 </svg>

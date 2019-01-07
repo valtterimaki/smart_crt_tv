@@ -9,8 +9,13 @@ public int program_number = 0;
 int counterstart = millis();
 public int counter = 0;
 
+// variable to check if program ust started
+public boolean program_started = true;
+
 // Flash object
 ObjFlash objFlash1;
+// Weather icon
+ObjSvg objWeathericon;
 // Weather object init
 Weather weather;
 // Init fonts
@@ -19,7 +24,7 @@ PFont source_code_light;
 
 // SVG TEST
 public String xml_test = "img/sunny.svg";
-ObjSvg objSvg1;
+
 
 void setup() {
   //fullScreen(P2D);
@@ -28,9 +33,6 @@ void setup() {
 
   // Creating always-on flash object
   objFlash1 = new ObjFlash(0.9, 0.9, 50);
-
-  // Svg test (this needs to have an array for multiple images)
-  objSvg1 = new ObjSvg(xml_test, 300, 100, 2);
 
   // Weather object
   weather = new Weather();
@@ -54,6 +56,13 @@ void draw() {
 
   // 0 is FLASH
   if (program_number == 0) {
+
+    // set of actions that happen in the start of the program
+    if (program_started == true) {
+      println("BUM");
+      program_started = false;
+    }
+
     objFlash1.update();
     objFlash1.display();
   }
@@ -61,7 +70,14 @@ void draw() {
   // 1 is WEATHER
   if (program_number == 1) {
 
-    /* TODO remember to add update interval */
+    /* TODO remember to add weather update interval */
+
+    // set of actions that happen in the start of the program
+    if (program_started == true) {
+      println("BUM");
+      objWeathericon = new ObjSvg(xml_test, 300, 100, 6, 2, 1833);
+      program_started = false;
+    }
 
     fill(255);
 
@@ -79,13 +95,15 @@ void draw() {
     textSize(128);
     text(weather.getTemperature() + "°c", 16, 300);
 
-    // SVG TEST
-    objSvg1.display();
-    println(frameRate);
+    objWeathericon.update();
+    objWeathericon.display();
 
+    // end program after 5 seconds
     if (counter == 5) {
+      objWeathericon = null;
       counter = 0;
       program_number = 0;
+      program_started = true;
     }
 
   }
