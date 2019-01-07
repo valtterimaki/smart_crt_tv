@@ -19,17 +19,14 @@ class ObjSvg {
     yoffs = yo;
     rand = rand_init;
 
-    parsed_svg = svgParse();
+    svgParse();
 
   }
 
 
   /* Simple one-purpose SVG path & polygon parser  */
 
-  PVector[][][] svgParse() {
-
-    // Initiate exportable pvector array
-    PVector[][][] result = new PVector[2][50][50];
+  void svgParse() {
 
     // Go through all paths
     XML[] paths = xml.getChildren("g/path");
@@ -51,7 +48,8 @@ class ObjSvg {
 
         PVector converted = new PVector(xCoord, yCoord);
 
-        result[0][i][k] = converted;
+        parsed_svg[0][i][k] = converted;
+        println(converted);
       }
     }
 
@@ -71,15 +69,11 @@ class ObjSvg {
 
         PVector converted = new PVector(xCoord, yCoord);
 
-        result[1][i][dividercounter] = converted;
+        parsed_svg[1][i][dividercounter] = converted;
 
         dividercounter += 1;
       }
     }
-
-    // Return the whole 3-dimensional array
-    return result;
-
   }
 
   /* Function that draws the svg paths */
