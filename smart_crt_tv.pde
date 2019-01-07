@@ -17,7 +17,7 @@ PFont source_code_thin;
 PFont source_code_light;
 
 // SVG TEST
-public String xml_test = "img/cloudy.svg";
+public String xml_test = "img/sunny.svg";
 
 void setup() {
   //fullScreen(P2D);
@@ -75,7 +75,8 @@ void draw() {
     text(weather.getTemperature() + "°c", 16, 300);
 
     // SVG TEST
-    svgDraw(xml_test);
+    svgDraw(xml_test, 300, 100, 10);
+    println(frameRate);
 
     if (counter == 5) {
       counter = 0;

@@ -59,9 +59,11 @@ PVector[][][] svgParse(String xml_init) {
 }
 
 
-/* Function that draws the svg paths */
+/* Function that draws the svg paths
+Inputs are, the xml file to be drawn, x, and y offset, amount of wobble. */
 
-void svgDraw(String xml_init) {
+
+void svgDraw(String xml_init, float x_init, float y_init, int rand) {
 
   noFill();
   stroke(255);
@@ -74,10 +76,10 @@ void svgDraw(String xml_init) {
     if (svgParse(xml_test)[0][i][0] != null) {
 
       line(
-      svgParse(xml_test)[0][i][0].x,
-      svgParse(xml_test)[0][i][0].y,
-      svgParse(xml_test)[0][i][1].x,
-      svgParse(xml_test)[0][i][1].y
+      svgParse(xml_test)[0][i][0].x + x_init + random(-rand, rand),
+      svgParse(xml_test)[0][i][0].y + y_init + random(-rand, rand),
+      svgParse(xml_test)[0][i][1].x + x_init + random(-rand, rand),
+      svgParse(xml_test)[0][i][1].y + y_init + random(-rand, rand)
       );
     }
   }
@@ -90,7 +92,10 @@ void svgDraw(String xml_init) {
     // go through points
     for (int k = 0; k < 50; ++k) {
       if (svgParse(xml_test)[1][i][k] != null) {
-        vertex(svgParse(xml_test)[1][i][k].x , svgParse(xml_test)[1][i][k].y);
+        vertex(
+          svgParse(xml_test)[1][i][k].x + x_init + random(-rand, rand),
+          svgParse(xml_test)[1][i][k].y + y_init + random(-rand, rand)
+        );
       }
     }
   }
