@@ -91,10 +91,10 @@ class ObjSvg {
       if (parsed_svg[0][i][0] != null) {
 
         line(
-        parsed_svg[0][i][0].x + xoffs + random(-rand, rand),
-        parsed_svg[0][i][0].y + yoffs + random(-rand, rand),
-        parsed_svg[0][i][1].x + xoffs + random(-rand, rand),
-        parsed_svg[0][i][1].y + yoffs + random(-rand, rand)
+        parsed_svg[0][i][0].x + xoffs + (randomGaussian() * rand),
+        parsed_svg[0][i][0].y + yoffs + (randomGaussian() * rand),
+        parsed_svg[0][i][1].x + xoffs + (randomGaussian() * rand),
+        parsed_svg[0][i][1].y + yoffs + (randomGaussian() * rand)
         );
       }
     }
@@ -108,8 +108,8 @@ class ObjSvg {
       for (int k = 0; k < 50; ++k) {
         if (parsed_svg[1][i][k] != null) {
           vertex(
-            parsed_svg[1][i][k].x + xoffs + random(-rand, rand),
-            parsed_svg[1][i][k].y + yoffs + random(-rand, rand)
+            parsed_svg[1][i][k].x + xoffs + (randomGaussian() * rand),
+            parsed_svg[1][i][k].y + yoffs + (randomGaussian() * rand)
           );
         }
       }
