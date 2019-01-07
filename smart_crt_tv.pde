@@ -2,6 +2,7 @@ import org.gicentre.utils.move.Ease;
 
 // this will be the switch for the xy mode in the future
 public boolean xy_draw_mode = false;
+// program number
 public int program_number = 0;
 
 // counter variable that can be set inside programs
@@ -29,7 +30,7 @@ void setup() {
   objFlash1 = new ObjFlash(0.9, 0.9, 50);
 
   // Svg test (this needs to have an array for multiple images)
-  objSvg1 = new ObjSvg(xml_test, 100, 300, 2);
+  objSvg1 = new ObjSvg(xml_test, 300, 100, 2);
 
   // Weather object
   weather = new Weather();
