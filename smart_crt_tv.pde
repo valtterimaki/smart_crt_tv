@@ -23,7 +23,7 @@ PFont source_code_thin;
 PFont source_code_light;
 
 // SVG TEST
-public String xml_test = "img/sunny.svg";
+public String xml_test = "img/09d.svg";
 
 
 void setup() {
@@ -75,7 +75,7 @@ void draw() {
     // set of actions that happen in the start of the program
     if (program_started == true) {
       println("BUM");
-      objWeathericon = new ObjSvg(xml_test, 300, 100, 6, 2, 1833);
+      objWeathericon = new ObjSvg(xml_test, 300, 100, 6, 1.3, 1833);
       program_started = false;
     }
 
@@ -83,17 +83,17 @@ void draw() {
 
     textFont(source_code_light);
     textSize(20);
-    text(weather.getWeatherCondition(), 16, 60);
-    text(weather.getSunrise(), 16, 80);
-    text(weather.getSunset(), 16, 100);
-    text(weather.getPressure(), 16, 120);
-    text(weather.getHumidity(), 16, 140);
-    text(weather.getTemperatureMin(), 16, 180);
-    text(weather.getTemperatureMax(), 16, 200);
+    text(weather.getWeatherCondition(), 16, 260);
+    text(weather.getSunrise(), 16, 280);
+    text(weather.getSunset(), 16, 300);
+    text(weather.getPressure(), 16, 320);
+    text(weather.getHumidity(), 16, 340);
+    text(weather.getTemperatureMin(), 16, 380);
+    text(weather.getTemperatureMax(), 16, 400);
 
     textFont(source_code_thin);
-    textSize(128);
-    text(weather.getTemperature() + "°c", 16, 300);
+    textSize(96);
+    text(weather.getTemperature() + "°c", 16, 250);
 
     objWeathericon.update();
     objWeathericon.display();

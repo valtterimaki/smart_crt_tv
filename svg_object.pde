@@ -10,7 +10,7 @@ class ObjSvg {
   XML xml;
   float xoffs, yoffs, fine;
   int rand, spd;
-  PVector[][][] parsed_svg = new PVector[2][50][50];
+  PVector[][][] parsed_svg = new PVector[3][50][50];
   float[] svg_noise = new float[50];
 
   ObjSvg (String xml_init, float xo, float yo, int rand_init, float fine_init, int spd_init) {
@@ -76,7 +76,31 @@ class ObjSvg {
         dividercounter += 1;
       }
     }
+
+      // Go through all polylines
+    XML[] polylines = xml.getChildren("g/polyline");
+
+    for (int i = 0; i < polylines.length; ++i) {
+      String polyline = polylines[i].getString("points");
+      String[] points = split(polyline, ' ');
+
+      int dividercounter = 0;
+
+      for (int k = 0; k < points.length; k += 2) {
+
+        float xCoord = Float.parseFloat(points[k]);
+        float yCoord = Float.parseFloat(points[k+1]);
+
+        PVector converted = new PVector(xCoord, yCoord);
+
+        parsed_svg[2][i][dividercounter] = converted;
+
+        dividercounter += 1;
+      }
+    }
   }
+
+
 
 
   /* Noise update */
@@ -95,7 +119,8 @@ class ObjSvg {
     strokeWeight(2);
 
     noiseDetail(4,0.7);
-    // draw path
+
+    // draw paths
 
     // go through paths
     for (int i = 0; i < 50; ++i) {
@@ -113,8 +138,7 @@ class ObjSvg {
       }
     }
 
-    // draw poly
-
+    // draw polys
 
     // go through polys
     for (int i = 0; i < 50; ++i) {
@@ -130,11 +154,34 @@ class ObjSvg {
             parsed_svg[1][i][k].x + xoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + k*0.3 + random(0.2), 550))) * rand + random(fine),
             parsed_svg[1][i][k].y + yoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + k*0.3 + random(0.2), 660))) * rand + random(fine)
           );
-          println(noise(float(millis()) / spd + k*0.13, 550));
+
         }
       }
       endShape(CLOSE);
     }
+
+    // draw polylines
+
+    // go through polylines
+    for (int i = 0; i < 50; ++i) {
+      beginShape();
+
+      // go through points
+      for (int k = 0; k < 50; ++k) {
+        if (parsed_svg[2][i][k] != null) {
+
+          noiseSeed(k+i);
+
+          vertex(
+            parsed_svg[2][i][k].x + xoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + k*0.3 + random(0.2), 550))) * rand + random(fine),
+            parsed_svg[2][i][k].y + yoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + k*0.3 + random(0.2), 660))) * rand + random(fine)
+          );
+
+        }
+      }
+      endShape();
+    }
+
   }
 
 }
