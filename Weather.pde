@@ -12,7 +12,7 @@ class Weather {
   private XML root;
   private boolean reachable;
   ////private String tempUnit;
-  private final static String  URL = "http://api.openweathermap.org/data/2.5/weather?q=Turku,fi&appid=252d087e98bfe7e2d4bfa4991e0f4671&units=metric&mode=xml";
+  private final static String  URL = "http://api.openweathermap.org/data/2.5/weather?q=Turku,fi&appid=252d087e98bfe7e2d4bfa4991e0f4671&units=metric&mode=xml&lang=fi";
   private final static int TIMEOUT = 5000;
 
   //optional for future
@@ -24,7 +24,7 @@ class Weather {
     println("connection: " + reachable);
 
     if (reachable) {
-      root = loadXML("http://api.openweathermap.org/data/2.5/weather?q=Turku,fi&appid=252d087e98bfe7e2d4bfa4991e0f4671&units=metric&mode=xml");
+      root = loadXML("http://api.openweathermap.org/data/2.5/weather?q=Turku,fi&appid=252d087e98bfe7e2d4bfa4991e0f4671&units=metric&mode=xml&lang=fi");
     } else {
       println("No connection");
     }
@@ -50,7 +50,7 @@ class Weather {
     reachable = checkConnection();
 
     if (reachable) {
-      root = loadXML("http://api.openweathermap.org/data/2.5/weather?id=2172797&appid=252d087e98bfe7e2d4bfa4991e0f4671&units=metric&mode=xml");
+      root = loadXML("http://api.openweathermap.org/data/2.5/weather?id=2172797&appid=252d087e98bfe7e2d4bfa4991e0f4671&units=metric&mode=xml&lang=fi");
     } else {
       println("No connection");
     }
