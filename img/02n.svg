@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256px" height="256px" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>02d</title>
+    <desc>Created with Sketch.</desc>
+    <g id="02d" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <polyline id="Line" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" points="89.2623378 67 89.2623378 81.690918 89.2623378 96.3818359"></polyline>
+        <path d="M88.5,67 L88.5,96.3818359" id="Line" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M63.4454163,111.690918 L38,97 L63.4454163,111.690918 Z" id="Line-Copy" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M139.445416,97 L114,111.690918 L139.445416,97 Z" id="Line" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M63.4454163,141 L38,155.690918 L63.4454163,141 Z" id="Line-Copy" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+        <polyline id="Path" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" points="79.0991867 139.372709 73 130.977899 73 120.601342 79.0991867 112.206532 88.967878 109 98.8365694 112.206532 104.935756 120.601342"></polyline>
+        <polygon id="Path-Copy-4" stroke="#FFFFFF" stroke-width="4" stroke-linecap="square" points="218.361328 181 106.552163 181 60 181 83.5076131 134.421245 124.848588 113 145.113772 134.421245 168.621385 144.010989 179.15928 162.380952"></polygon>
+    </g>
+</svg>
