@@ -104,10 +104,11 @@ class Weather {
     return root.getChild("weather").getString("value");
   }
 
-  /*
-  public int getWeatherConditionCode() {
-    return channel.getChild("item").getChild("yweather:condition").getInt("code");
+  public String getWeatherConditionIcon() {
+    return root.getChild("weather").getString("icon");
   }
+
+  /*
 
   public String getWeekday() {
     return channel.getChild("item").getChild(15).getString("day");

@@ -36,6 +36,7 @@ class ObjSvg {
 
     for (int i = 0; i < paths.length; ++i) {
       String path = paths[i].getString("d");
+      path = path.replace(" Z", "");
       String[] points = split(path, ' ');
 
       // find coordinates for each path
@@ -130,10 +131,10 @@ class ObjSvg {
         noiseSeed(i);
 
         line(
-        parsed_svg[0][i][0].x + xoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + i*0.3 + random(0.2), 110))) * rand + random(fine),
-        parsed_svg[0][i][0].y + yoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + i*0.3 + random(0.2), 220))) * rand + random(fine),
-        parsed_svg[0][i][1].x + xoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + i*0.3 + random(0.2), 330))) * rand + random(fine),
-        parsed_svg[0][i][1].y + yoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + i*0.3 + random(0.2), 440))) * rand + random(fine)
+        parsed_svg[0][i][0].x + xoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + i*0.3 + random(0.1), 110))) * rand + random(fine),
+        parsed_svg[0][i][0].y + yoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + i*0.3 + random(0.1), 220))) * rand + random(fine),
+        parsed_svg[0][i][1].x + xoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + i*0.3 + random(0.1), 330))) * rand + random(fine),
+        parsed_svg[0][i][1].y + yoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + i*0.3 + random(0.1), 440))) * rand + random(fine)
         );
       }
     }
@@ -151,8 +152,8 @@ class ObjSvg {
           noiseSeed(k+i);
 
           vertex(
-            parsed_svg[1][i][k].x + xoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + k*0.3 + random(0.2), 550))) * rand + random(fine),
-            parsed_svg[1][i][k].y + yoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + k*0.3 + random(0.2), 660))) * rand + random(fine)
+            parsed_svg[1][i][k].x + xoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + k*0.3 + random(0.1), 550))) * rand + random(fine),
+            parsed_svg[1][i][k].y + yoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + k*0.3 + random(0.1), 660))) * rand + random(fine)
           );
 
         }
@@ -173,8 +174,8 @@ class ObjSvg {
           noiseSeed(k+i);
 
           vertex(
-            parsed_svg[2][i][k].x + xoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + k*0.3 + random(0.2), 550))) * rand + random(fine),
-            parsed_svg[2][i][k].y + yoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + k*0.3 + random(0.2), 660))) * rand + random(fine)
+            parsed_svg[2][i][k].x + xoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + k*0.3 + random(0.1), 550))) * rand + random(fine),
+            parsed_svg[2][i][k].y + yoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + k*0.3 + random(0.1), 660))) * rand + random(fine)
           );
 
         }

@@ -12,6 +12,9 @@ public int counter = 0;
 // variable to check if program ust started
 public boolean program_started = true;
 
+// create variable for weather icon path
+public String weather_icon;
+
 // Flash object
 ObjFlash objFlash1;
 // Weather icon
@@ -21,9 +24,6 @@ Weather weather;
 // Init fonts
 PFont source_code_thin;
 PFont source_code_light;
-
-// SVG TEST
-public String xml_test = "img/09d.svg";
 
 
 void setup() {
@@ -75,7 +75,9 @@ void draw() {
     // set of actions that happen in the start of the program
     if (program_started == true) {
       println("BUM");
-      objWeathericon = new ObjSvg(xml_test, 300, 100, 6, 1.3, 1833);
+      // icon set
+      weather_icon = "img/" + weather.getWeatherConditionIcon() + ".svg";
+      objWeathericon = new ObjSvg(weather_icon, 300, 100, 3, 0.6, 1833);
       program_started = false;
     }
 
