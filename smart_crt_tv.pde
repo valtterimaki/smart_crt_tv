@@ -24,6 +24,8 @@ Weather weather;
 // Init fonts
 PFont source_code_thin;
 PFont source_code_light;
+// Swimmer test object init
+ObjSwimmer objSwimmer;
 
 
 void setup() {
@@ -59,7 +61,6 @@ void draw() {
 
     // set of actions that happen in the start of the program
     if (program_started == true) {
-      println("BUM");
       program_started = false;
     }
 
@@ -74,7 +75,6 @@ void draw() {
 
     // set of actions that happen in the start of the program
     if (program_started == true) {
-      println("BUM");
       // icon set
       weather_icon = "img/" + weather.getWeatherConditionIcon() + ".svg";
       objWeathericon = new ObjSvg(weather_icon, 300, 100, 3, 0.6, 1833);
@@ -108,6 +108,18 @@ void draw() {
       program_started = true;
     }
 
+  }
+
+  // 2 is SWIMMER
+  if (program_number == 2) {
+
+    // set of actions that happen in the start of the program
+    if (program_started == true) {
+      objSwimmer = new ObjSwimmer(100, 100, 1, 2, 4);
+      program_started = false;
+    }
+
+    objSwimmer.update();
   }
 
 }
