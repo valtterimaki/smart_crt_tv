@@ -24,8 +24,8 @@ Weather weather;
 // Init fonts
 PFont source_code_thin;
 PFont source_code_light;
-// Swimmer test object init
-ObjSwimmer objSwimmer;
+// Swimmer particle system test object init
+SwimmerSystem swimmer_system;
 
 
 void setup() {
@@ -38,6 +38,9 @@ void setup() {
 
   // Weather object
   weather = new Weather();
+
+  // Swimmer system
+   swimmer_system = new SwimmerSystem();
 
   // Set fonts
   source_code_thin = createFont("SourceCodePro-ExtraLight.ttf", 128);
@@ -115,15 +118,15 @@ void draw() {
 
     // set of actions that happen in the start of the program
     if (program_started == true) {
-      objSwimmer = new ObjSwimmer(100, 100, 1, 2, 4);
+      for (int i = 0; i < 30; ++i) {
+        swimmer_system.addParticle();
+      }
       program_started = false;
     }
 
-    objSwimmer.update();
+    swimmer_system.run();
   }
 
 }
 
-void mouseReleased() {
 
-}
