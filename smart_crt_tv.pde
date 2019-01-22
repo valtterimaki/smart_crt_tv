@@ -124,7 +124,16 @@ void draw() {
       program_started = false;
     }
 
+    // end program after 5 seconds
+    if (counter == 8) {
+      counter = 0;
+      program_number = 0;
+      program_started = true;
+      // maybe set the particle system to nulls?
+    }
+
     swimmer_system.run();
+
   }
 
 }
