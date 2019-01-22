@@ -8,7 +8,7 @@ class SwimmerSystem {
   }
 
   void addParticle() {
-    swimmers.add(new ObjSwimmer(random(width), random(width), random(-1,1), random(-1,1), random(5, 15)));
+    swimmers.add(new ObjSwimmer(random(width), random(width), random(-1,1), random(-1,1), random(2, 8), random(4,5)));
   }
 
   void run() {
@@ -16,11 +16,9 @@ class SwimmerSystem {
       ObjSwimmer s = swimmers.get(i);
       s.update();
 
-      /*
-      if (s.isDead()) {
+      if (program_number != 2) {
         swimmers.remove(i);
       }
-      */
 
     }
   }
@@ -38,12 +36,12 @@ class ObjSwimmer {
   // location & direction
   PVector location, direction;
 
-  ObjSwimmer (float pos_x, float pos_y, float dir_x, float dir_y, float seg) {
+  ObjSwimmer (float pos_x, float pos_y, float dir_x, float dir_y, float seg, float spd) {
     location = new PVector(pos_x, pos_y);
     direction = new PVector(dir_x, dir_y);
     segLength = seg;
-    nodes = new PVector[5];
-    speed = 5;
+    nodes = new PVector[10];
+    speed = spd;
 
     // fill nodes with 0's in the start
     for (int i = 0; i < nodes.length; ++i) {
@@ -55,6 +53,7 @@ class ObjSwimmer {
 
     stroke(255);
     strokeWeight(2);
+    strokeCap(SQUARE);
 
     dragSegment(0, location.x, location.y);
 
@@ -87,18 +86,9 @@ class ObjSwimmer {
     pushMatrix();
     translate(x, y);
     rotate(a);
-    line(0, 0, segLength, 0);
+    line(0, 0, segLength/2, 0);
     popMatrix();
   }
-
-  /*
-  boolean isDead() {
-    if (lifespan < 0.0) {
-      return true;
-    } else {
-      return false;
-  }
-  */
 
 }
 
