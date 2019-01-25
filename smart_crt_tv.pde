@@ -118,7 +118,7 @@ void draw() {
 
     // set of actions that happen in the start of the program
     if (program_started == true) {
-      for (int i = 0; i < 30; ++i) {
+      for (int i = 0; i < 20; ++i) {
         swimmer_system.addParticle();
       }
       program_started = false;

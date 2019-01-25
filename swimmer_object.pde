@@ -8,7 +8,7 @@ class SwimmerSystem {
   }
 
   void addParticle() {
-    swimmers.add(new ObjSwimmer(random(width), random(width), random(-1,1), random(-1,1), random(2, 8), random(4,5)));
+    swimmers.add(new ObjSwimmer(random(width), random(width), random(-1,1), random(-1,1), random(10, 16), random(4,5)));
   }
 
   void run() {
@@ -40,7 +40,7 @@ class ObjSwimmer {
     location = new PVector(pos_x, pos_y);
     direction = new PVector(dir_x, dir_y);
     segLength = seg;
-    nodes = new PVector[10];
+    nodes = new PVector[6];
     speed = spd;
 
     // fill nodes with 0's in the start
@@ -52,7 +52,8 @@ class ObjSwimmer {
   void update() {
 
     stroke(255);
-    strokeWeight(2);
+    strokeWeight(1);
+    noFill();
     strokeCap(SQUARE);
 
     dragSegment(0, location.x, location.y);
@@ -71,6 +72,35 @@ class ObjSwimmer {
     if (speed <= 0.6) {
       speed = 5;
     }
+
+    int buffer = 80;
+
+    //looping over edges
+    if (location.x < -buffer) {
+      for(int i=0; i<nodes.length-1; i++) {
+        nodes[i].x += width+buffer ;
+      }
+      location.x = width;
+    }
+    if (location.x > width+buffer) {
+      for(int i=0; i<nodes.length-1; i++) {
+        nodes[i].x -= width+buffer ;
+      }
+      location.x = 0;
+    }
+    if (location.y < -buffer) {
+      for(int i=0; i<nodes.length-1; i++) {
+        nodes[i].y += height+buffer ;
+      }
+      location.y = height;
+    }
+    if (location.y > height+buffer) {
+      for(int i=0; i<nodes.length-1; i++) {
+        nodes[i].y -= height+buffer ;
+      }
+      location.y = 0;
+    }
+
   }
 
   void dragSegment(int i, float xin, float yin) {
@@ -79,15 +109,21 @@ class ObjSwimmer {
     float angle = atan2(dy, dx);
     nodes[i].x = xin - cos(angle) * segLength;
     nodes[i].y = yin - sin(angle) * segLength;
-    segment(nodes[i].x, nodes[i].y, angle);
+    segment(nodes[i].x, nodes[i].y, angle, 6-i);
   }
 
-  void segment(float x, float y, float a) {
+  void segment(float x, float y, float a, float s) {
+
     pushMatrix();
     translate(x, y);
     rotate(a);
-    line(0, 0, segLength/2, 0);
+
+    //line(0, 0, segLength/2, 0);
+    //ellipse(0, 0, s, s);
+    line(segLength, 0, -segLength/2, 0);
+
     popMatrix();
+
   }
 
 }
