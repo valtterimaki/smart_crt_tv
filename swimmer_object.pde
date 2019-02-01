@@ -103,6 +103,7 @@ class ObjSwimmer {
 
   }
 
+  // This updates the tail position
   void dragSegment(int i, float xin, float yin) {
     float dx = xin - nodes[i].x;
     float dy = yin - nodes[i].y;
@@ -112,6 +113,7 @@ class ObjSwimmer {
     segment(nodes[i].x, nodes[i].y, angle, 6-i);
   }
 
+  // This draws the graphics for the object
   void segment(float x, float y, float a, float s) {
 
     pushMatrix();
