@@ -28,6 +28,7 @@ PFont source_code_light;
 // Initialize particle systems
 SwimmerSystem swimmer_system;
 SnowSystem snow_system;
+//NewSystem new_system;
 
 
 void setup() {
@@ -44,6 +45,7 @@ void setup() {
   // Create particle systems
    swimmer_system = new SwimmerSystem();
    snow_system = new SnowSystem();
+   //new_system = new NewSystem();
 
   // Set fonts
   source_code_thin = createFont("SourceCodePro-ExtraLight.ttf", 128);
@@ -139,7 +141,7 @@ void draw() {
 
   }
 
-  // 2 is SNOW
+  // 3 is SNOW
   if (program_number == 3) {
 
     // set of actions that happen in the start of the program
@@ -161,6 +163,36 @@ void draw() {
     snow_system.run();
 
   }
+
+
+// TEMPLATE FOR A NEW SYSTEM
+
+/*
+
+  // 4 is NEW
+  if (program_number == 3) {
+
+    // set of actions that happen in the start of the program
+    if (program_started == true) {
+      for (int i = 0; i < 20; ++i) {
+        new_system.addParticle();
+      }
+      program_started = false;
+    }
+
+    // end program after 5 seconds
+    if (counter == 8) {
+      counter = 0;
+      program_number = 0;
+      program_started = true;
+    }
+
+    // this is exected here so that the particle system can detect the program change and remove the particles
+    new_system.run();
+
+  }
+
+*/
 
 }
 
