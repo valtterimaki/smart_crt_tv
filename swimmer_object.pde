@@ -31,7 +31,7 @@ class ObjSwimmer {
 
   // the nodes are stored here, amount is set to 5
   PVector[] nodes;
-  // length between nodes
+  // length between nodes + speed
   float segLength, speed;
   // location & direction
   PVector location, direction;
