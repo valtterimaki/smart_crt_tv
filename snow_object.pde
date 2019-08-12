@@ -8,7 +8,7 @@ class SnowSystem {
   }
 
   void addParticle() {
-    snowflakes.add(new ObjSnow(random(width), random(width), 0, 0, 0));
+    snowflakes.add(new ObjSnow(random(width), random(-230, height), 0, 0, 0));
   }
 
   void run() {
@@ -19,7 +19,6 @@ class SnowSystem {
       if (program_number != 3) {
         snowflakes.remove(i);
       }
-
     }
   }
 }
@@ -31,6 +30,7 @@ class ObjSnow {
 
   // location & direction
   PVector location, direction, gravity, lift;
+  float drag;
 
   ObjSnow (float pos_x, float pos_y, float dir_x, float dir_y, float spd) {
     location = new PVector(pos_x, pos_y);
@@ -38,6 +38,7 @@ class ObjSnow {
     //speed = spd;
     gravity = new PVector(0, 0.5);
     lift = new PVector(0,0);
+    drag = 0.9;
   }
 
   void update() {
@@ -47,13 +48,20 @@ class ObjSnow {
     //direction.mult(speed);
 
     direction.add(gravity);
-    direction.add(PVector.mult(PVector.random2D(), 0.2));
+    direction.add(PVector.mult(PVector.random2D(), 0.9));
 
     // swaying
     lift.set(direction);
-    lift.mult(direction.mag() * 0.1);
+    lift.mult(direction.mag() * 0.05);
     lift.rotate(HALF_PI * signum(direction.x) * -1 );
-    direction.add(lift);
+
+    // only lift if going down
+    //if (direction.y > 0) {
+      direction.add(lift);
+    //}
+
+    // drag
+    direction.mult(drag);
 
     location.add(direction);
 
@@ -64,12 +72,13 @@ class ObjSnow {
   // This draws the graphics for the object
   void draw(float x, float y) {
 
-    noStroke();
-    fill(30);
-    ellipse(x, y, 10, 10);
+    //noStroke();
+    //fill(255);
+    //ellipse(x, y, 3, 3);
 
-    stroke(255,0,0);
-    line(location.x, location.y, location.x + lift.x, location.y + lift.y);
+    strokeWeight(2);
+    stroke(255);
+    line(location.x + direction.x * 1, location.y + direction.y * 1, location.x - direction.x * 1, location.y - direction.y * 1);
   }
 
 }

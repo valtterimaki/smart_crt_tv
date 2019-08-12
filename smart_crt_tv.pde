@@ -146,7 +146,7 @@ void draw() {
 
     // set of actions that happen in the start of the program
     if (program_started == true) {
-      for (int i = 0; i < 20; ++i) {
+      for (int i = 0; i < 100; ++i) {
         snow_system.addParticle();
       }
       program_started = false;
