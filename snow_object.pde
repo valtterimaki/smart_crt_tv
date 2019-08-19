@@ -65,12 +65,12 @@ class ObjSnow {
 
     location.add(direction);
 
-    draw(location.x, location.y);
+    draw();
 
   }
 
   // This draws the graphics for the object
-  void draw(float x, float y) {
+  void draw() {
 
     //noStroke();
     //fill(255);
@@ -82,6 +82,3 @@ class ObjSnow {
   }
 
 }
-
-
-

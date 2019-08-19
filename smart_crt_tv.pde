@@ -28,6 +28,7 @@ PFont source_code_light;
 // Initialize particle systems
 SwimmerSystem swimmer_system;
 SnowSystem snow_system;
+RainSystem rain_system;
 //NewSystem new_system;
 
 
@@ -43,20 +44,20 @@ void setup() {
   weather = new Weather();
 
   // Create particle systems
-   swimmer_system = new SwimmerSystem();
-   snow_system = new SnowSystem();
-   //new_system = new NewSystem();
+  swimmer_system = new SwimmerSystem();
+  snow_system = new SnowSystem();
+  rain_system = new RainSystem();
+  //new_system = new NewSystem();
 
   // Set fonts
   source_code_thin = createFont("SourceCodePro-ExtraLight.ttf", 128);
   source_code_light = createFont("SourceCodePro-Light.ttf", 20);
-
 }
 
 void draw() {
 
   // count milliseconds
-  if( (millis() - counterstart) > 1000 ){
+  if ( (millis() - counterstart) > 1000 ) {
     counter++;
     counterstart = millis();
   }
@@ -115,7 +116,6 @@ void draw() {
       program_number = 0;
       program_started = true;
     }
-
   }
 
   // 2 is SWIMMER
@@ -138,7 +138,6 @@ void draw() {
 
     // this is exected here so that the particle system can detect the program change and remove the particles
     swimmer_system.run();
-
   }
 
   // 3 is SNOW
@@ -161,21 +160,16 @@ void draw() {
 
     // this is exected here so that the particle system can detect the program change and remove the particles
     snow_system.run();
-
   }
 
 
-// TEMPLATE FOR A NEW SYSTEM
-
-/*
-
-  // 4 is NEW
-  if (program_number == 3) {
+  // 4 is RAIN
+  if (program_number == 4) {
 
     // set of actions that happen in the start of the program
     if (program_started == true) {
-      for (int i = 0; i < 20; ++i) {
-        new_system.addParticle();
+      for (int i = 0; i < 2000; ++i) {
+        rain_system.addParticle();
       }
       program_started = false;
     }
@@ -188,12 +182,37 @@ void draw() {
     }
 
     // this is exected here so that the particle system can detect the program change and remove the particles
-    new_system.run();
-
+    rain_system.run();
   }
 
-*/
 
+
+  // TEMPLATE FOR A NEW SYSTEM
+
+  /*
+
+   // 4 is NEW
+   if (program_number == 3) {
+   
+   // set of actions that happen in the start of the program
+   if (program_started == true) {
+   for (int i = 0; i < 20; ++i) {
+   new_system.addParticle();
+   }
+   program_started = false;
+   }
+   
+   // end program after 5 seconds
+   if (counter == 8) {
+   counter = 0;
+   program_number = 0;
+   program_started = true;
+   }
+   
+   // this is exected here so that the particle system can detect the program change and remove the particles
+   new_system.run();
+   
+   }
+   
+   */
 }
-
-
