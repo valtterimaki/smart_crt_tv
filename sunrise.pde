@@ -10,7 +10,7 @@ void draw_sun_diagram() {
 
   int sunrise_mins = int(sunrise.substring(0,2)) * 60 + int(sunrise.substring(3,5)) + timezone_offset;
   int sunset_mins = int(sunset.substring(0,2)) * 60 + int(sunset.substring(3,5)) + timezone_offset;
-  int sun_now_mins = int(sun_now.substring(0,2)) * 60 + int(sun_now.substring(3,5)) + timezone_offset;
+  int sun_now_mins = hour() * 60 + minute();
 
   int sun_radius = 25;
   float arc_radius = 180;
