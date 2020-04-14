@@ -4,6 +4,7 @@ import org.gicentre.utils.move.Ease;
 public boolean xy_draw_mode = false;
 // program number
 public int program_number = 0;
+public int last_program_number;
 
 // counter variable that can be set inside programs
 int counterstart = millis();
@@ -94,7 +95,7 @@ void draw() {
 
     textFont(source_code_light);
     textSize(20);
-    text(weather.getWeatherCondition(), 16, 260);
+    text(weather.getWeatherCondition(), 16, 320);
     text(weather.getSunrise(), 16, 280);
     text(weather.getSunset(), 16, 300);
     text(weather.getPressure(), 16, 320);
@@ -113,6 +114,7 @@ void draw() {
     if (counter == 5) {
       objWeathericon = null;
       counter = 0;
+      last_program_number = program_number;
       program_number = 0;
       program_started = true;
     }
@@ -129,9 +131,10 @@ void draw() {
       program_started = false;
     }
 
-    // end program after 5 seconds
+    // end program after 8 seconds
     if (counter == 8) {
       counter = 0;
+      last_program_number = program_number;
       program_number = 0;
       program_started = true;
     }
@@ -151,9 +154,10 @@ void draw() {
       program_started = false;
     }
 
-    // end program after 5 seconds
+    // end program after 8 seconds
     if (counter == 8) {
       counter = 0;
+      last_program_number = program_number;
       program_number = 0;
       program_started = true;
     }
@@ -168,15 +172,16 @@ void draw() {
 
     // set of actions that happen in the start of the program
     if (program_started == true) {
-      for (int i = 0; i < 2000; ++i) {
+      for (int i = 0; i < 400; ++i) {
         rain_system.addParticle();
       }
       program_started = false;
     }
 
-    // end program after 5 seconds
+    // end program after 8 seconds
     if (counter == 8) {
       counter = 0;
+      last_program_number = program_number;
       program_number = 0;
       program_started = true;
     }
@@ -186,6 +191,34 @@ void draw() {
   }
 
 
+  // 5 is SUNRISE
+  if (program_number == 5) {
+
+    // set of actions that happen in the start of the program
+    if (program_started == true) {
+      //for (int i = 0; i < 20; ++i) {
+        //new_system.addParticle();
+      //}
+      program_started = false;
+    }
+
+    draw_sun_diagram();
+
+    // end program after 8 seconds
+    if (counter == 8) {
+      counter = 0;
+      last_program_number = program_number;
+      program_number = 0;
+      program_started = true;
+    }
+
+    // this is exected here so that the particle system can detect the program change and remove the particles
+    //new_system.run();
+
+  }
+
+
+
 
   // TEMPLATE FOR A NEW SYSTEM
 
@@ -193,7 +226,7 @@ void draw() {
 
    // 4 is NEW
    if (program_number == 3) {
-   
+
    // set of actions that happen in the start of the program
    if (program_started == true) {
    for (int i = 0; i < 20; ++i) {
@@ -201,18 +234,20 @@ void draw() {
    }
    program_started = false;
    }
-   
+
    // end program after 5 seconds
    if (counter == 8) {
    counter = 0;
+   last_program_number = program_number;
    program_number = 0;
    program_started = true;
    }
-   
+
    // this is exected here so that the particle system can detect the program change and remove the particles
    new_system.run();
-   
+
    }
-   
+
    */
+
 }

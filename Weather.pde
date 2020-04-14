@@ -72,12 +72,20 @@ class Weather {
     return root.getChild("city/country").getContent();
   }
 
+  public float getWindSpeed() {
+    return root.getChild("wind/speed").getFloat("value");
+  }
+
   public String getSunrise() {
     return root.getChild("city/sun").getString("rise");
   }
 
   public String getSunset() {
     return root.getChild("city/sun").getString("set");
+  }
+
+  public String getTimezone() {
+    return root.getChild("city/timezone").getContent();
   }
 
   public int getPressure() {
@@ -88,16 +96,16 @@ class Weather {
     return root.getChild("humidity").getInt("value"); //unit?
   }
 
-  public int getTemperature() {
-    return root.getChild("temperature").getInt("value"); //unit?
+  public float getTemperature() {
+    return root.getChild("temperature").getFloat("value"); //unit?
   }
 
-  public int getTemperatureMin() {
-    return root.getChild("temperature").getInt("min"); //unit?
+  public float getTemperatureMin() {
+    return root.getChild("temperature").getFloat("min"); //unit?
   }
 
-  public int getTemperatureMax() {
-    return root.getChild("temperature").getInt("max"); //unit?
+  public float getTemperatureMax() {
+    return root.getChild("temperature").getFloat("max"); //unit?
   }
 
   public String getWeatherCondition() {
@@ -106,6 +114,10 @@ class Weather {
 
   public String getWeatherConditionIcon() {
     return root.getChild("weather").getString("icon");
+  }
+
+  public String getLastUpdate() {
+    return root.getChild("lastupdate").getString("value");
   }
 
   /*

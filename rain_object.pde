@@ -8,7 +8,7 @@ class RainSystem {
   }
 
   void addParticle() {
-    raindrops.add(new ObjRaindrop(random(width), random(0, height/4), 0, 0));
+    raindrops.add(new ObjRaindrop(random(-100, width + 200), (pow(random(0, 1), 3) * (height/3)), 0, 0));
   }
 
   void run() {
@@ -20,32 +20,36 @@ class RainSystem {
         println(i);
         raindrops.remove(i);
       }
-      
+
       else if (r.location.y > height + 100) {
         raindrops.remove(i);
+        raindrops.add(new ObjRaindrop(random(-200, width + 400), (pow(random(0, 1), 3) * (height/3)), 0, 0));
       }
     }
-    
+
     // here (somewhere) the function to see if other particles nearby to grow mass
     for (int i = raindrops.size()-1; i >= 0; i--) {
       PVector v1 = new PVector();
       PVector v2 = new PVector();
-      int deletecount = 0;
-      
+      float merge_distance = 10;
+
       ObjRaindrop r1 = raindrops.get(i);
       v1 = r1.location;
       for (int k = i-1; k >= 0; k--) {
         ObjRaindrop r2 = raindrops.get(k);
         v2 = r2.location;
-        
-        if (v1.dist(v2) <= 3) {
-          ObjRaindrop massed = raindrops.get(k);
-          massed.mass *= 2;
-          raindrops.remove(i-deletecount);
-          deletecount++;
-          
+
+        if (v1.dist(v2) <= (merge_distance - (r1.mass * 2))) {
+
+          if (r1.direction.mag() < r2.direction.mag()) {
+            r1.direction = r2.direction;
+          }
+
+          r1.mass *= 1.2;
+          raindrops.remove(k);
+
           addParticle();
-        } 
+        }
       }
     }
   }
@@ -58,25 +62,26 @@ class ObjRaindrop {
 
   // location & direction
   PVector location, direction, gravity;
-  float drag, mass;
+  float drag_factor, mass;
 
   ObjRaindrop (float pos_x, float pos_y, float dir_x, float dir_y) {
     location = new PVector(pos_x, pos_y);
     direction = new PVector(dir_x, dir_y);
     gravity = new PVector(0, 0);
-    drag = 0.9;
-    mass = 0.01;
+    drag_factor = 0.9;
+    mass = 1;
   }
 
   void update() {
 
-    gravity.y = mass * 2;
-    
+    gravity.y = ( (pow(mass, 0.8) - 1) * (pow(direction.mag(), 1.1)) ) * 0.8;
+    gravity.x = gravity.y * weather.getWindSpeed() / 20 +  (gravity.y * random(-0.1, 0.1));
+
     direction.add(gravity);
-    direction.add(PVector.mult(PVector.random2D(), 0.9));
+    direction.add(PVector.mult(PVector.random2D(), 0.1));
 
     // drag
-    direction.mult(drag);
+    direction.mult(drag_factor);
     location.add(direction);
 
     draw();
@@ -86,13 +91,18 @@ class ObjRaindrop {
   // This draws the graphics for the object
   void draw() {
 
+    float length_mult = 0.4;
+
     //noStroke();
     //fill(255);
     //ellipse(x, y, 3, 3);
 
-    strokeWeight(mass/5*2 +1);
+    strokeWeight(sqrt(mass)*2 - 0.8);
     stroke(255);
-    line(location.x + direction.x * 1, location.y + direction.y * 1, location.x - direction.x * 1, location.y - direction.y * 1);
+    line(location.x + direction.x * length_mult,
+         location.y + direction.y * length_mult,
+         location.x - direction.x * length_mult,
+         location.y - direction.y * length_mult);
   }
 
 }

@@ -110,7 +110,7 @@ class ObjSwimmer {
     float angle = atan2(dy, dx);
     nodes[i].x = xin - cos(angle) * segLength;
     nodes[i].y = yin - sin(angle) * segLength;
-    segment(nodes[i].x, nodes[i].y, angle, 6-i);
+    segment(nodes[i].x, nodes[i].y, angle, ((6-i)*0.5));
   }
 
   // This draws the graphics for the object
@@ -121,8 +121,8 @@ class ObjSwimmer {
     rotate(a);
 
     //line(0, 0, segLength/2, 0);
-    //ellipse(0, 0, s, s);
-    line(segLength, 0, -segLength/2, 0);
+    ellipse(0, 0, s, s);
+    line(segLength/4, 0, -segLength/4, 0);
 
     popMatrix();
 

@@ -43,8 +43,13 @@ class ObjFlash{
       target_b.set(lerp(width*0.6, width*0.95, random(1)),lerp(height*0.3, height*0.7, random(1)));
 
       // When flash is over, set a new program
-      //program_number = int(random(1,3)); // This should be set later to randomize the program
-      program_number = 4;
+      while (true) {
+        program_number = int(random(1,5)); // This randomizes the program
+        if (program_number != last_program_number) {
+          break;
+        }
+      }
+      // program_number = 5; // NOTE! Use this to force certain program
       program_started = true;
       // & reset counter
       counter = 0;
