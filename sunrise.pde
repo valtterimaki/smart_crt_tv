@@ -57,9 +57,9 @@ void draw_sun_diagram() {
     popMatrix();
   }
 
-  String sunrise_corr = str(sunrise_mins / 60) + ":" + str(sunrise_mins % 60);
-  String sunset_corr = str(sunset_mins / 60) + ":" + str(sunset_mins % 60);
-  String time_now = str(hour()) + ":" + str(minute());
+  String sunrise_corr = str(sunrise_mins / 60) + ":" + nf(sunrise_mins % 60, 2);
+  String sunset_corr = str(sunset_mins / 60) + ":" + nf(sunset_mins % 60, 2);
+  String time_now = str(hour()) + ":" + nf(minute(), 2);
 
   fill(255);
   textFont(source_code_light);
