@@ -25,11 +25,13 @@ Weather weather;
 // Init fonts
 PFont source_code_thin;
 PFont source_code_light;
+PFont tesserae;
 
 // Initialize particle systems
 SwimmerSystem swimmer_system;
 SnowSystem snow_system;
 RainSystem rain_system;
+PseudoCodeOne pseudo_code_one;
 //NewSystem new_system;
 
 
@@ -48,11 +50,13 @@ void setup() {
   swimmer_system = new SwimmerSystem();
   snow_system = new SnowSystem();
   rain_system = new RainSystem();
+  pseudo_code_one = new PseudoCodeOne();
   //new_system = new NewSystem();
 
   // Set fonts
   source_code_thin = createFont("SourceCodePro-ExtraLight.ttf", 128);
   source_code_light = createFont("SourceCodePro-Light.ttf", 20);
+  tesserae = createFont("Tesserae-4x4Extended.otf", 20);
 }
 
 void draw() {
@@ -196,13 +200,8 @@ void draw() {
 
     // set of actions that happen in the start of the program
     if (program_started == true) {
-      //for (int i = 0; i < 20; ++i) {
-        //new_system.addParticle();
-      //}
       program_started = false;
     }
-
-    draw_sun_diagram();
 
     // end program after 8 seconds
     if (counter == 8) {
@@ -212,36 +211,55 @@ void draw() {
       program_started = true;
     }
 
-    // this is exected here so that the particle system can detect the program change and remove the particles
-    //new_system.run();
-
+    // draw and update sun diagram
+    draw_sun_diagram();
   }
 
 
+  // 6 is Pseudocode
+  if (program_number == 6) {
+
+    // set of actions that happen in the start of the program
+    if (program_started == true) {
+      pseudo_code_one.setup();
+      program_started = false;
+    }
+
+    // end program after 5 seconds
+    if (counter == 8) {
+      counter = 0;
+      last_program_number = program_number;
+      program_number = 0;
+      program_started = true;
+    }
+
+    pseudo_code_one.update();
+    pseudo_code_one.draw();
+  }
 
 
   // TEMPLATE FOR A NEW SYSTEM
 
   /*
 
-   // 4 is NEW
-   if (program_number == 3) {
+  // 4 is NEW
+  if (program_number == 3) {
 
-   // set of actions that happen in the start of the program
-   if (program_started == true) {
-   for (int i = 0; i < 20; ++i) {
-   new_system.addParticle();
-   }
-   program_started = false;
-   }
+  // set of actions that happen in the start of the program
+  if (program_started == true) {
+    for (int i = 0; i < 20; ++i) {
+      new_system.addParticle();
+    }
+    program_started = false;
+  }
 
-   // end program after 5 seconds
-   if (counter == 8) {
+  // end program after 5 seconds
+  if (counter == 8) {
    counter = 0;
    last_program_number = program_number;
    program_number = 0;
-   program_started = true;
-   }
+    program_started = true;
+  }
 
    // this is exected here so that the particle system can detect the program change and remove the particles
    new_system.run();

@@ -49,7 +49,7 @@ class ObjFlash{
           break;
         }
       }
-      // program_number = 5; // NOTE! Use this to force certain program
+       program_number = 6; // NOTE! Use this to force certain program
       program_started = true;
       // & reset counter
       counter = 0;
