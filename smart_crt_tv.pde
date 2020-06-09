@@ -53,7 +53,7 @@ void setup() {
   snow_system = new SnowSystem();
   rain_system = new RainSystem();
   pseudo_code_one = new PseudoCodeOne();
-  wave_system = new WaveSystem(50,100);
+  wave_system = new WaveSystem(40,100);
   //new_system = new NewSystem();
 
   // Set fonts

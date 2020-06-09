@@ -94,7 +94,10 @@ int coloredTextLine(String str, float xpos, float ypos, int[][] colr, int cha) {
 }
 
 
+// Cubic interpolation
 
-
+float cerp(float min, float max, float in, float out, float t){
+  return bezierPoint(min, in, max-out, max, t);
+}
 
 
