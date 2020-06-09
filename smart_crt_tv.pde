@@ -32,12 +32,14 @@ SwimmerSystem swimmer_system;
 SnowSystem snow_system;
 RainSystem rain_system;
 PseudoCodeOne pseudo_code_one;
+WaveSystem wave_system;
 //NewSystem new_system;
 
 
 void setup() {
   //fullScreen(P2D);
   size(640, 480, P2D);
+  smooth(1);
   frameRate(50);
 
   // Creating always-on flash object
@@ -51,6 +53,7 @@ void setup() {
   snow_system = new SnowSystem();
   rain_system = new RainSystem();
   pseudo_code_one = new PseudoCodeOne();
+  wave_system = new WaveSystem(50,100);
   //new_system = new NewSystem();
 
   // Set fonts
@@ -216,7 +219,7 @@ void draw() {
   }
 
 
-  // 6 is Pseudocode
+  // 6 is PSEUDOCODE
   if (program_number == 6) {
 
     // set of actions that happen in the start of the program
@@ -225,7 +228,7 @@ void draw() {
       program_started = false;
     }
 
-    // end program after 5 seconds
+    // end program after 8 seconds
     if (counter == 8) {
       counter = 0;
       last_program_number = program_number;
@@ -235,6 +238,29 @@ void draw() {
 
     pseudo_code_one.update();
     pseudo_code_one.draw();
+  }
+
+
+  // 7 is WAVES
+  if (program_number == 7) {
+
+    // set of actions that happen in the start of the program
+    if (program_started == true) {
+      wave_system.setup();
+      program_started = false;
+    }
+
+    // end program after 8 seconds
+    if (counter == 8) {
+     counter = 0;
+     last_program_number = program_number;
+     program_number = 0;
+      program_started = true;
+    }
+
+    // this is exected here so that the particle system can detect the program change and remove the particles
+    wave_system.run();
+
   }
 
 
@@ -253,7 +279,7 @@ void draw() {
     program_started = false;
   }
 
-  // end program after 5 seconds
+  // end program after 8 seconds
   if (counter == 8) {
    counter = 0;
    last_program_number = program_number;
