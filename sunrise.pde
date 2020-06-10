@@ -44,7 +44,7 @@ void draw_sun_diagram() {
 
   strokeWeight(1.5);
   stroke(255);
-  for (float i = -0.95; i <= 1; i = i + 0.1) {
+  for (float i = -0.95; i <= 1; i = i + 0.16) {
     pushMatrix();
     translate(sun_now_pt.x, sun_now_pt.y);
     rotate(random(1.2,1.25));
