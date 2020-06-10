@@ -8,8 +8,8 @@ class WaveSystem {
   PVector[] grid;
   PVector offset;
   float noise_scale = 0.07;
-  float noise_amp_x = 130;
-  float noise_amp_y = 90;
+  float noise_amp_x = 70;
+  float noise_amp_y = 40;
   float phase_one = random(1000);
   float rotation;
 
@@ -20,7 +20,7 @@ class WaveSystem {
     offset = new PVector((width/float(density_x))/2, (height/float(density_y))/2);
     //offset = new PVector(30,30);
 
-    noiseDetail(4, 0.35);
+    noiseDetail(5, 0.35);
 
     println(grid.length);
     println(offset.y);
@@ -60,7 +60,7 @@ class WaveSystem {
           map(noise(c*noise_scale+phase_one,r*noise_scale, phase_one*1.1),  0, 0.6, 0, 255)
           );
         vertex(
-          grid[(c * density_y) + r].x - noise_amp_x/2 + cerp(0,1,0.6,0,noise(c*noise_scale*1.5+phase_one, r*noise_scale, phase_one))*noise_amp_x,
+          grid[(c * density_y) + r].x - noise_amp_x/2 + Ease.quarticBoth(cerp(0,0.7,0.6,0,noise(c*noise_scale*1.5+phase_one, r*noise_scale, phase_one)))*noise_amp_x,
           grid[(c * density_y) + r].y - noise_amp_y/2 + noise(c*noise_scale+phase_one,r*noise_scale,phase_one)*noise_amp_y
         );
       }

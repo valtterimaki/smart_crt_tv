@@ -44,12 +44,12 @@ class ObjFlash{
 
       // When flash is over, set a new program
       while (true) {
-        program_number = int(random(1,5)); // This randomizes the program
+        program_number = int(random(1,7)); // This randomizes the program
         if (program_number != last_program_number) {
           break;
         }
       }
-       program_number = 7; // NOTE! Use this to force certain program
+      program_number = 7; // NOTE! Use this to force certain program
       program_started = true;
       // & reset counter
       counter = 0;
