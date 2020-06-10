@@ -1,10 +1,13 @@
 import org.gicentre.utils.move.Ease;
+import java.util.Collections;
+import java.util.Arrays;
 
 // this will be the switch for the xy mode in the future
 public boolean xy_draw_mode = false;
 // program number
 public int program_number = 0;
-public int last_program_number;
+public int[] program_cycle = new int[7];
+public int program_cycle_counter = 0;
 
 // counter variable that can be set inside programs
 int counterstart = millis();
@@ -118,10 +121,9 @@ void draw() {
     objWeathericon.display();
 
     // end program after 5 seconds
-    if (counter == 5) {
+    if (counter >= 5) {
       objWeathericon = null;
       counter = 0;
-      last_program_number = program_number;
       program_number = 0;
       program_started = true;
     }
@@ -139,9 +141,8 @@ void draw() {
     }
 
     // end program after 8 seconds
-    if (counter == 8) {
+    if (counter >= 8) {
       counter = 0;
-      last_program_number = program_number;
       program_number = 0;
       program_started = true;
     }
@@ -162,9 +163,8 @@ void draw() {
     }
 
     // end program after 8 seconds
-    if (counter == 8) {
+    if (counter >= 8) {
       counter = 0;
-      last_program_number = program_number;
       program_number = 0;
       program_started = true;
     }
@@ -186,9 +186,8 @@ void draw() {
     }
 
     // end program after 8 seconds
-    if (counter == 8) {
+    if (counter >= 8) {
       counter = 0;
-      last_program_number = program_number;
       program_number = 0;
       program_started = true;
     }
@@ -207,9 +206,8 @@ void draw() {
     }
 
     // end program after 8 seconds
-    if (counter == 8) {
+    if (counter >= 8) {
       counter = 0;
-      last_program_number = program_number;
       program_number = 0;
       program_started = true;
     }
@@ -229,9 +227,8 @@ void draw() {
     }
 
     // end program after 8 seconds
-    if (counter == 8) {
+    if (counter >= 8) {
       counter = 0;
-      last_program_number = program_number;
       program_number = 0;
       program_started = true;
     }
@@ -251,9 +248,8 @@ void draw() {
     }
 
     // end program after 8 seconds
-    if (counter == 8) {
+    if (counter >= 8) {
      counter = 0;
-     last_program_number = program_number;
      program_number = 0;
       program_started = true;
     }
@@ -282,7 +278,6 @@ void draw() {
   // end program after 8 seconds
   if (counter == 8) {
    counter = 0;
-   last_program_number = program_number;
    program_number = 0;
     program_started = true;
   }

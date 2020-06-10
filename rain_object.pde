@@ -17,7 +17,6 @@ class RainSystem {
       r.update();
 
       if (program_number != 4) {
-        println(i);
         raindrops.remove(i);
       }
 

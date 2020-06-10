@@ -78,7 +78,6 @@ int coloredTextLine(String str, float xpos, float ypos, int[][] colr, int cha) {
 
     for (int j = 0; j < colors.length ; ++j) {
       if (colors[j][0] == character) {
-       println("shit "+j);
        fill(colors[j][1], colors[j][2], colors[j][3]);
       }
     }
@@ -101,3 +100,49 @@ float cerp(float min, float max, float in, float out, float t){
 }
 
 
+// Program changer that randomizes one round of programs so they appear evenly
+
+void programChange() {
+
+  println("OLD " + program_cycle_counter);
+
+  if (program_cycle_counter == 0 || program_cycle_counter == program_cycle.length) {
+
+    int[] randomarray =  new int[program_cycle.length];
+    for(int t=0; t<randomarray.length; t++){
+      randomarray[t]=t+1;
+    }
+      for (int k=0; k < randomarray.length; k++) {
+        // Goal: swap the value at pos k with a rnd value at pos x.
+        // save current value from pos/index k into temp
+        int temp = randomarray[k];
+        // make rnd index x
+        int x = (int)random(0, randomarray.length);
+        // overwrite value at current pos k with value at rnd index x
+        randomarray[k]=randomarray[x];
+        // finish swapping by giving the old value at pos k to the
+        // pos x.
+        randomarray[x]=temp;
+      }
+
+    program_cycle = randomarray;
+    program_cycle_counter = 1;
+    program_number = program_cycle[program_cycle_counter-1];
+
+    println(randomarray);
+  }
+
+  else {
+    program_cycle_counter++;
+    program_number = program_cycle[program_cycle_counter-1];
+  }
+
+  println("NEW " + program_cycle_counter);
+
+}
+
+// speed up
+
+void keyPressed() {
+  counter+=4;
+}
