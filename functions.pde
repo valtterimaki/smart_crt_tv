@@ -104,9 +104,10 @@ float cerp(float min, float max, float in, float out, float t){
 
 void programChange() {
 
-  println("OLD " + program_cycle_counter);
-
   if (program_cycle_counter == 0 || program_cycle_counter == program_cycle.length) {
+
+    // Update weather every time we randomize the loop
+    weather.update();
 
     int[] randomarray =  new int[program_cycle.length];
     for(int t=0; t<randomarray.length; t++){
