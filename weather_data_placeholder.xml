@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<current>
+    <city id="633679" name="Turku">
+        <coord lon="22.27" lat="60.45"></coord>
+        <country>FI</country>
+        <timezone>10800</timezone>
+        <sun rise="2020-06-30T01:07:13" set="2020-06-30T20:01:46"></sun>
+    </city>
+        <temperature value="00" min="00" max="00" unit="celsius"></temperature>
+        <feels_like value="00" unit="celsius"></feels_like>
+        <humidity value="00" unit="%"></humidity>
+        <pressure value="00" unit="hPa"></pressure>
+        <wind>
+            <speed value="00" unit="m/s" name="no data"></speed>
+            <gusts></gusts>
+            <direction value="00" code="00" name="00"></direction>
+        </wind>
+        <clouds value="00" name="no data"></clouds>
+        <visibility value="00"></visibility>
+        <precipitation mode="no"></precipitation>
+        <weather number="00" value="no data" icon="01n"></weather>
+        <lastupdate value="00"></lastupdate>
+</current>
