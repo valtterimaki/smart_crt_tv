@@ -97,25 +97,30 @@ void draw() {
     if (program_started == true) {
       // icon set
       weather_icon = "img/" + weather.getWeatherConditionIcon() + ".svg";
-      objWeathericon = new ObjSvg(weather_icon, 300, 100, 3, 0.6, 1833);
+      objWeathericon = new ObjSvg(weather_icon, 330, 100, 3, 0.6, 1833);
       program_started = false;
     }
+
+    int leftmargin = 64;
+    int topmargin = 220;
+    int lineheight = 22;
+
 
     fill(255);
 
     textFont(source_code_light);
     textSize(20);
-    text(weather.getWeatherCondition(), 16, 320);
-    text(weather.getSunrise(), 16, 280);
-    text(weather.getSunset(), 16, 300);
-    text(weather.getPressure(), 16, 320);
-    text(weather.getHumidity(), 16, 340);
-    text(weather.getTemperatureMin(), 16, 380);
-    text(weather.getTemperatureMax(), 16, 400);
+
+    text(weather.getWeatherCondition(), leftmargin, topmargin + lineheight * 1);
+    text(int(weather.getTemperatureMin()) + " - " + int(weather.getTemperatureMax()) + " °c", leftmargin, topmargin + lineheight * 2);
+    text("Ilmankosteus " + weather.getHumidity() + " %", leftmargin, topmargin + lineheight * 4);
+    text("Ilmanpaine " + weather.getPressure() + " hPa", leftmargin, topmargin + lineheight * 5);
+    text("Aurinko nousee klo " + minutes_to_time(get_sun_in_minutes("rise")), leftmargin, topmargin + lineheight * 7);
+    text("Aurinko laskee klo " + minutes_to_time(get_sun_in_minutes("set")), leftmargin, topmargin + lineheight * 8);
 
     textFont(source_code_thin);
     textSize(96);
-    text(weather.getTemperature() + "°c", 16, 250);
+    text(int(weather.getTemperature()) + "°c", leftmargin, 180);
 
     objWeathericon.update();
     objWeathericon.display();
