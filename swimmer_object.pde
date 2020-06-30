@@ -65,11 +65,11 @@ class ObjSwimmer {
     direction.add(PVector.mult(PVector.random2D(), 0.5));
     direction.normalize();
     direction.mult(speed);
-    speed *= (0.98 + random(-0.01, 0.01));
+    speed *= (0.98 + random(-0.02, 0.02));
 
     location.add(direction);
 
-    if (speed <= 0.6) {
+    if (speed <= (0.6 + random(0.1))) {
       speed = 5;
     }
 
@@ -110,7 +110,7 @@ class ObjSwimmer {
     float angle = atan2(dy, dx);
     nodes[i].x = xin - cos(angle) * segLength;
     nodes[i].y = yin - sin(angle) * segLength;
-    segment(nodes[i].x, nodes[i].y, angle, ((6-i)*0.5));
+    segment(nodes[i].x, nodes[i].y, angle, (16-(i*2)));
   }
 
   // This draws the graphics for the object
@@ -122,7 +122,7 @@ class ObjSwimmer {
 
     //line(0, 0, segLength/2, 0);
     ellipse(0, 0, s, s);
-    line(segLength/4, 0, -segLength/4, 0);
+    line(0, 0, -segLength/2, 0);
 
     popMatrix();
 

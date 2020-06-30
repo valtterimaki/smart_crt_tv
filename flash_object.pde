@@ -1,7 +1,3 @@
-
-// Example object for later
-
-
 class ObjFlash{
 
   float xinit, yinit, increment;
