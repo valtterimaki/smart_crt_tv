@@ -3,13 +3,13 @@
 
 void draw_sun_diagram() {
 
-  String sunrise = weather.getSunrise().substring(weather.getSunrise().indexOf("T") + 1);
-  String sunset = weather.getSunset().substring(weather.getSunset().indexOf("T") + 1);
+  //String sunrise = weather.getSunrise().substring(weather.getSunrise().indexOf("T") + 1);
+  //String sunset = weather.getSunset().substring(weather.getSunset().indexOf("T") + 1);
   String sun_now = weather.getLastUpdate().substring(weather.getLastUpdate().indexOf("T") + 1);
   int timezone_offset =  int(weather.getTimezone()) / 60; // in minutes
 
-  int sunrise_mins = int(sunrise.substring(0,2)) * 60 + int(sunrise.substring(3,5)) + timezone_offset;
-  int sunset_mins = int(sunset.substring(0,2)) * 60 + int(sunset.substring(3,5)) + timezone_offset;
+  int sunrise_mins = get_sun_in_minutes("rise");
+  int sunset_mins = get_sun_in_minutes("set");
   int sun_now_mins = hour() * 60 + minute();
 
   int sun_radius = 25;
