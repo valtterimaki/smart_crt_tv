@@ -2,8 +2,6 @@ import org.gicentre.utils.move.Ease;
 import java.util.Collections;
 import java.util.Arrays;
 
-// this will be the switch for the xy mode in the future
-public boolean xy_draw_mode = false;
 // program number
 public int program_number = 0;
 public int[] program_cycle = new int[7];
@@ -13,24 +11,10 @@ public int program_cycle_counter = 0;
 int counterstart = millis();
 public int counter = 0;
 
-// variable to check if program ust started
+// variable to check if program just started
 public boolean program_started = true;
 
-// create variable for weather icon path
-public String weather_icon;
-
-// Flash object
-ObjFlash objFlash1;
-// Weather icon
-ObjSvg objWeathericon;
-// Weather object init
-Weather weather;
-// Init fonts
-PFont source_code_thin;
-PFont source_code_light;
-PFont tesserae;
-
-// Initialize particle systems
+// Initialize particle systems / other graphics object collections
 SwimmerSystem swimmer_system;
 SnowSystem snow_system;
 RainSystem rain_system;
@@ -38,9 +22,28 @@ PseudoCodeOne pseudo_code_one;
 WaveSystem wave_system;
 //NewSystem new_system;
 
+// Flash object
+ObjFlash objFlash1;
+
+// create variable for weather icon path
+public String weather_icon;
+// Weather icon object init
+ObjSvg objWeathericon;
+
+// Weather object init
+Weather weather;
+
+// Init fonts
+PFont source_code_thin;
+PFont source_code_light;
+PFont tesserae;
+
+
+// SETUP //////////////////////////////////////////////////////////////////////
+
 
 void setup() {
-  //fullScreen(P2D);
+  //fullScreen(P2D);  //use this in the actual build in the tv
   size(640, 480, P2D);
   smooth(1);
   frameRate(50);
@@ -65,9 +68,13 @@ void setup() {
   tesserae = createFont("Tesserae-4x4Extended.otf", 20);
 }
 
+
+// DRAW ///////////////////////////////////////////////////////////////////////
+
+
 void draw() {
 
-  // count milliseconds
+  // generic counter to count seconds
   if ( (millis() - counterstart) > 1000 ) {
     counter++;
     counterstart = millis();
@@ -77,6 +84,7 @@ void draw() {
   background(0);
 
   // 0 is FLASH
+  // This happens between every other programs
   if (program_number == 0) {
 
     // set of actions that happen in the start of the program
@@ -87,6 +95,7 @@ void draw() {
     objFlash1.update();
     objFlash1.display();
   }
+
 
   // 1 is WEATHER
   if (program_number == 1) {
@@ -120,7 +129,7 @@ void draw() {
 
     textFont(source_code_thin);
     textSize(96);
-    text(int(weather.getTemperature()) + "°c", leftmargin, 180);
+    text(int(weather.getTemperature()) + "°c", leftmargin-10, 180);
 
     objWeathericon.update();
     objWeathericon.display();
@@ -133,6 +142,7 @@ void draw() {
       program_started = true;
     }
   }
+
 
   // 2 is SWIMMER
   if (program_number == 2) {
@@ -155,6 +165,7 @@ void draw() {
     // this is exected here so that the particle system can detect the program change and remove the particles
     swimmer_system.run();
   }
+
 
   // 3 is SNOW
   if (program_number == 3) {
