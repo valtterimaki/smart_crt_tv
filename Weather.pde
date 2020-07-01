@@ -114,6 +114,10 @@ class Weather {
     return root.getChild("weather").getString("value");
   }
 
+  public int getWeatherConditionID() {
+    return root.getChild("weather").getInt("number");
+  }
+
   public String getWeatherConditionIcon() {
     return root.getChild("weather").getString("icon");
   }

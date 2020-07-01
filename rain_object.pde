@@ -2,9 +2,12 @@
 
 class RainSystem {
   ArrayList<ObjRaindrop> raindrops;
+  ObjLightning lightning;
+  char condition_type;
 
   RainSystem() {
     raindrops = new ArrayList<ObjRaindrop>();
+    lightning = new ObjLightning();
   }
 
   void addParticle() {
@@ -50,6 +53,18 @@ class RainSystem {
           addParticle();
         }
       }
+    }
+
+    // make lightnings if thunderstorm
+
+    condition_type = str(weather.getWeatherConditionID()).charAt(0);
+
+    if (condition_type == '2') {
+      if (random(100) < 2) {
+        lightning.reset();
+      }
+      // update lightning
+      lightning.update();
     }
   }
 }
@@ -105,3 +120,50 @@ class ObjRaindrop {
   }
 
 }
+
+// lightning object
+
+class ObjLightning {
+
+  int counter;
+  int flashcounter;
+  PVector[] path;
+  int segment_length;
+  float angle;
+
+
+  ObjLightning () {
+    path = new PVector[100];
+    segment_length = 10;
+    reset();
+  }
+
+  void reset() {
+    counter = 0;
+    flashcounter = 0;
+    path[0] = new PVector(random(width), random(50,100));
+    for (int i = 0; i < path.length - 1; ++i) {
+      angle = random(-0.5, 0.5) + random(-0.2, 0.2);;
+      path[i + 1] = new PVector(path[i].x + segment_length * sin(angle), path[i].y + segment_length * cos(angle));
+    }
+  }
+
+  void update() {
+
+    counter++;
+
+    if (counter % 6 < 3 && counter < 12) {
+      background(0);
+      strokeWeight(3);
+      for (int i = 0; i < path.length - 1; ++i) {
+        line(path[i].x, path[i].y, path[i + 1].x, path[i + 1].y);
+      }
+    }
+
+  }
+
+}
+
+
+
+
