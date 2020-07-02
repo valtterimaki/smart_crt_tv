@@ -130,15 +130,12 @@ void programChange() {
     program_cycle_counter = 1;
     program_number = program_cycle[program_cycle_counter-1];
 
-    println(randomarray);
   }
 
   else {
     program_cycle_counter++;
     program_number = program_cycle[program_cycle_counter-1];
   }
-
-  println("NEW " + program_cycle_counter);
 
 }
 
