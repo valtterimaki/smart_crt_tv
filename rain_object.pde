@@ -107,12 +107,17 @@ class ObjRaindrop {
 
     float length_mult = 0.4;
 
-    //noStroke();
-    //fill(255);
-    //ellipse(x, y, 3, 3);
-
     strokeWeight(sqrt(mass)*2 - 0.8);
     stroke(255);
+
+    // use this if you want color
+    /*stroke(
+      constrain(map(direction.mag(), 0, 10, 255, 0), 50, 255),
+      constrain(map(direction.mag(), 0, 30, 255, 0), 200, 255),
+      255
+      );
+    */
+
     line(location.x + direction.x * length_mult,
          location.y + direction.y * length_mult,
          location.x - direction.x * length_mult,
@@ -155,6 +160,7 @@ class ObjLightning {
     if (counter % 6 < 3 && counter < 12) {
       background(0);
       strokeWeight(3);
+      stroke(255,255,100);
       for (int i = 0; i < path.length - 1; ++i) {
         line(path[i].x, path[i].y, path[i + 1].x, path[i + 1].y);
       }
