@@ -135,7 +135,7 @@ void draw() {
     objWeathericon.display();
 
     // end program after 5 seconds
-    if (counter >= 5) {
+    if (counter >= 9) {
       objWeathericon = null;
       counter = 0;
       program_number = 0;

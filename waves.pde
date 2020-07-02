@@ -20,9 +20,6 @@ class WaveSystem {
     offset = new PVector((width/float(density_x))/2, (height/float(density_y))/2);
     //offset = new PVector(30,30);
 
-    println(grid.length);
-    println(offset.y);
-
     for (int c = 0; c < density_x; ++c) {
       for (int r = 0; r < density_y; ++r) {
         grid[(c * density_y) + r] = new PVector(((width / float(density_x)) * c) + offset.x - width/2, ((width / float(density_y)) * r) + offset.y - width/2);
