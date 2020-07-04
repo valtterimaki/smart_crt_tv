@@ -8,7 +8,7 @@ public int[] program_cycle = new int[7];
 public int program_cycle_counter = 0;
 
 // counter variable that can be set inside programs
-int counterstart = millis();
+public int counterstart = millis();
 public int counter = 0;
 
 // variable to check if program just started
@@ -20,6 +20,7 @@ SnowSystem snow_system;
 RainSystem rain_system;
 PseudoCodeOne pseudo_code_one;
 WaveSystem wave_system;
+CloudSystem cloud_system;
 //NewSystem new_system;
 
 // Flash object
@@ -60,6 +61,7 @@ void setup() {
   rain_system = new RainSystem();
   pseudo_code_one = new PseudoCodeOne();
   wave_system = new WaveSystem(40,100);
+  cloud_system = new CloudSystem();
   //new_system = new NewSystem();
 
   // Set fonts
@@ -113,7 +115,6 @@ void draw() {
     int leftmargin = 64;
     int topmargin = 220;
     int lineheight = 22;
-
 
     fill(255);
 
@@ -274,6 +275,29 @@ void draw() {
     wave_system.run();
 
   }
+
+
+  // 8 is CLOUDS
+  if (program_number == 8) {
+
+  // set of actions that happen in the start of the program
+  if (program_started == true) {
+    cloud_system.setup();
+    program_started = false;
+  }
+
+  // end program after 8 seconds
+  if (counter >= 8) {
+    counter = 0;
+    program_number = 0;
+    program_started = true;
+  }
+
+   // this is exected here so that the particle system can detect the program change and remove the particles
+   cloud_system.run();
+
+   }
+
 
 
   // TEMPLATE FOR A NEW SYSTEM

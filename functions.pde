@@ -144,3 +144,37 @@ void programChange() {
 void keyPressed() {
   counter+=4;
 }
+
+// cloud shape
+void cloudShape(float x_pos, float y_pos, float x_dim, float y_dim) {
+  beginShape();
+  vertex(x_pos, y_pos);
+  vertex(x_pos + x_dim, y_pos);
+  bezierVertex(x_pos + x_dim + y_dim, y_pos, x_pos + x_dim + y_dim, y_pos + y_dim, x_pos + x_dim, y_pos + y_dim);
+  vertex(x_pos, y_pos + y_dim);
+  bezierVertex(x_pos - y_dim, y_pos + y_dim, x_pos - y_dim, y_pos, x_pos, y_pos);
+  endShape();
+}
+
+// cloud shadow
+void cloudShadow(float x_pos, float y_pos, float x_dim, float y_dim) {
+  int spacing = 9;
+  for (int i = 1; i < x_dim ; i += spacing) {
+    line(
+      x_pos + i + 2*y_dim,
+      y_pos,
+      x_pos + i,
+      y_pos + y_dim
+      );
+  }
+
+}
+
+
+
+
+
+
+
+
+
