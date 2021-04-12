@@ -1,4 +1,5 @@
-// Signum function to get plus or minus
+
+//// Signum function to see if number is positive or negative
 
 int signum(float f) {
   if (f > 0) return 1;
@@ -7,7 +8,7 @@ int signum(float f) {
 }
 
 
-// Colored text
+//// Colored text
 
 void coloredText(String str, float xpos, float ypos, float xdim , float ydim, int[][] colr, int lead) {
   String curr;
@@ -93,14 +94,14 @@ int coloredTextLine(String str, float xpos, float ypos, int[][] colr, int cha) {
 }
 
 
-// Cubic interpolation
+//// Cubic interpolation
 
 float cerp(float min, float max, float in, float out, float t){
   return bezierPoint(min, in, max-out, max, t);
 }
 
 
-// Program changer that randomizes one round of programs so they appear evenly
+//// Program changer that randomizes one round of programs so they appear evenly
 
 void programChange() {
 
@@ -139,13 +140,16 @@ void programChange() {
 
 }
 
-// speed up
+
+//// manually speed up program change
 
 void keyPressed() {
   counter+=4;
 }
 
-// cloud shape
+
+//// drawing the shape for a cloud
+
 void cloudShape(float x_pos, float y_pos, float x_dim, float y_dim) {
   beginShape();
   vertex(x_pos, y_pos);
@@ -156,7 +160,9 @@ void cloudShape(float x_pos, float y_pos, float x_dim, float y_dim) {
   endShape();
 }
 
-// cloud shadow
+
+//// drawing the shape for a cloud shadow
+
 void cloudShadow(float x_pos, float y_pos, float x_dim, float y_dim) {
   int spacing = 9;
   for (int i = 1; i < x_dim ; i += spacing) {
@@ -169,12 +175,3 @@ void cloudShadow(float x_pos, float y_pos, float x_dim, float y_dim) {
   }
 
 }
-
-
-
-
-
-
-
-
-

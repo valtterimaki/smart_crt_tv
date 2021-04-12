@@ -1,4 +1,5 @@
-// particle system for cloud objects
+
+// Particle system for cloud objects
 
 class CloudSystem {
 
@@ -27,7 +28,6 @@ class CloudSystem {
 
   }
 }
-
 
 // cloud object.
 

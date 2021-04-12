@@ -1,18 +1,27 @@
+
+/* LIBRARIES */
+
 import org.gicentre.utils.move.Ease;
 import java.util.Collections;
 import java.util.Arrays;
 
+
+/* VARIABLES */
+
 // program number
 public int program_number = 0;
-public int[] program_cycle = new int[7];
+public int[] program_cycle = new int[8];
 public int program_cycle_counter = 0;
 
-// counter variable that can be set inside programs
+// main counter variable that can be set inside programs
 public int counterstart = millis();
 public int counter = 0;
 
 // variable to check if program just started
 public boolean program_started = true;
+
+
+/* OBJECTS */
 
 // Initialize particle systems / other graphics object collections
 SwimmerSystem swimmer_system;
@@ -31,10 +40,12 @@ public String weather_icon;
 // Weather icon object init
 ObjSvg objWeathericon;
 
-// Weather object init
+// Weather object for handling weather stuff
 Weather weather;
 
-// Init fonts
+
+/* FONTS */
+
 PFont source_code_thin;
 PFont source_code_light;
 PFont tesserae;
@@ -76,7 +87,7 @@ void setup() {
 
 void draw() {
 
-  // generic counter to count seconds
+  // main counter to count seconds
   if ( (millis() - counterstart) > 1000 ) {
     counter++;
     counterstart = millis();
@@ -84,6 +95,10 @@ void draw() {
 
   // clear screen
   background(0);
+
+
+  /* "PROGRAMS" */
+
 
   // 0 is FLASH
   // This happens between every other programs

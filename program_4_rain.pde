@@ -1,3 +1,4 @@
+
 // particle system for raindrop objects
 
 class RainSystem {
@@ -122,6 +123,12 @@ class ObjRaindrop {
          location.y + direction.y * length_mult,
          location.x - direction.x * length_mult,
          location.y - direction.y * length_mult);
+
+    // keep the screen black for an additional 1 sec to run the simulation start hidden for a while to reduce motion artifacts
+    if (counter < 1) {
+        background(0);
+    }
+
   }
 
 }
@@ -164,6 +171,7 @@ class ObjLightning {
       for (int i = 0; i < path.length - 1; ++i) {
         line(path[i].x, path[i].y, path[i + 1].x, path[i + 1].y);
       }
+
     }
 
   }
