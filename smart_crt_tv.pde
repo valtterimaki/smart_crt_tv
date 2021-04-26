@@ -215,6 +215,12 @@ void draw() {
         rain_system.addParticle();
       }
       program_started = false;
+
+      // run the system for some loops to prevent the initialization glitches
+      for (int i = 0; i < 50; ++i) {
+        rain_system.run();
+        background(0); // draw black after this to start from black
+      }
     }
 
     // end program after 8 seconds
