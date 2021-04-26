@@ -175,3 +175,23 @@ void cloudShadow(float x_pos, float y_pos, float x_dim, float y_dim) {
   }
 
 }
+
+//// basic static noise image distortion effect
+
+void fxStatic() {
+
+  int distortion_min = 5;
+  int distortion_max = 10;
+
+  loadPixels();
+  for (int i = 0; i < height; ++i) {
+    if (int(random(100)) == 1) {
+      for (int j = 0; j < width; ++j) {
+        if (i < height - 1) {
+          pixels[(i*width+j)] = pixels[(i*width+j+int(random(distortion_min, distortion_max)))];
+        }
+      }
+    }
+  }
+  updatePixels();
+}

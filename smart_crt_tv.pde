@@ -49,6 +49,10 @@ Weather weather;
 PFont source_code_thin;
 PFont source_code_light;
 PFont tesserae;
+PFont lastwaerk_thin;
+PFont bungee;
+PFont aspace_thin;
+PFont rajdhani_light;
 
 
 // SETUP //////////////////////////////////////////////////////////////////////
@@ -77,8 +81,13 @@ void setup() {
 
   // Set fonts
   source_code_thin = createFont("SourceCodePro-ExtraLight.ttf", 128);
-  source_code_light = createFont("SourceCodePro-Light.ttf", 20);
+  source_code_light = createFont("SourceCodePro-Light.ttf", 24);
   tesserae = createFont("Tesserae-4x4Extended.otf", 20);
+  lastwaerk_thin = createFont("lastwaerk-thin.ttf", 128);
+  bungee = createFont("bungee-hairline.otf", 128);
+  aspace_thin = createFont("a-space-thin.otf", 128);
+  rajdhani_light = createFont("rajdhani-light.ttf", 128);
+
 }
 
 
@@ -127,28 +136,32 @@ void draw() {
       program_started = false;
     }
 
-    int leftmargin = 64;
+    int leftmargin = 96;
     int topmargin = 220;
-    int lineheight = 22;
+    int lineheight = 26;
 
     fill(255);
 
     textFont(source_code_light);
-    textSize(20);
+    textSize(24);
 
-    text(weather.getWeatherCondition(), leftmargin, topmargin + lineheight * 1);
-    text(int(weather.getTemperatureMin()) + " - " + int(weather.getTemperatureMax()) + " °c", leftmargin, topmargin + lineheight * 2);
-    text("Ilmankosteus " + weather.getHumidity() + " %", leftmargin, topmargin + lineheight * 4);
-    text("Ilmanpaine " + weather.getPressure() + " hPa", leftmargin, topmargin + lineheight * 5);
-    text("Aurinko nousee klo " + minutes_to_time(get_sun_in_minutes("rise")), leftmargin, topmargin + lineheight * 7);
-    text("Aurinko laskee klo " + minutes_to_time(get_sun_in_minutes("set")), leftmargin, topmargin + lineheight * 8);
+    text("Sää, " + weather.getWeatherCondition(), leftmargin, topmargin + lineheight * 1);
+    text(round(weather.getTemperatureMin()) + " - " + round(weather.getTemperatureMax()) + " °c", leftmargin, topmargin + lineheight * 2);
+    text("Kosteus " + weather.getHumidity() + " %", leftmargin, topmargin + lineheight * 4);
+    //text("Paine " + weather.getPressure() + " hPa", leftmargin, topmargin + lineheight * 5);
+    text("Päivänvaloa " + minutes_to_time(get_sun_in_minutes("rise"))+ " -> " + minutes_to_time(get_sun_in_minutes("set")), leftmargin, topmargin + lineheight * 6);
+    //text("Aurinko nousee klo " + minutes_to_time(get_sun_in_minutes("rise")), leftmargin, topmargin + lineheight * 7);
+    //text("Aurinko laskee klo " + minutes_to_time(get_sun_in_minutes("set")), leftmargin, topmargin + lineheight * 8);
 
-    textFont(source_code_thin);
+    textFont(aspace_thin);
     textSize(96);
-    text(int(weather.getTemperature()) + "°c", leftmargin-10, 180);
+    text(round(weather.getTemperature()) + "°c", leftmargin-10, 180);
 
     objWeathericon.update();
     objWeathericon.display();
+
+    // static distortion effect
+    fxStatic();
 
     // end program after 5 seconds
     if (counter >= 9) {
