@@ -195,3 +195,10 @@ void fxStatic() {
   }
   updatePixels();
 }
+
+
+// exit with mousepress
+
+void mousePressed() {
+  exit();
+}
