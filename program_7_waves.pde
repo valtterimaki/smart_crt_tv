@@ -1,5 +1,5 @@
 
-//code for wae generator here
+//code for wave generator here
 
 class WaveSystem {
 

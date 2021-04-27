@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 // program number
 public int program_number = 0;
-public int[] program_cycle = new int[8];
+public int[] program_cycle = new int[9];
 public int program_cycle_counter = 0;
 
 // main counter variable that can be set inside programs
@@ -30,6 +30,7 @@ RainSystem rain_system;
 PseudoCodeOne pseudo_code_one;
 WaveSystem wave_system;
 CloudSystem cloud_system;
+SunSystem sun_system;
 //NewSystem new_system;
 
 // Flash object
@@ -77,6 +78,7 @@ void setup() {
   pseudo_code_one = new PseudoCodeOne();
   wave_system = new WaveSystem(40,100);
   cloud_system = new CloudSystem();
+  sun_system = new SunSystem();
   //new_system = new NewSystem();
 
   // Set fonts
@@ -145,17 +147,19 @@ void draw() {
     textFont(source_code_light);
     textSize(24);
 
+
     text("Sää, " + weather.getWeatherCondition(), leftmargin, topmargin + lineheight * 1);
     text(round(weather.getTemperatureMin()) + " - " + round(weather.getTemperatureMax()) + " °c", leftmargin, topmargin + lineheight * 2);
     text("Kosteus " + weather.getHumidity() + " %", leftmargin, topmargin + lineheight * 4);
     //text("Paine " + weather.getPressure() + " hPa", leftmargin, topmargin + lineheight * 5);
-    text("Päivänvaloa " + minutes_to_time(get_sun_in_minutes("rise"))+ " -> " + minutes_to_time(get_sun_in_minutes("set")), leftmargin, topmargin + lineheight * 6);
+    text("Päivänvaloa " + minutes_to_time(get_sun_in_minutes("rise"))+ " - " + minutes_to_time(get_sun_in_minutes("set")), leftmargin, topmargin + lineheight * 6);
     //text("Aurinko nousee klo " + minutes_to_time(get_sun_in_minutes("rise")), leftmargin, topmargin + lineheight * 7);
     //text("Aurinko laskee klo " + minutes_to_time(get_sun_in_minutes("set")), leftmargin, topmargin + lineheight * 8);
 
     textFont(aspace_thin);
     textSize(96);
     text(round(weather.getTemperature()) + "°c", leftmargin-10, 180);
+
 
     objWeathericon.update();
     objWeathericon.display();
@@ -314,24 +318,42 @@ void draw() {
   // 8 is CLOUDS
   if (program_number == 8) {
 
-  // set of actions that happen in the start of the program
-  if (program_started == true) {
-    cloud_system.setup();
-    program_started = false;
-  }
+    // set of actions that happen in the start of the program
+    if (program_started == true) {
+      cloud_system.setup();
+      program_started = false;
+    }
 
-  // end program after 8 seconds
-  if (counter >= 8) {
-    counter = 0;
-    program_number = 0;
-    program_started = true;
-  }
+    // end program after 8 seconds
+    if (counter >= 8) {
+      counter = 0;
+      program_number = 0;
+      program_started = true;
+    }
 
    // this is exected here so that the particle system can detect the program change and remove the particles
    cloud_system.run();
+  }
 
-   }
+  // 9 is Sun
+  if (program_number == 9) {
 
+    // set of actions that happen in the start of the program
+    if (program_started == true) {
+      sun_system.setup();
+      program_started = false;
+    }
+
+    // end program after 8 seconds
+    if (counter == 8) {
+     counter = 0;
+     program_number = 0;
+      program_started = true;
+    }
+
+     // this is exected here so that the particle system can detect the program change and remove the particles
+     sun_system.run();
+  }
 
 
   // TEMPLATE FOR A NEW SYSTEM
