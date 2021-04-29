@@ -27,9 +27,6 @@ import org.jsoup.select.Elements;
     String url = "https://www.energiaonline.fi/Home/Index";
     String gmail = "https://www.energiaonline.fi/Home/Index";
 
-    //ElectricityStats http = new ElectricityStats();
-    //cause of error delete!!!!!!!!!!!
-
     // make sure cookies is turn on
     CookieHandler.setDefault(new CookieManager());
 
@@ -147,9 +144,6 @@ import org.jsoup.select.Elements;
 
     println("Extracting form's data...");
 
-    //test
-    return "test";
-/*
     Document doc = Jsoup.parse(html);
 
     // Google form id
@@ -180,7 +174,7 @@ import org.jsoup.select.Elements;
         }
     }
     return result.toString();
-    */
+
   }
 
   public List<String> getCookies() {
