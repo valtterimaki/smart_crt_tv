@@ -25,22 +25,26 @@ import org.jsoup.select.Elements;
   public  ElectricityStats() {
 
     String url = "https://www.energiaonline.fi/Home/Index";
-    String gmail = "https://www.energiaonline.fi/Home/Index";
+    String stats = "https://www.energiaonline.fi/EnergyReporting/EnergyReporting";
 
     // make sure cookies is turn on
     CookieHandler.setDefault(new CookieManager());
 
+    // load credentials
+    String[] user_pass = loadStrings("data/userpass.txt");
+
     // 1. Send a "GET" request, so that you can extract the form's data.
     String page = GetPageContent(url);
-    String postParams = getFormParams(page, "username@gmail.com", "password");
+    String postParams = getFormParams(page, user_pass[0], user_pass[1]);
 
     // 2. Construct above post's content and then send a POST request for
     // authentication
     sendPost(url, postParams);
 
-    // 3. success then go to gmail.
-    String result = GetPageContent(gmail);
-    println(result);
+    // 3. success then go to stats.
+    String result = GetPageContent(stats);
+    //println(result);
+
   }
 
   private void sendPost(String url, String postParams) {
@@ -147,16 +151,16 @@ import org.jsoup.select.Elements;
     Document doc = Jsoup.parse(html);
 
     // Google form id
-    Element loginform = doc.getElementById("gaia_loginform");
+    Element loginform = doc.getElementById("LoginForm");
     Elements inputElements = loginform.getElementsByTag("input");
     List<String> paramList = new ArrayList<String>();
     for (Element inputElement : inputElements) {
         String key = inputElement.attr("name");
         String value = inputElement.attr("value");
 
-        if (key.equals("Email"))
+        if (key.equals("UserName"))
             value = username;
-        else if (key.equals("Passwd"))
+        else if (key.equals("Password"))
             value = password;
 
         try {
