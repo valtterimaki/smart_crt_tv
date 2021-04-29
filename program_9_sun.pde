@@ -30,7 +30,6 @@ class SunSystem {
         origo.y - radius + step*number - gap + offset
         );
     }
-    println(result);
     return result;
   }
 

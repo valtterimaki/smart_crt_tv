@@ -44,6 +44,9 @@ ObjSvg objWeathericon;
 // Weather object for handling weather stuff
 Weather weather;
 
+// Electricity stats object for extracting data
+ElectricityStats electricity_stats;
+
 
 /* FONTS */
 
@@ -60,8 +63,8 @@ PFont rajdhani_light;
 
 
 void setup() {
-  fullScreen(P2D);  //use this in the actual build in the tv
-  //size(640, 480, P2D);
+  //fullScreen(P2D);  //use this in the actual build in the tv
+  size(640, 480, P2D);
   smooth(1);
   frameRate(50);
 
@@ -70,6 +73,9 @@ void setup() {
 
   // Weather object
   weather = new Weather();
+
+  // Electricity stats object
+  electricity_stats = new ElectricityStats();
 
   // Create particle systems
   swimmer_system = new SwimmerSystem();
@@ -136,6 +142,7 @@ void draw() {
       weather_icon = "img/" + weather.getWeatherConditionIcon() + ".svg";
       objWeathericon = new ObjSvg(weather_icon, 330, 100, 3, 0.6, 1833);
       program_started = false;
+          println(weather_icon);
     }
 
     int leftmargin = 96;
