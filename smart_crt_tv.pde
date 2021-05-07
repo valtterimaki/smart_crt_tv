@@ -43,7 +43,7 @@ ObjSvg objWeathericon;
 
 // Weather object for handling weather stuff
 Weather weather;
-
+WeatherNew weather_new;
 
 /* FONTS */
 
@@ -70,6 +70,7 @@ void setup() {
 
   // Weather object
   weather = new Weather();
+  weather_new = new WeatherNew();
 
   // Create particle systems
   swimmer_system = new SwimmerSystem();
@@ -336,6 +337,7 @@ void draw() {
    cloud_system.run();
   }
 
+
   // 9 is Sun
   if (program_number == 9) {
 
@@ -354,6 +356,45 @@ void draw() {
 
      // this is exected here so that the particle system can detect the program change and remove the particles
      sun_system.run();
+  }
+
+  // 10 is FORECAST
+  if (program_number == 1) {
+
+    /* TODO remember to add weather update interval */
+
+    // set of actions that happen in the start of the program
+    if (program_started == true) {
+      // icon set
+      //weather_icon = "img/" + weather.getWeatherConditionIcon() + ".svg";
+      //objWeathericon = new ObjSvg(weather_icon, 330, 100, 3, 0.6, 1833);
+      program_started = false;
+      //println(weather_icon);
+    }
+
+    //text("Sää, " + weather.getWeatherCondition(), leftmargin, topmargin + lineheight * 1);
+    //text(round(weather.getTemperatureMin()) + " - " + round(weather.getTemperatureMax()) + " °c", leftmargin, topmargin + lineheight * 2);
+    //text("Kosteus " + weather.getHumidity() + " %", leftmargin, topmargin + lineheight * 4);
+    //text("Paine " + weather.getPressure() + " hPa", leftmargin, topmargin + lineheight * 5);
+    //text("Päivänvaloa " + minutes_to_time(get_sun_in_minutes("rise"))+ " - " + minutes_to_time(get_sun_in_minutes("set")), leftmargin, topmargin + lineheight * 6);
+    //text("Aurinko nousee klo " + minutes_to_time(get_sun_in_minutes("rise")), leftmargin, topmargin + lineheight * 7);
+    //text("Aurinko laskee klo " + minutes_to_time(get_sun_in_minutes("set")), leftmargin, topmargin + lineheight * 8);
+    //text(round(weather.getTemperature()) + "°c", leftmargin-10, 180);
+
+
+    //objWeathericon.update();
+    //objWeathericon.display();
+
+    // static distortion effect
+    fxStatic();
+
+    // end program after 5 seconds
+    if (counter >= 9) {
+      objWeathericon = null;
+      counter = 0;
+      program_number = 0;
+      program_started = true;
+    }
   }
 
 
