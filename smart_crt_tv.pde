@@ -44,9 +44,6 @@ ObjSvg objWeathericon;
 // Weather object for handling weather stuff
 Weather weather;
 
-// Electricity stats object for extracting data
-ElectricityStats electricity_stats;
-
 
 /* FONTS */
 
@@ -73,9 +70,6 @@ void setup() {
 
   // Weather object
   weather = new Weather();
-
-  // Electricity stats object
-  electricity_stats = new ElectricityStats();
 
   // Create particle systems
   swimmer_system = new SwimmerSystem();
