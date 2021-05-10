@@ -234,7 +234,7 @@ class WeatherNew {
     textFont(mplus_regular);
     textSize(28);
     text("天気予報", margin + 16, height - margin - 52);
-    textFont(lastwaerk_regular);
+    textFont(bungee_regular);
     textSize(19);
     text("ENNUSTE", margin + 16, height - margin - 32);
     text(data_times.get(2).substring(0,10), margin + 16, height - margin - 16);
