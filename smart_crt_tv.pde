@@ -4,6 +4,9 @@
 import org.gicentre.utils.move.Ease;
 import java.util.Collections;
 import java.util.Arrays;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Date;
 
 
 /* VARIABLES */
@@ -151,6 +154,7 @@ void draw() {
 
     textFont(source_code_light);
     textSize(24);
+    textAlign(LEFT);
 
 
     text("Sää, " + weather.getWeatherCondition(), leftmargin, topmargin + lineheight * 1);
