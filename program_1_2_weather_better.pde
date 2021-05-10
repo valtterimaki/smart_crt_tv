@@ -122,7 +122,7 @@ class WeatherNew {
 
     // draw temperature scale
     textAlign(RIGHT);
-    stroke(255, 50);
+    stroke(255, 100);
     for (int i = 0; i <= 7; ++i) {
       line(margin, (vert_density * i) + margin, width - margin, (vert_density * i) + margin);
       text(
@@ -138,7 +138,7 @@ class WeatherNew {
     for (int i = 2; i < data_temperatures.size() ; ++i) {
       if (i % 2 == 0) {
         textAlign(CENTER);
-        stroke(255, 50);
+        stroke(255, 100);
         line(margin + horiz_density * i, margin, margin + horiz_density * i, height - margin);
         text(
           data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12),
