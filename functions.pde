@@ -202,3 +202,87 @@ void fxStatic() {
 void mousePressed() {
   exit();
 }
+
+
+// get highest or lowest value in arraylist
+
+int getHighestOrLowest(ArrayList<String> src, String which, int from) {
+
+  ArrayList<String> source = src;
+  float val1 = float(source.get(from));
+  float val2;
+  int index = from;
+
+  for (int i = from + 1; i < source.size(); ++i) {
+    val2 = float(source.get(i));
+    if (val2 > val1 && which == "highest") {
+      val1 = val2;
+      index = i;
+    }
+    if (val2 < val1 && which == "lowest") {
+      val1 = val2;
+      index = i;
+    }
+  }
+
+  return index;
+
+}
+
+
+// Dashed line ( by Luhai Cui https://openprocessing.org/sketch/474079 )
+
+void dashedLine(float x1, float y1, float x2, float y2, float l, float g) {
+  float pc = dist(x1, y1, x2, y2) / 100;
+  float pcCount = 0.5;
+  float gPercent = 0;
+  float lPercent = 0;
+  float currentPos = 0;
+  float xx1 = 0,
+    yy1 = 0,
+    xx2 = 0,
+    yy2 = 0;
+
+  while (pcCount * pc < l) {
+    pcCount++;
+  }
+  lPercent = pcCount;
+  pcCount = 1;
+  while (pcCount * pc < g) {
+    pcCount++;
+  }
+  gPercent = pcCount;
+
+  lPercent = lPercent / 100;
+  gPercent = gPercent / 100;
+  while (currentPos < 1) {
+    xx1 = lerp(x1, x2, currentPos);
+    yy1 = lerp(y1, y2, currentPos);
+    xx2 = lerp(x1, x2, currentPos + lPercent);
+    yy2 = lerp(y1, y2, currentPos + lPercent);
+    if (x1 > x2) {
+      if (xx2 < x2) {
+        xx2 = x2;
+      }
+    }
+    if (x1 < x2) {
+      if (xx2 > x2) {
+        xx2 = x2;
+      }
+    }
+    if (y1 > y2) {
+      if (yy2 < y2) {
+        yy2 = y2;
+      }
+    }
+    if (y1 < y2) {
+      if (yy2 > y2) {
+        yy2 = y2;
+      }
+    }
+
+    line(xx1, yy1, xx2, yy2);
+    currentPos = currentPos + lPercent + gPercent;
+  }
+}
+

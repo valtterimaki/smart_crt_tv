@@ -5,12 +5,14 @@ import org.gicentre.utils.move.Ease;
 import java.util.Collections;
 import java.util.Arrays;
 
+import garciadelcastillo.dashedlines.*;
+
 
 /* VARIABLES */
 
 // program number
 public int program_number = 0;
-public int[] program_cycle = new int[9];
+public int[] program_cycle = new int[10];
 public int program_cycle_counter = 0;
 
 // main counter variable that can be set inside programs
@@ -45,14 +47,15 @@ ObjSvg objWeathericon;
 Weather weather;
 WeatherNew weather_new;
 
+
 /* FONTS */
 
 PFont source_code_thin;
 PFont source_code_light;
 PFont tesserae;
-PFont lastwaerk_thin;
+PFont lastwaerk_thin, lastwaerk_regular;
 PFont bungee;
-PFont aspace_thin;
+PFont aspace_thin, aspace_light, aspace_regular;
 PFont rajdhani_light;
 
 
@@ -60,8 +63,8 @@ PFont rajdhani_light;
 
 
 void setup() {
-  //fullScreen(P2D);  //use this in the actual build in the tv
-  size(640, 480, P2D);
+  fullScreen(P2D);  //use this in the actual build in the tv
+  //size(640, 480, P2D);
   smooth(1);
   frameRate(50);
 
@@ -87,8 +90,11 @@ void setup() {
   source_code_light = createFont("SourceCodePro-Light.ttf", 24);
   tesserae = createFont("Tesserae-4x4Extended.otf", 20);
   lastwaerk_thin = createFont("lastwaerk-thin.ttf", 128);
+  lastwaerk_regular = createFont("lastwaerk-light.ttf", 128);
   bungee = createFont("bungee-hairline.otf", 128);
   aspace_thin = createFont("a-space-thin.otf", 128);
+  aspace_light = createFont("a-space-light.otf", 128);
+  aspace_regular = createFont("a-space-regular.otf", 128);
   rajdhani_light = createFont("rajdhani-light.ttf", 128);
 
 }
@@ -359,34 +365,19 @@ void draw() {
   }
 
   // 10 is FORECAST
-  if (program_number == 1) {
+  if (program_number == 10) {
 
     /* TODO remember to add weather update interval */
 
     // set of actions that happen in the start of the program
     if (program_started == true) {
-      // icon set
-      //weather_icon = "img/" + weather.getWeatherConditionIcon() + ".svg";
-      //objWeathericon = new ObjSvg(weather_icon, 330, 100, 3, 0.6, 1833);
+      weather_new.anim_phase = 0;
       program_started = false;
-      //println(weather_icon);
     }
 
-    //text("Sää, " + weather.getWeatherCondition(), leftmargin, topmargin + lineheight * 1);
-    //text(round(weather.getTemperatureMin()) + " - " + round(weather.getTemperatureMax()) + " °c", leftmargin, topmargin + lineheight * 2);
-    //text("Kosteus " + weather.getHumidity() + " %", leftmargin, topmargin + lineheight * 4);
-    //text("Paine " + weather.getPressure() + " hPa", leftmargin, topmargin + lineheight * 5);
-    //text("Päivänvaloa " + minutes_to_time(get_sun_in_minutes("rise"))+ " - " + minutes_to_time(get_sun_in_minutes("set")), leftmargin, topmargin + lineheight * 6);
-    //text("Aurinko nousee klo " + minutes_to_time(get_sun_in_minutes("rise")), leftmargin, topmargin + lineheight * 7);
-    //text("Aurinko laskee klo " + minutes_to_time(get_sun_in_minutes("set")), leftmargin, topmargin + lineheight * 8);
-    //text(round(weather.getTemperature()) + "°c", leftmargin-10, 180);
-
-
-    //objWeathericon.update();
-    //objWeathericon.display();
-
-    // static distortion effect
-    fxStatic();
+    /////// draw here
+    weather_new.update();
+    weather_new.drawForecast();
 
     // end program after 5 seconds
     if (counter >= 9) {
