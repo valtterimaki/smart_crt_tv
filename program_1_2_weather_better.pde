@@ -3,8 +3,6 @@ import java.net.URL;
 import java.util.Date;
 
 
-
-
 /*
 FMI weather xml fetcher
 By Fossa
