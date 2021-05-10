@@ -11,7 +11,7 @@ class WeatherNew {
   private final static String  URL = "http://opendata.fmi.fi/wfs?service=WFS&version=2.0.0&request=getFeature&storedquery_id=fmi::forecast::hirlam::surface::point::simple&place=turku&";
   private final static int TIMEOUT = 5000;
   public float anim_phase;
-  int last_update;
+  int last_update = 99;
 
   public WeatherNew() {
     //last_update = hour();

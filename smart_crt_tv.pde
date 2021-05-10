@@ -95,7 +95,7 @@ void setup() {
   lastwaerk_light = createFont("lastwaerk-light.ttf", 128);
   lastwaerk_regular = createFont("lastwaerk-regular.ttf", 128);
   bungee_thin = createFont("bungee-hairline.otf", 128);
-  bungee_regular = createFont("bungee-regularedit.otf", 128);
+  bungee_regular = createFont("bungee-regularedit.otf", 25);
   aspace_thin = createFont("a-space-thin.otf", 128);
   aspace_light = createFont("a-space-light.otf", 128);
   aspace_regular = createFont("a-space-regular.otf", 128);
