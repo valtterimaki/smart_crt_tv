@@ -61,8 +61,8 @@ PFont rajdhani_light;
 
 
 void setup() {
-  //fullScreen(P2D);  //use this in the actual build in the tv
-  size(640, 480, P2D);
+  fullScreen(P2D);  //use this in the actual build in the tv
+  //size(640, 480, P2D);
   smooth(1);
   frameRate(50);
 
@@ -141,7 +141,6 @@ void draw() {
       weather_icon = "img/" + weather.getWeatherConditionIcon() + ".svg";
       objWeathericon = new ObjSvg(weather_icon, 330, 100, 3, 0.6, 1833);
       program_started = false;
-          println(weather_icon);
     }
 
     int leftmargin = 96;
@@ -174,7 +173,7 @@ void draw() {
     fxStatic();
 
     // end program after 5 seconds
-    if (counter >= 9) {
+    if (counter >= 14) {
       objWeathericon = null;
       counter = 0;
       program_number = 0;
@@ -218,7 +217,7 @@ void draw() {
     }
 
     // end program after 8 seconds
-    if (counter >= 8) {
+    if (counter >= 10) {
       counter = 0;
       program_number = 0;
       program_started = true;
@@ -247,7 +246,7 @@ void draw() {
     }
 
     // end program after 8 seconds
-    if (counter >= 8) {
+    if (counter >= 10) {
       counter = 0;
       program_number = 0;
       program_started = true;
@@ -267,7 +266,7 @@ void draw() {
     }
 
     // end program after 8 seconds
-    if (counter >= 8) {
+    if (counter >= 10) {
       counter = 0;
       program_number = 0;
       program_started = true;
@@ -309,7 +308,7 @@ void draw() {
     }
 
     // end program after 8 seconds
-    if (counter >= 8) {
+    if (counter >= 10) {
      counter = 0;
      program_number = 0;
       program_started = true;
@@ -331,7 +330,7 @@ void draw() {
     }
 
     // end program after 8 seconds
-    if (counter >= 8) {
+    if (counter >= 14) {
       counter = 0;
       program_number = 0;
       program_started = true;
@@ -352,7 +351,7 @@ void draw() {
     }
 
     // end program after 8 seconds
-    if (counter == 8) {
+    if (counter == 10) {
      counter = 0;
      program_number = 0;
       program_started = true;
@@ -378,7 +377,7 @@ void draw() {
     weather_new.drawForecast();
 
     // end program after 5 seconds
-    if (counter >= 9) {
+    if (counter >= 14) {
       objWeathericon = null;
       counter = 0;
       program_number = 0;
