@@ -54,10 +54,11 @@ WeatherNew weather_new;
 PFont source_code_thin;
 PFont source_code_light;
 PFont tesserae;
-PFont lastwaerk_thin, lastwaerk_regular;
-PFont bungee;
+PFont lastwaerk_thin, lastwaerk_light, lastwaerk_regular;
+PFont bungee_thin, bungee_regular;
 PFont aspace_thin, aspace_light, aspace_regular;
 PFont rajdhani_light;
+PFont mplus_thin, mplus_regular;
 
 
 // SETUP //////////////////////////////////////////////////////////////////////
@@ -91,12 +92,18 @@ void setup() {
   source_code_light = createFont("SourceCodePro-Light.ttf", 24);
   tesserae = createFont("Tesserae-4x4Extended.otf", 20);
   lastwaerk_thin = createFont("lastwaerk-thin.ttf", 128);
-  lastwaerk_regular = createFont("lastwaerk-light.ttf", 128);
-  bungee = createFont("bungee-hairline.otf", 128);
+  lastwaerk_light = createFont("lastwaerk-light.ttf", 128);
+  lastwaerk_regular = createFont("lastwaerk-regular.ttf", 128);
+  bungee_thin = createFont("bungee-hairline.otf", 128);
+  bungee_regular = createFont("bungee-regularedit.otf", 128);
   aspace_thin = createFont("a-space-thin.otf", 128);
   aspace_light = createFont("a-space-light.otf", 128);
   aspace_regular = createFont("a-space-regular.otf", 128);
   rajdhani_light = createFont("rajdhani-light.ttf", 128);
+  mplus_thin = createFont("MPLUSRounded1c-Thin.ttf", 128);
+  mplus_regular = createFont("MPLUSRounded1c-Regular.ttf", 128);
+
+
 
 }
 

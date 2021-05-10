@@ -101,7 +101,7 @@ class WeatherNew {
     float zeroline = vert_density * 4 + margin;
     float multiplier = vert_density / 10;
     int main_values_size = 32;
-    int scale_size = 14;
+    int scale_size = 15;
     int gap = 10;
     int dash_gap = 9;
 
@@ -122,7 +122,7 @@ class WeatherNew {
 
     // draw temperature scale
     textAlign(RIGHT);
-    stroke(80);
+    stroke(255, 50);
     for (int i = 0; i <= 7; ++i) {
       line(margin, (vert_density * i) + margin, width - margin, (vert_density * i) + margin);
       text(
@@ -134,10 +134,11 @@ class WeatherNew {
 
     // draw time scale
     // NOTE: 2 first ones are omitted as they are from past
-    textAlign(CENTER);
+
     for (int i = 2; i < data_temperatures.size() ; ++i) {
       if (i % 2 == 0) {
-        stroke(80);
+        textAlign(CENTER);
+        stroke(255, 50);
         line(margin + horiz_density * i, margin, margin + horiz_density * i, height - margin);
         text(
           data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12),
@@ -146,8 +147,10 @@ class WeatherNew {
         );
       }
       if ((data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12)).equals("00")) {
+        textAlign(LEFT);
         stroke(255);
         line(margin + horiz_density * i, margin, margin + horiz_density * i, height - margin);
+        text(data_times.get(i).substring(8,10) + "." + data_times.get(i).substring(5,7), margin + horiz_density * i + 8, margin + 16);
       }
     }
 
@@ -227,15 +230,14 @@ class WeatherNew {
       zeroline - float(data_temperatures.get(lowest_index)) * multiplier + main_values_size + 8 + ((2 - Ease.quinticOut(anim_phase)*2) * 6)
       );
 
-
-    /*textFont(lastwaerk_regular);
-    textSize(28);
     textAlign(LEFT);
-    text(
-      "Ennuste " + data_times.get(2),
-      margin + 16,
-      height - margin - 16
-      );*/
+    textFont(mplus_regular);
+    textSize(28);
+    text("天気予報", margin + 16, height - margin - 52);
+    textFont(lastwaerk_regular);
+    textSize(19);
+    text("ENNUSTE", margin + 16, height - margin - 32);
+    text(data_times.get(2).substring(0,10), margin + 16, height - margin - 16);
 
   }
 
