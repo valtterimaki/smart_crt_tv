@@ -61,8 +61,8 @@ PFont rajdhani_light;
 
 
 void setup() {
-  fullScreen(P2D);  //use this in the actual build in the tv
-  //size(640, 480, P2D);
+  //fullScreen(P2D);  //use this in the actual build in the tv
+  size(640, 480, P2D);
   smooth(1);
   frameRate(50);
 

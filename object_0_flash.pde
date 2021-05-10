@@ -40,7 +40,7 @@ class ObjFlash{
 
       programChange();
 
-      //program_number = 10; // NOTE! Use this to force certain program
+      program_number = 10; // NOTE! Use this to force certain program
       program_started = true;
       // & reset counter
       counter = 0;

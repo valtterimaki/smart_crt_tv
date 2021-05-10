@@ -64,6 +64,7 @@ void draw_sun_diagram() {
   fill(255);
   textFont(source_code_light);
   textSize(20);
+  textAlign(LEFT);
   text(sunrise_corr, sunrise_pt.x + 16, sunrise_pt.y);
   text(sunset_corr, sunset_pt.x + 16, sunset_pt.y);
   text(time_now, sun_now_pt.x - 100, sun_now_pt.y + 8);

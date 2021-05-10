@@ -83,6 +83,7 @@ class WeatherNew {
       // Get all temperatures
       if (type_test.equals(type)) {
         value = forecast_data[i].getChild("BsWfs:BsWfsElement").getChild("BsWfs:ParameterValue").getContent();
+        //TEST //value = str(-30 + i/10 );
         result.add(value);
       }
     }
@@ -106,7 +107,7 @@ class WeatherNew {
     int main_values_size = 32;
     int scale_size = 14;
     int gap = 10;
-    int dash_gap = 4;
+    int dash_gap = 9;
 
 
     // very simple advance animation phase
@@ -117,38 +118,43 @@ class WeatherNew {
 
     // Draw the grid
 
-    stroke(255);
     noFill();
     strokeWeight(1);
     strokeCap(SQUARE);
     textFont(aspace_regular);
     textSize(scale_size);
-    textAlign(CENTER);
 
-    // draw time scale
-    // NOTE: 2 first ones are omitted as they are from past
-    for (int i = 2; i < data_temperatures.size() ; i+=2) {
-      dashedLine(margin + horiz_density * i, margin, margin + horiz_density * i, height - margin, 1, dash_gap);
-      if ((data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12)).equals("00")) {
-        line(margin + horiz_density * i, margin, margin + horiz_density * i, height - margin);
-      }
-      text(
-        data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12),
-        margin + horiz_density * i,
-        height - margin + scale_size + 8
-      );
-    }
-
-    textAlign(RIGHT);
     // draw temperature scale
+    textAlign(RIGHT);
+    stroke(80);
     for (int i = 0; i <= 7; ++i) {
-      dashedLine(margin, (vert_density * i) + margin, width - margin, (vert_density * i) + margin, 1, dash_gap);
+      line(margin, (vert_density * i) + margin, width - margin, (vert_density * i) + margin);
       text(
         40 - (10 * i),
         margin - 8,
         (vert_density * i) + margin + 5
         );
     }
+
+    // draw time scale
+    // NOTE: 2 first ones are omitted as they are from past
+    textAlign(CENTER);
+    for (int i = 2; i < data_temperatures.size() ; ++i) {
+      if (i % 2 == 0) {
+        stroke(80);
+        line(margin + horiz_density * i, margin, margin + horiz_density * i, height - margin);
+        text(
+          data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12),
+          margin + horiz_density * i,
+          height - margin + scale_size + 8
+        );
+      }
+      if ((data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12)).equals("00")) {
+        stroke(255);
+        line(margin + horiz_density * i, margin, margin + horiz_density * i, height - margin);
+      }
+    }
+
 
     // draw zeroline
     noStroke();
@@ -161,20 +167,33 @@ class WeatherNew {
     noFill();
     stroke(255);
     strokeWeight(3);
+    strokeCap(ROUND);
 
     // NOTE: 2 first ones are omitted as they are from past
-    beginShape();
-    for (int i = 2; i < data_temperatures.size(); ++i) {
-      //rect((horiz_density * i + margin), zeroline , horiz_density - gap, float(data_temperatures.get(i)) * multiplier);
-      vertex(
-        (horiz_density * i + margin),
-        zeroline - float(data_temperatures.get(i)) * multiplier
-        );
-      if (i - 2 > Ease.quinticBoth(anim_phase) * (data_temperatures.size() - 2)) {
+    for (int i = 2; i < data_temperatures.size() - 1; ++i) {
+      if (i - 1 > Ease.quinticBoth(anim_phase) * (data_temperatures.size() - 1)) {
         break;
       }
+      if (float(data_temperatures.get(i)) >= 0) {
+        stroke(
+          map(float(data_temperatures.get(i)), 0, 10, 0, 255),
+          constrain(map(float(data_temperatures.get(i)), 0, 40, 255, 80), 80, 255),
+          constrain(map(float(data_temperatures.get(i)), 0, 10, 255, 80), 80, 255)
+          );
+      } else {
+        stroke(
+          0,
+          constrain(map(float(data_temperatures.get(i)), -30, 0, 0, 255),80, 255),
+          255
+          );
+      }
+      line(
+        (horiz_density * i + margin),
+        zeroline - float(data_temperatures.get(i)) * multiplier,
+        (horiz_density * (i+1) + margin),
+        zeroline - float(data_temperatures.get(i+1)) * multiplier
+        );
     }
-    endShape();
 
     int highest_index = getHighestOrLowest(data_temperatures, "highest", 2);
     int lowest_index = getHighestOrLowest(data_temperatures, "lowest", 2);
