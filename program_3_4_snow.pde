@@ -21,6 +21,13 @@ class SnowSystem {
         snowflakes.remove(i);
       }
     }
+
+    textFont(bungee_regular);
+    textSize(24);
+    textAlign(CENTER);
+    if (counter % 2 == 0) {
+     text("LUMISADETTA", width/2, height - 56);
+    }
   }
 }
 

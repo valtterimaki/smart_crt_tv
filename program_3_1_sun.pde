@@ -40,6 +40,14 @@ class SunSystem {
   }
 
   void run() {
+
+    textFont(bungee_regular);
+    textSize(24);
+    textAlign(CENTER);
+    if (counter % 2 == 0) {
+      text("SELKEÄÄ", width/2, height - 56);
+    }
+
     for (int i = rays.size()-1; i >= 0; i--) {
       ObjSunRay s = rays.get(i);
       s.update();

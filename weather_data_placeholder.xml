@@ -18,6 +18,6 @@
         <clouds value="00" name="no data"></clouds>
         <visibility value="00"></visibility>
         <precipitation mode="no"></precipitation>
-        <weather number="00" value="no data" icon="01n"></weather>
+        <weather number="601" value="no data" icon="01n"></weather>
         <lastupdate value="00"></lastupdate>
 </current>

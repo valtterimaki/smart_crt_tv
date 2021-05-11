@@ -67,6 +67,13 @@ class RainSystem {
       // update lightning
       lightning.update();
     }
+
+    textFont(bungee_regular);
+    textSize(24);
+    textAlign(CENTER);
+    if (counter % 2 == 0) {
+      text("VESISADETTA", width/2, height - 56);
+    }
   }
 }
 

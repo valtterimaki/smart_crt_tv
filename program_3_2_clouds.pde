@@ -16,7 +16,6 @@ class CloudSystem {
   }
 
   void run() {
-
     for (int i = clouds.size()-1; i >= 0; i--) {
       ObjCloud s = clouds.get(i);
       s.update();
@@ -25,7 +24,12 @@ class CloudSystem {
         clouds.remove(i);
       }
     }
-
+    textFont(bungee_regular);
+    textSize(24);
+    textAlign(CENTER);
+    if (counter % 2 == 0) {
+      text("PILVISTÄ", width/2, height - 56);
+    }
   }
 }
 
@@ -50,10 +54,10 @@ class ObjCloud {
   }
 
   void update() {
-    if ( counter != local_counter ){
-      x_pos += z_pos;
-      local_counter = counter;
-    }
+    //if ( counter != local_counter ){
+      x_pos += z_pos/80;
+      //local_counter = counter;
+    //}
     draw();
   }
 
