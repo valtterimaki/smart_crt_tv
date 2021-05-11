@@ -17,7 +17,7 @@ class SwimmerSystem {
       ObjSwimmer s = swimmers.get(i);
       s.update();
 
-      if (program_number != 2) {
+      if (program_number != 7) {
         swimmers.remove(i);
       }
 
@@ -111,7 +111,7 @@ class ObjSwimmer {
     float angle = atan2(dy, dx);
     nodes[i].x = xin - cos(angle) * segLength;
     nodes[i].y = yin - sin(angle) * segLength;
-    segment(nodes[i].x, nodes[i].y, angle, (16-(i*2)));
+    segment(nodes[i].x, nodes[i].y, angle, (8-(i*2)));
   }
 
   // This draws the graphics for the object

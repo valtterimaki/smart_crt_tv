@@ -44,7 +44,7 @@ class SunSystem {
       ObjSunRay s = rays.get(i);
       s.update();
 
-      if (program_number != 9) {
+      if (program_number != 3) {
         rays.remove(i);
       }
 
@@ -76,7 +76,6 @@ class ObjSunRay {
     time += 0.02;
     noiseDetail(4, 0.8);
     float wobble = (noise(order, time) -0.5) * (sq(order) /20 +8);
-    println(startpoint.x);
     start_draw.x = startpoint.x + wobble;
     end_draw.x = endpoint.x + wobble;
     draw();

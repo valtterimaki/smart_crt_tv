@@ -13,7 +13,7 @@ import java.util.Date;
 
 // program number
 public int program_number = 0;
-public int[] program_cycle = new int[10];
+public int[] program_cycle = new int[7];
 public int program_cycle_counter = 0;
 
 // main counter variable that can be set inside programs
@@ -65,8 +65,8 @@ PFont mplus_thin, mplus_regular;
 
 
 void setup() {
-  fullScreen(P2D);  //use this in the actual build in the tv
-  //size(640, 480, P2D);
+  //fullScreen(P2D);  //use this in the actual build in the tv
+  size(640, 480, P2D);
   smooth(1);
   frameRate(50);
 
@@ -102,8 +102,6 @@ void setup() {
   rajdhani_light = createFont("rajdhani-light.ttf", 128);
   mplus_thin = createFont("MPLUSRounded1c-Thin.ttf", 128);
   mplus_regular = createFont("MPLUSRounded1c-Regular.ttf", 128);
-
-
 
 }
 
@@ -192,188 +190,8 @@ void draw() {
     }
   }
 
-
-  // 2 is SWIMMER
+  // 2 is FORECAST
   if (program_number == 2) {
-
-    // set of actions that happen in the start of the program
-    if (program_started == true) {
-      for (int i = 0; i < 20; ++i) {
-        swimmer_system.addParticle();
-      }
-      program_started = false;
-    }
-
-    // end program after 8 seconds
-    if (counter >= 8) {
-      counter = 0;
-      program_number = 0;
-      program_started = true;
-    }
-
-    // this is exected here so that the particle system can detect the program change and remove the particles
-    swimmer_system.run();
-  }
-
-
-  // 3 is SNOW
-  if (program_number == 3) {
-
-    // set of actions that happen in the start of the program
-    if (program_started == true) {
-      for (int i = 0; i < 100; ++i) {
-        snow_system.addParticle();
-      }
-      program_started = false;
-    }
-
-    // end program after 8 seconds
-    if (counter >= 10) {
-      counter = 0;
-      program_number = 0;
-      program_started = true;
-    }
-
-    // this is exected here so that the particle system can detect the program change and remove the particles
-    snow_system.run();
-  }
-
-
-  // 4 is RAIN
-  if (program_number == 4) {
-
-    // set of actions that happen in the start of the program
-    if (program_started == true) {
-      for (int i = 0; i < 400; ++i) {
-        rain_system.addParticle();
-      }
-      program_started = false;
-
-      // run the system for some loops to prevent the initialization glitches
-      for (int i = 0; i < 50; ++i) {
-        rain_system.run();
-        background(0); // draw black after this to start from black
-      }
-    }
-
-    // end program after 8 seconds
-    if (counter >= 10) {
-      counter = 0;
-      program_number = 0;
-      program_started = true;
-    }
-
-    // this is exected here so that the particle system can detect the program change and remove the particles
-    rain_system.run();
-  }
-
-
-  // 5 is SUNRISE
-  if (program_number == 5) {
-
-    // set of actions that happen in the start of the program
-    if (program_started == true) {
-      program_started = false;
-    }
-
-    // end program after 8 seconds
-    if (counter >= 10) {
-      counter = 0;
-      program_number = 0;
-      program_started = true;
-    }
-
-    // draw and update sun diagram
-    draw_sun_diagram();
-  }
-
-
-  // 6 is PSEUDOCODE
-  if (program_number == 6) {
-
-    // set of actions that happen in the start of the program
-    if (program_started == true) {
-      pseudo_code_one.setup();
-      program_started = false;
-    }
-
-    // end program after 8 seconds
-    if (counter >= 8) {
-      counter = 0;
-      program_number = 0;
-      program_started = true;
-    }
-
-    pseudo_code_one.update();
-    pseudo_code_one.draw();
-  }
-
-
-  // 7 is WAVES
-  if (program_number == 7) {
-
-    // set of actions that happen in the start of the program
-    if (program_started == true) {
-      wave_system.setup();
-      program_started = false;
-    }
-
-    // end program after 8 seconds
-    if (counter >= 10) {
-     counter = 0;
-     program_number = 0;
-      program_started = true;
-    }
-
-    // this is exected here so that the particle system can detect the program change and remove the particles
-    wave_system.run();
-
-  }
-
-
-  // 8 is CLOUDS
-  if (program_number == 8) {
-
-    // set of actions that happen in the start of the program
-    if (program_started == true) {
-      cloud_system.setup();
-      program_started = false;
-    }
-
-    // end program after 8 seconds
-    if (counter >= 14) {
-      counter = 0;
-      program_number = 0;
-      program_started = true;
-    }
-
-   // this is exected here so that the particle system can detect the program change and remove the particles
-   cloud_system.run();
-  }
-
-
-  // 9 is Sun
-  if (program_number == 9) {
-
-    // set of actions that happen in the start of the program
-    if (program_started == true) {
-      sun_system.setup();
-      program_started = false;
-    }
-
-    // end program after 8 seconds
-    if (counter == 10) {
-     counter = 0;
-     program_number = 0;
-      program_started = true;
-    }
-
-     // this is exected here so that the particle system can detect the program change and remove the particles
-     sun_system.run();
-  }
-
-  // 10 is FORECAST
-  if (program_number == 10) {
 
     /* TODO remember to add weather update interval */
 
@@ -395,6 +213,162 @@ void draw() {
       program_started = true;
     }
   }
+
+
+  // 3 is CONDITION
+  if (program_number == 3) {
+
+    // check counter and end program if 10 seconds have passed
+    if (counter == 10) {
+      counter = 0;
+      program_number = 0;
+      program_started = true;
+    }
+
+    if (str(weather.getWeatherConditionID()).charAt(0) == '5' || str(weather.getWeatherConditionID()).charAt(0) == '3' || str(weather.getWeatherConditionID()).charAt(0) == '2') {
+      println("drizzle or rain or thunder");
+      // set of actions that happen in the start of the program
+      if (program_started == true) {
+        for (int i = 0; i < 400; ++i) {
+          rain_system.addParticle();
+        }
+        program_started = false;
+        // run the system for some loops to prevent the initialization glitches
+        for (int i = 0; i < 50; ++i) {
+          rain_system.run();
+          background(0); // draw black after this to start from black
+        }
+      }
+      // this is exected here so that the particle system can detect the program change and remove the particles
+      rain_system.run();
+    }
+
+    if (str(weather.getWeatherConditionID()).charAt(0) == '6') {
+      println("snow");
+      // set of actions that happen in the start of the program
+      if (program_started == true) {
+        for (int i = 0; i < 100; ++i) {
+          snow_system.addParticle();
+        }
+        program_started = false;
+      }
+      // this is exected here so that the particle system can detect the program change and remove the particles
+      snow_system.run();
+    }
+
+    /*if (str(weather.getWeatherConditionID()).charAt(0) == '7') {
+      println("atmo");
+    }*/
+
+    if (str(weather.getWeatherConditionID()).equals("800")) {
+      println("clear");
+      // set of actions that happen in the start of the program
+      if (program_started == true) {
+        sun_system.setup();
+        program_started = false;
+      }
+      // this is exected here so that the particle system can detect the program change and remove the particles
+      sun_system.run();
+    }
+
+    if ((str(weather.getWeatherConditionID()).charAt(0) == '8' && str(weather.getWeatherConditionID()).charAt(2) != '0') || str(weather.getWeatherConditionID()).charAt(0) == '7') {
+      println("clouds or foggy");
+      // set of actions that happen in the start of the program
+      if (program_started == true) {
+        cloud_system.setup();
+        program_started = false;
+      }
+     // this is exected here so that the particle system can detect the program change and remove the particles
+     cloud_system.run();
+    }
+  }
+
+
+  // 4 is SUNRISE
+  if (program_number == 4) {
+
+    // set of actions that happen in the start of the program
+    if (program_started == true) {
+      program_started = false;
+    }
+
+    // end program after 8 seconds
+    if (counter >= 10) {
+      counter = 0;
+      program_number = 0;
+      program_started = true;
+    }
+
+    // draw and update sun diagram
+    draw_sun_diagram();
+  }
+
+
+  // 5 is PSEUDOCODE
+  if (program_number == 5) {
+
+    // set of actions that happen in the start of the program
+    if (program_started == true) {
+      pseudo_code_one.setup();
+      program_started = false;
+    }
+
+    // end program after 8 seconds
+    if (counter >= 8) {
+      counter = 0;
+      program_number = 0;
+      program_started = true;
+    }
+
+    pseudo_code_one.update();
+    pseudo_code_one.draw();
+  }
+
+
+  // 6 is WAVES
+  if (program_number == 6) {
+
+    // set of actions that happen in the start of the program
+    if (program_started == true) {
+      wave_system.setup();
+      program_started = false;
+    }
+
+    // end program after 8 seconds
+    if (counter >= 10) {
+      counter = 0;
+      program_number = 0;
+      program_started = true;
+    }
+
+    // this is exected here so that the particle system can detect the program change and remove the particles
+    wave_system.run();
+
+  }
+
+
+  // 7 is SWIMMER
+  if (program_number == 7) {
+
+    // set of actions that happen in the start of the program
+    if (program_started == true) {
+      for (int i = 0; i < 20; ++i) {
+        swimmer_system.addParticle();
+      }
+      program_started = false;
+    }
+
+    // end program after 8 seconds
+    if (counter >= 8) {
+      counter = 0;
+      program_number = 0;
+      program_started = true;
+    }
+
+    // this is exected here so that the particle system can detect the program change and remove the particles
+    swimmer_system.run();
+  }
+
 
 
   // TEMPLATE FOR A NEW SYSTEM

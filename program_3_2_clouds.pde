@@ -21,7 +21,7 @@ class CloudSystem {
       ObjCloud s = clouds.get(i);
       s.update();
 
-      if (program_number != 8) {
+      if (program_number != 3) {
         clouds.remove(i);
       }
     }

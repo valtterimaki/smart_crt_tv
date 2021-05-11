@@ -20,7 +20,7 @@ class RainSystem {
       ObjRaindrop r = raindrops.get(i);
       r.update();
 
-      if (program_number != 4) {
+      if (program_number != 3) {
         raindrops.remove(i);
       }
 
