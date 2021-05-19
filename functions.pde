@@ -286,3 +286,21 @@ void dashedLine(float x1, float y1, float x2, float y2, float l, float g) {
   }
 }
 
+
+
+// Shaded text
+
+void textShaded(String txt, float x, float y, int color1, int color2, int offs) {
+
+  int[] offsets_x = {-offs,offs,-offs,offs,0};
+  int[] offsets_y = {-offs,-offs,offs,offs,0};
+
+  fill(color2);
+
+  for (int i = 0; i < 5; ++i) {
+    if (i == 4) {
+      fill(color1);
+    }
+    text(txt, x + offsets_x[i], y + offsets_y[i]);
+  }
+}

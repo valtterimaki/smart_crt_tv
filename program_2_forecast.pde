@@ -45,7 +45,7 @@ class WeatherNew {
         forecast = loadXML(URL);
         last_update = hour();
       } else {
-        forecast = loadXML("weather_data_placeholder.xml");
+        forecast = loadXML("forecast_data_placeholder.xml");
         println("No connection");
       }
     }
@@ -76,12 +76,13 @@ class WeatherNew {
         result.add(value);
       }
 
-      // Get all temperatures
+      // Get all weather data by type
       if (type_test.equals(type)) {
         value = forecast_data[i].getChild("BsWfs:BsWfsElement").getChild("BsWfs:ParameterValue").getContent();
         //TEST //value = str(-30 + i/10 );
         result.add(value);
       }
+
     }
     return result;
   }
@@ -93,7 +94,7 @@ class WeatherNew {
 
     ArrayList<String> data_temperatures = getForecast("Temperature");
     ArrayList<String> data_times = getForecast("Time");
-
+    ArrayList<String> data_precipitation = getForecast("Precipitation1h");
 
     float margin = 64;
     float horiz_density = ((width - margin * 2) / data_temperatures.size());
@@ -112,6 +113,35 @@ class WeatherNew {
     }
 
 
+    // Draw precipitation amt
+
+    noStroke();
+    
+    // NOTE: 2 first ones are omitted as they are from past
+    for (int i = 2; i < data_precipitation.size() - 1; ++i) {
+
+      // Animate here
+      /*if (i - 1 > Ease.quinticBoth(anim_phase) * (data_precipitation.size() - 1)) {
+        break;
+      }*/
+      
+      fill(
+        0,
+        map(float(data_precipitation.get(i)), 0, 5, 200, 10)
+        ,255
+      );
+
+      rect(
+      (horiz_density * i + margin),
+      height - margin,
+      horiz_density,
+      -map(float(data_precipitation.get(i)), 0, 14, 0, (height - margin*2)),
+      2
+      ); 
+    }
+
+
+
     // Draw the grid
 
     noFill();
@@ -120,14 +150,25 @@ class WeatherNew {
     textFont(aspace_regular);
     textSize(scale_size);
 
-    // draw temperature scale
-    textAlign(RIGHT);
-    stroke(255, 100);
+    // draw temperature/precipitation scale
+    
+    
     for (int i = 0; i <= 7; ++i) {
+      noFill();
+      stroke(255, 90);
       line(margin, (vert_density * i) + margin, width - margin, (vert_density * i) + margin);
+      noStroke();
+      fill(255);
+      textAlign(RIGHT);
       text(
         40 - (10 * i),
         margin - 8,
+        (vert_density * i) + margin + 5
+        );
+      textAlign(LEFT);
+      text(
+        14 - (2 * i),
+        width - margin + 8,
         (vert_density * i) + margin + 5
         );
     }
@@ -138,19 +179,26 @@ class WeatherNew {
     for (int i = 2; i < data_temperatures.size() ; ++i) {
       if (i % 2 == 0) {
         textAlign(CENTER);
-        stroke(255, 100);
+        noFill();
+        stroke(255, 90);
         line(margin + horiz_density * i, margin, margin + horiz_density * i, height - margin);
+        noStroke();
+        fill(255);
         text(
           data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12),
           margin + horiz_density * i,
           height - margin + scale_size + 8
         );
       }
+    }
+
+    for (int i = 2; i < data_temperatures.size() ; ++i) {
       if ((data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12)).equals("00")) {
         textAlign(LEFT);
+        noFill();
         stroke(255);
         line(margin + horiz_density * i, margin, margin + horiz_density * i, height - margin);
-        text(data_times.get(i).substring(8,10) + "." + data_times.get(i).substring(5,7), margin + horiz_density * i + 8, margin + 16);
+        textShaded(data_times.get(i).substring(8,10) + "." + data_times.get(i).substring(5,7), margin + horiz_density * i + 8, margin + 16, 255, 0, 2);
       }
     }
 
@@ -161,7 +209,8 @@ class WeatherNew {
     rect(margin, zeroline - 1, width - margin*2, 1);
 
 
-    // Draw the graph
+
+    // Draw the temperature graph
 
     noFill();
     stroke(255);
@@ -202,44 +251,27 @@ class WeatherNew {
     textFont(aspace_light);
     textSize(main_values_size);
 
-    noStroke();
-    fill(0);
-    rect(
-      ((horiz_density * highest_index + margin) - (textWidth(data_temperatures.get(highest_index) + "°C")) / 3 ),
-      zeroline - float(data_temperatures.get(highest_index)) * multiplier - 12,
-      textWidth(data_temperatures.get(highest_index) + "°C") /1.5,
-      -main_values_size
-    );
-    rect(
-      ((horiz_density * lowest_index + margin) - (textWidth(data_temperatures.get(lowest_index) + "°C")) / 3 ),
-      zeroline - float(data_temperatures.get(lowest_index)) * multiplier + main_values_size + 12,
-      textWidth(data_temperatures.get(lowest_index) + "°C") /1.5,
-      -main_values_size
-    );
-
-    fill(255);
-
-    text(
+    textShaded(
       int(data_temperatures.get(highest_index)) + "°C",
       (horiz_density * highest_index + margin),
-      zeroline - float(data_temperatures.get(highest_index)) * multiplier - 16 - ((2 - Ease.quinticOut(anim_phase)*2) * 6)
+      zeroline - float(data_temperatures.get(highest_index)) * multiplier - 16 - ((2 - Ease.quinticOut(anim_phase)*2) * 6),
+      255, 0, 2
       );
-    text(
+    textShaded(
       int(data_temperatures.get(lowest_index)) + "°C",
       (horiz_density * lowest_index + margin),
-      zeroline - float(data_temperatures.get(lowest_index)) * multiplier + main_values_size + 8 + ((2 - Ease.quinticOut(anim_phase)*2) * 6)
+      zeroline - float(data_temperatures.get(lowest_index)) * multiplier + main_values_size + 8 + ((2 - Ease.quinticOut(anim_phase)*2) * 6),
+      255, 0, 2
       );
 
     textAlign(LEFT);
     textFont(mplus_regular);
     textSize(28);
-    text("天気予報", margin + 16, height - margin - 52);
+    textShaded("天気予報", margin + 16, height - margin - 52, 255, 0, 1);
     textFont(bungee_regular);
     textSize(19);
-    text("ENNUSTE", margin + 16, height - margin - 32);
-    text(data_times.get(2).substring(0,10), margin + 16, height - margin - 16);
+    textShaded("ENNUSTE, HIRLAM", margin + 16, height - margin - 32, 255, 0, 1);
+    textShaded(data_times.get(2).substring(0,10), margin + 16, height - margin - 16, 255, 0, 1);
 
   }
-
-
 }
