@@ -304,3 +304,104 @@ void textShaded(String txt, float x, float y, int color1, int color2, int offs) 
     text(txt, x + offsets_x[i], y + offsets_y[i]);
   }
 }
+
+
+// Striped box fill (angle in radians)
+
+void rectStriped(float x_pos, float y_pos, float x_dim_input, float y_dim_input, float spacing, float angle_input) {
+
+  float x_dim = abs(x_dim_input);
+  float y_dim = abs(y_dim_input);
+  float angle_norm = angle_input % TAU;
+  float angle = HALF_PI;
+  float flip = 0;
+
+  /* //test, remove
+  noStroke();
+  fill(100);
+  rect(x_pos, y_pos, x_dim_input, y_dim_input);
+  stroke(255,0,0);
+  // end test */
+
+  // convert angle and define flip to ease drawing
+  if (angle_norm >= 0 && angle_norm < HALF_PI) {
+    angle = angle_norm;
+    flip = 0;
+  }
+  if (angle_norm > HALF_PI && angle_norm < PI) {
+    angle = PI-angle_norm;
+    flip = x_dim;
+  }
+  if (angle_norm >= PI && angle_norm < HALF_PI*3) {
+    angle = angle_norm-PI;
+    flip = 0;
+  }
+  if (angle_norm > HALF_PI*3 && angle_norm < TAU) {
+    angle = TAU-angle_norm;
+    flip = x_dim;
+  }
+
+  pushMatrix();
+
+  translate(x_pos, y_pos);
+  scale(signum(x_dim_input), signum(y_dim_input));
+
+  if (angle != HALF_PI) {
+
+    float spacing_y = (spacing / cos(angle));
+    float offset_y = (x_dim * tan(angle));
+    float spacing_x = (spacing / sin(angle));
+
+    for (float i = spacing_y; i < y_dim ; i +=spacing_y ) {
+      if (i < y_dim - offset_y) {
+        line(
+          map(0, 0, x_dim, flip, x_dim - flip),
+          i,
+          map(x_dim, 0, x_dim, flip, x_dim - flip),
+          offset_y + i
+        );
+      }
+      else {
+        //stroke(255); // debug color
+        line(
+          map(0, 0, x_dim, flip, x_dim - flip),
+          i,
+          map((y_dim - i) / tan(angle), 0, x_dim, flip, x_dim - flip),
+          y_dim
+        );
+      }
+    }
+    for (float i = 0; i < x_dim; i +=spacing_x) {
+      //stroke(0,255,0); // debug color
+      if ((tan(angle) * (x_dim - i)) < y_dim) {
+        line(
+          map(i, 0, x_dim, flip, x_dim - flip),
+          0,
+          map(x_dim, 0, x_dim, flip, x_dim - flip),
+          (tan(angle) * (x_dim - i))
+        );
+      } else {
+        line(
+          map(i, 0, x_dim, flip, x_dim - flip),
+          0,
+          map(y_dim / tan(angle) + i, 0, x_dim, flip, x_dim - flip),
+          y_dim
+        );
+      }
+    }
+  } else {
+    for (float i = 0; i < x_dim; i +=spacing) {
+      line(
+        i,
+        0,
+        i,
+        y_dim
+      );
+    }
+  }
+
+  popMatrix();
+
+
+
+}
