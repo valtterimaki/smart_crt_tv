@@ -43,6 +43,7 @@ class WeatherNew {
 
       if (reachable) {
         forecast = loadXML(URL);
+        //forecast = loadXML("forecast_data_placeholder.xml");
         last_update = hour();
       } else {
         forecast = loadXML("forecast_data_placeholder.xml");
@@ -115,8 +116,8 @@ class WeatherNew {
 
     // Draw precipitation amt
 
-    noStroke();
-    
+    strokeWeight(3);
+
     // NOTE: 2 first ones are omitted as they are from past
     for (int i = 2; i < data_precipitation.size() - 1; ++i) {
 
@@ -124,22 +125,25 @@ class WeatherNew {
       /*if (i - 1 > Ease.quinticBoth(anim_phase) * (data_precipitation.size() - 1)) {
         break;
       }*/
-      
-      fill(
-        0,
-        map(float(data_precipitation.get(i)), 0, 5, 200, 10)
-        ,255
+
+      stroke(
+        50,
+        map(float(data_precipitation.get(i)), 0, 4, 130, 100),
+        map(float(data_precipitation.get(i)), 0, 4, 130, 255)
       );
 
-      rect(
-      (horiz_density * i + margin),
-      height - margin,
-      horiz_density,
-      -map(float(data_precipitation.get(i)), 0, 14, 0, (height - margin*2)),
-      2
-      ); 
-    }
+      //for (int j = 0; j < 3; ++j) {
+        rectStriped(
+          (horiz_density * i + margin)/* + (j * horiz_density/3)*/,
+          height - margin,
+          horiz_density -4 /*/ 6*/,
+          -map(float(data_precipitation.get(i)), 0, 14, 0, (height - margin*2)),
+          4,
+          radians(45)
+        );
+      //}
 
+    }
 
 
     // Draw the grid
@@ -150,9 +154,9 @@ class WeatherNew {
     textFont(aspace_regular);
     textSize(scale_size);
 
+
     // draw temperature/precipitation scale
-    
-    
+
     for (int i = 0; i <= 7; ++i) {
       noFill();
       stroke(255, 90);
@@ -172,6 +176,7 @@ class WeatherNew {
         (vert_density * i) + margin + 5
         );
     }
+
 
     // draw time scale
     // NOTE: 2 first ones are omitted as they are from past
@@ -204,10 +209,10 @@ class WeatherNew {
 
 
     // draw zeroline
+
     noStroke();
     fill(255);
     rect(margin, zeroline - 1, width - margin*2, 1);
-
 
 
     // Draw the temperature graph
@@ -272,6 +277,12 @@ class WeatherNew {
     textSize(19);
     textShaded("ENNUSTE, HIRLAM", margin + 16, height - margin - 32, 255, 0, 1);
     textShaded(data_times.get(2).substring(0,10), margin + 16, height - margin - 16, 255, 0, 1);
+
+
+    // TEST TEST TEST
+    //stroke(255, 0, 0);
+    //rectStriped(0, height, 20, -200, 4, radians(millis()/50));
+
 
   }
 }
