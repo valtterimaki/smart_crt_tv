@@ -105,7 +105,7 @@ class WeatherNew {
 
     ArrayList<String> data_temperatures = getForecast("Temperature");
     ArrayList<String> data_times = getForecast("Time");
-    ArrayList<String> data_precipitation = getForecast("Precipitation1h");
+    ArrayList<String> data_precipitation = getForecast("PrecipitationAmount");
 
     float margin = 64;
     float horiz_density = ((width - margin * 2) / data_temperatures.size());
@@ -141,17 +141,14 @@ class WeatherNew {
         map(float(data_precipitation.get(i)), 0, 4, 130, 255)
       );
 
-      //for (int j = 0; j < 3; ++j) {
-        rectStriped(
-          (horiz_density * i + margin)/* + (j * horiz_density/3)*/,
-          height - margin,
-          horiz_density -4 /*/ 6*/,
-          -map(float(data_precipitation.get(i)), 0, 14, 0, (height - margin*2)),
-          4,
-          radians(45)
-        );
-      //}
-
+      rectStriped(
+        (horiz_density * i + margin),
+        height - margin,
+        horiz_density -4,
+        -map(float(data_precipitation.get(i)), 0, 14, 0, (height - margin*2)),
+        4,
+        radians(45)
+      );
     }
 
 
