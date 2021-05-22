@@ -8,7 +8,7 @@ class WeatherNew {
 
   private XML forecast;
   private boolean reachable;
-  private final static String  URL = "http://opendata.fmi.fi/wfs?service=WFS&version=2.0.0&request=getFeature&storedquery_id=fmi::forecast::hirlam::surface::point::simple&place=turku&";
+  private final static String  URL = "http://opendata.fmi.fi/wfs?service=WFS&version=2.0.0&request=getFeature&storedquery_id=fmi::forecast::harmonie::surface::point::simple&place=turku&";
   private final static int TIMEOUT = 5000;
   public float anim_phase;
   int last_update = 99;
@@ -43,7 +43,7 @@ class WeatherNew {
 
       if (reachable) {
         forecast = loadXML(URL);
-        //forecast = loadXML("forecast_data_placeholder.xml");
+        //forecast = loadXML("forecast_data_placeholder.xml"); // for testing
         last_update = hour();
       } else {
         forecast = loadXML("forecast_data_placeholder.xml");
@@ -60,11 +60,15 @@ class WeatherNew {
 
   /* Get forecast data */
 
-  public ArrayList getForecast(String type) {
+  ArrayList getForecast(String type) {
 
     XML[] forecast_data = forecast.getChildren("wfs:member");
     ArrayList<String> result = new ArrayList<String>();
     String type_test, value;
+    // Use these to trim the result to certain timeframe
+    int start_at = 0;
+    int end_at = 32;
+    int count = 0;
 
     // Go through all elements
     for (int i = 0; i < forecast_data.length; ++i) {
@@ -74,17 +78,23 @@ class WeatherNew {
       // Get all unique times
       if (type == "Time" && type_test.equals("Temperature")) {
         value = forecast_data[i].getChild("BsWfs:BsWfsElement").getChild("BsWfs:Time").getContent();
-        result.add(value);
+        if (count >= start_at && count <= end_at) {
+          result.add(value);
+        }
+        count++;
       }
 
       // Get all weather data by type
       if (type_test.equals(type)) {
         value = forecast_data[i].getChild("BsWfs:BsWfsElement").getChild("BsWfs:ParameterValue").getContent();
-        //TEST //value = str(-30 + i/10 );
-        result.add(value);
+        if (count >= start_at && count <= end_at) {
+          result.add(value);
+        }
+        count++;
       }
 
     }
+
     return result;
   }
 
@@ -118,8 +128,7 @@ class WeatherNew {
 
     strokeWeight(3);
 
-    // NOTE: 2 first ones are omitted as they are from past
-    for (int i = 2; i < data_precipitation.size() - 1; ++i) {
+    for (int i = 0; i < data_precipitation.size() - 1; ++i) {
 
       // Animate here
       /*if (i - 1 > Ease.quinticBoth(anim_phase) * (data_precipitation.size() - 1)) {
@@ -179,9 +188,8 @@ class WeatherNew {
 
 
     // draw time scale
-    // NOTE: 2 first ones are omitted as they are from past
 
-    for (int i = 2; i < data_temperatures.size() ; ++i) {
+    for (int i = 0; i < data_temperatures.size() ; ++i) {
       if (i % 2 == 0) {
         textAlign(CENTER);
         noFill();
@@ -197,7 +205,7 @@ class WeatherNew {
       }
     }
 
-    for (int i = 2; i < data_temperatures.size() ; ++i) {
+    for (int i = 0; i < data_temperatures.size() ; ++i) {
       if ((data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12)).equals("00")) {
         textAlign(LEFT);
         noFill();
@@ -222,9 +230,8 @@ class WeatherNew {
     strokeWeight(3);
     strokeCap(ROUND);
 
-    // NOTE: 2 first ones are omitted as they are from past
-    for (int i = 2; i < data_temperatures.size() - 1; ++i) {
-      if (i - 1 > Ease.quinticBoth(anim_phase) * (data_temperatures.size() - 1)) {
+    for (int i = 0; i < data_temperatures.size() - 1; ++i) {
+      if (i +1  > Ease.quinticBoth(anim_phase) * (data_temperatures.size())) {
         break;
       }
       if (float(data_temperatures.get(i)) >= 0) {
@@ -275,7 +282,7 @@ class WeatherNew {
     textShaded("天気予報", margin + 16, height - margin - 52, 255, 0, 1);
     textFont(bungee_regular);
     textSize(19);
-    textShaded("ENNUSTE, HIRLAM", margin + 16, height - margin - 32, 255, 0, 1);
+    textShaded("ENNUSTE, HARMONIE", margin + 16, height - margin - 32, 255, 0, 1);
     textShaded(data_times.get(2).substring(0,10), margin + 16, height - margin - 16, 255, 0, 1);
 
 
