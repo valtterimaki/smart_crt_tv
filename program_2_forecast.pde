@@ -83,7 +83,7 @@ class WeatherNew {
     String type_test, value;
     // Use these to trim the result to certain timeframe
     int start_at = 2;
-    int end_at = 34;
+    int end_at = 26;
     int count = 0;
 
     // Go through all elements
@@ -126,7 +126,7 @@ class WeatherNew {
     int scale_size = 15;
     int gap = 10;
     int dash_gap = 9;
-    int peaks_to = 32;
+    int peaks_to = 24;
 
 
     // very simple advance animation phase
