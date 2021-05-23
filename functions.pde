@@ -206,14 +206,14 @@ void mousePressed() {
 
 // get highest or lowest value in arraylist
 
-int getHighestOrLowest(ArrayList<String> src, String which, int from) {
+int getHighestOrLowest(ArrayList<String> src, String which, int from, int to) {
 
   ArrayList<String> source = src;
   float val1 = float(source.get(from));
   float val2;
   int index = from;
 
-  for (int i = from + 1; i < source.size(); ++i) {
+  for (int i = from + 1; i < to; ++i) {
     val2 = float(source.get(i));
     if (val2 > val1 && which == "highest") {
       val1 = val2;

@@ -6,10 +6,15 @@ By Fossa
 
 class WeatherNew {
 
-  private XML forecast;
+  private XML harmonie;
+  private XML hirlam;
   private boolean reachable;
-  private final static String  URL = "http://opendata.fmi.fi/wfs?service=WFS&version=2.0.0&request=getFeature&storedquery_id=fmi::forecast::harmonie::surface::point::simple&place=turku&";
+  private final static String URL_HARMONIE = "http://opendata.fmi.fi/wfs?service=WFS&version=2.0.0&request=getFeature&storedquery_id=fmi::forecast::harmonie::surface::point::simple&place=turku&";
+  private final static String URL_HIRLAM = "http://opendata.fmi.fi/wfs?service=WFS&version=2.0.0&request=getFeature&storedquery_id=fmi::forecast::hirlam::surface::point::simple&place=turku&";
   private final static int TIMEOUT = 5000;
+  ArrayList<String> data_temperatures = new ArrayList<String>();
+  ArrayList<String> data_times = new ArrayList<String>();
+  ArrayList<String> data_precipitation = new ArrayList<String>();
   public float anim_phase;
   int last_update = 99;
 
@@ -24,7 +29,7 @@ class WeatherNew {
 
   public boolean checkConnection() {
     try {
-      HttpURLConnection connection = (HttpURLConnection) new URL(URL).openConnection();
+      HttpURLConnection connection = (HttpURLConnection) new URL(URL_HARMONIE).openConnection();
       connection.setConnectTimeout(TIMEOUT);
       connection.setReadTimeout(TIMEOUT);
       int responseCode = connection.getResponseCode();
@@ -42,13 +47,18 @@ class WeatherNew {
       reachable = checkConnection();
 
       if (reachable) {
-        forecast = loadXML(URL);
-        //forecast = loadXML("forecast_data_placeholder.xml"); // for testing
+        harmonie = loadXML(URL_HARMONIE);
+        hirlam = loadXML(URL_HIRLAM);
         last_update = hour();
       } else {
-        forecast = loadXML("forecast_data_placeholder.xml");
+        harmonie = loadXML("forecast_data_placeholder.xml");
+        hirlam = loadXML("forecast_data_placeholder.xml");
         println("No connection");
       }
+
+      data_times = getForecast("Time");
+      data_temperatures = getForecast("Temperature");
+      data_precipitation = getForecast("Precipitation1h");
     }
   }
 
@@ -62,12 +72,18 @@ class WeatherNew {
 
   ArrayList getForecast(String type) {
 
-    XML[] forecast_data = forecast.getChildren("wfs:member");
+    XML[] forecast_data = harmonie.getChildren("wfs:member");
+
+    // get precipitation from hirlam instead
+    if (type.equals("Precipitation1h")) {
+      forecast_data = hirlam.getChildren("wfs:member");
+    }
+
     ArrayList<String> result = new ArrayList<String>();
     String type_test, value;
     // Use these to trim the result to certain timeframe
-    int start_at = 0;
-    int end_at = 32;
+    int start_at = 2;
+    int end_at = 34;
     int count = 0;
 
     // Go through all elements
@@ -92,9 +108,7 @@ class WeatherNew {
         }
         count++;
       }
-
     }
-
     return result;
   }
 
@@ -102,10 +116,6 @@ class WeatherNew {
   /* Draw forecast graph */
 
   public void drawForecast() {
-
-    ArrayList<String> data_temperatures = getForecast("Temperature");
-    ArrayList<String> data_times = getForecast("Time");
-    ArrayList<String> data_precipitation = getForecast("PrecipitationAmount");
 
     float margin = 64;
     float horiz_density = ((width - margin * 2) / data_temperatures.size());
@@ -116,6 +126,7 @@ class WeatherNew {
     int scale_size = 15;
     int gap = 10;
     int dash_gap = 9;
+    int peaks_to = 32;
 
 
     // very simple advance animation phase
@@ -131,9 +142,9 @@ class WeatherNew {
     for (int i = 0; i < data_precipitation.size() - 1; ++i) {
 
       // Animate here
-      /*if (i - 1 > Ease.quinticBoth(anim_phase) * (data_precipitation.size() - 1)) {
+      if (i + 1 > Ease.quinticBoth(anim_phase) * data_precipitation.size()) {
         break;
-      }*/
+      }
 
       stroke(
         50,
@@ -252,8 +263,11 @@ class WeatherNew {
         );
     }
 
-    int highest_index = getHighestOrLowest(data_temperatures, "highest", 2);
-    int lowest_index = getHighestOrLowest(data_temperatures, "lowest", 2);
+    if (hour() < 12) {
+      peaks_to = 16;
+    }
+    int highest_index = getHighestOrLowest(data_temperatures, "highest", 2, peaks_to);
+    int lowest_index = getHighestOrLowest(data_temperatures, "lowest", 2, peaks_to);
 
 
     textAlign(CENTER);
