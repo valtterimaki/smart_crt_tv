@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>SpotTheStation - Sightings for Turku</title>
+		<link>https://spotthestation.nasa.gov/sightings/view.cfm?country=Finland&amp;region=None&amp;city=Turku</link>
+		<description>Satellite Sightings Information for Turku</description>
+		<language>en-us</language>
+		<pubDate>20 May 2021 20:14:01 GMT</pubDate>
+		<lastBuildDate>20 May 2021 20:14:01 GMT</lastBuildDate>
+		<managingEditor>HQ-spotthestation@mail.nasa.gov</managingEditor>
+		<webMaster>HQ-spotthestation@mail.nasa.gov</webMaster>
+		<atom:link href="https://spotthestation.nasa.gov/sightings/view.cfm?country=Finland&amp;region=None&amp;city=Turku" rel="self" type="application/rss+xml" />
+		<item>
+			<title>2021-05-20 ISS Sighting</title>
+			<pubDate>20 May 2021 20:14:01 GMT</pubDate>
+			<description>
+			Date: Thursday May 20, 2021 &lt;br/&gt;
+			Time: 12:46 AM &lt;br/&gt;
+			Duration: 4 minutes &lt;br/&gt;
+			Maximum Elevation: 17&#176; &lt;br/&gt;
+			Approach: 10&#176; above SW &lt;br/&gt;
+			Departure: 12&#176; above SSE &lt;br/&gt;
+			</description>
+			<guid>https://spotthestation.nasa.gov/sightings/view.cfm?country=Finland&amp;region=None&amp;city=Turku&amp;ss=7222B1C7-9E82-EA07-2134BA2DB8B65284</guid>
+		</item>
+		<item>
+			<title>2021-05-20 ISS Sighting</title>
+			<pubDate>20 May 2021 20:14:01 GMT</pubDate>
+			<description>
+			Date: Thursday May 20, 2021 &lt;br/&gt;
+			Time: 11:59 PM &lt;br/&gt;
+			Duration: 5 minutes &lt;br/&gt;
+			Maximum Elevation: 18&#176; &lt;br/&gt;
+			Approach: 10&#176; above SW &lt;br/&gt;
+			Departure: 10&#176; above SE &lt;br/&gt;
+			</description>
+			<guid>https://spotthestation.nasa.gov/sightings/view.cfm?country=Finland&amp;region=None&amp;city=Turku&amp;ss=7222B1C8-B21F-B46E-9A75A694C94994B6</guid>
+		</item>
+		<item>
+			<title>2021-05-21 ISS Sighting</title>
+			<pubDate>20 May 2021 20:14:01 GMT</pubDate>
+			<description>
+			Date: Friday May 21, 2021 &lt;br/&gt;
+			Time: 1:36 AM &lt;br/&gt;
+			Duration: 1 minute &lt;br/&gt;
+			Maximum Elevation: 10&#176; &lt;br/&gt;
+			Approach: 10&#176; above SW &lt;br/&gt;
+			Departure: 10&#176; above SSW &lt;br/&gt;
+			</description>
+			<guid>https://spotthestation.nasa.gov/sightings/view.cfm?country=Finland&amp;region=None&amp;city=Turku&amp;ss=7222B1C9-F22C-9F1C-FE2FEED36853A042</guid>
+		</item>
+		<item>
+			<title>2021-05-22 ISS Sighting</title>
+			<pubDate>20 May 2021 20:14:01 GMT</pubDate>
+			<description>
+			Date: Saturday May 22, 2021 &lt;br/&gt;
+			Time: 12:48 AM &lt;br/&gt;
+			Duration: 3 minutes &lt;br/&gt;
+			Maximum Elevation: 13&#176; &lt;br/&gt;
+			Approach: 10&#176; above SW &lt;br/&gt;
+			Departure: 12&#176; above S &lt;br/&gt;
+			</description>
+			<guid>https://spotthestation.nasa.gov/sightings/view.cfm?country=Finland&amp;region=None&amp;city=Turku&amp;ss=7222B1CA-EF00-6B70-20EF095D16F046A6</guid>
+		</item>
+		<item>
+			<title>2021-05-23 ISS Sighting</title>
+			<pubDate>20 May 2021 20:14:01 GMT</pubDate>
+			<description>
+			Date: Sunday May 23, 2021 &lt;br/&gt;
+			Time: 12:01 AM &lt;br/&gt;
+			Duration: 4 minutes &lt;br/&gt;
+			Maximum Elevation: 15&#176; &lt;br/&gt;
+			Approach: 10&#176; above SW &lt;br/&gt;
+			Departure: 10&#176; above SSE &lt;br/&gt;
+			</description>
+			<guid>https://spotthestation.nasa.gov/sightings/view.cfm?country=Finland&amp;region=None&amp;city=Turku&amp;ss=7222B1CB-D864-E73F-B031DAC25773C801</guid>
+		</item>
+		<item>
+		<title>2021-05-25 ISS Sighting</title>
+			<pubDate>20 May 2021 20:14:01 GMT</pubDate>
+			<description>
+			Date: Tuesday May 25, 2021 &lt;br/&gt;
+			Time: 12:04 AM &lt;br/&gt;
+			Duration: 1 minute &lt;br/&gt;
+			Maximum Elevation: 10&#176; &lt;br/&gt;
+			Approach: 10&#176; above SW &lt;br/&gt;
+			Departure: 10&#176; above SSW &lt;br/&gt;
+			</description>
+			<guid>https://spotthestation.nasa.gov/sightings/view.cfm?country=Finland&amp;region=None&amp;city=Turku&amp;ss=7222B1CC-FEBD-1876-A83774396D5B82DC</guid>
+		</item>
+	</channel>
+</rss>
