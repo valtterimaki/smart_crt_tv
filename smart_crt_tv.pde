@@ -5,8 +5,10 @@ import org.gicentre.utils.move.Ease;
 import java.util.Collections;
 import java.util.Arrays;
 import java.net.HttpURLConnection;
+import javax.net.ssl.HttpsURLConnection;
 import java.net.URL;
 import java.util.Date;
+import java.time.LocalDateTime;
 
 
 /* VARIABLES */
@@ -46,7 +48,11 @@ ObjSvg objWeathericon;
 
 // Weather object for handling weather stuff
 Weather weather;
-WeatherNew weather_new;
+ForecastFmi forecast_fmi;
+ForecastYr  forecast_yr;
+
+// ISS tracker class
+IssTracker iss;
 
 
 /* FONTS */
@@ -65,8 +71,8 @@ PFont mplus_thin, mplus_regular;
 
 
 void setup() {
-  fullScreen(P2D);  //use this in the actual build in the tv
-  //size(720, 576, P2D);
+  //fullScreen(P2D);  //use this in the actual build in the tv
+  size(720, 576, P2D);
   smooth(1);
   frameRate(50);
 
@@ -75,7 +81,8 @@ void setup() {
 
   // Weather object
   weather = new Weather();
-  weather_new = new WeatherNew();
+  forecast_fmi = new ForecastFmi();
+  forecast_yr = new ForecastYr();
 
   // Create particle systems
   swimmer_system = new SwimmerSystem();
@@ -86,6 +93,9 @@ void setup() {
   cloud_system = new CloudSystem();
   sun_system = new SunSystem();
   //new_system = new NewSystem();
+
+  //ISS tracker
+  iss = new IssTracker();
 
   // Set fonts
   source_code_thin = createFont("SourceCodePro-ExtraLight.ttf", 128);
@@ -190,6 +200,7 @@ void draw() {
     }
   }
 
+
   // 2 is FORECAST
   if (program_number == 2) {
 
@@ -197,17 +208,16 @@ void draw() {
 
     // set of actions that happen in the start of the program
     if (program_started == true) {
-      weather_new.anim_phase = 0;
+      forecast_fmi.anim_phase = 0;
       program_started = false;
     }
 
     /////// draw here
-    weather_new.update();
-    weather_new.drawForecast();
+    forecast_fmi.update();
+    forecast_fmi.drawForecast();
 
     // end program after 5 seconds
     if (counter >= 14) {
-      objWeathericon = null;
       counter = 0;
       program_number = 0;
       program_started = true;
@@ -369,6 +379,31 @@ void draw() {
     swimmer_system.run();
   }
 
+
+  // 8 is ISS
+  if (program_number == 8) {
+
+    /* TODO remember to add weather update interval */
+
+    // set of actions that happen in the start of the program
+    if (program_started == true) {
+      iss.update();
+      iss.anim_phase = 0;
+      forecast_yr.findIssMatch();
+      program_started = false;
+    }
+
+    /////// draw here
+    iss.run();
+
+    // end program after 5 seconds
+    if (counter >= 14) {
+      objWeathericon = null;
+      counter = 0;
+      program_number = 0;
+      program_started = true;
+    }
+  }
 
 
   // TEMPLATE FOR A NEW SYSTEM

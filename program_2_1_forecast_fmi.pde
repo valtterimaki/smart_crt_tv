@@ -4,7 +4,7 @@ FMI weather xml fetcher
 By Fossa
  */
 
-class WeatherNew {
+class ForecastFmi {
 
   private XML harmonie;
   private XML hirlam;
@@ -18,10 +18,9 @@ class WeatherNew {
   public float anim_phase;
   int last_update = 99;
 
-  public WeatherNew() {
-    //last_update = hour();
+  public ForecastFmi() {
     update();
-    println("Last update: " + lastUpdate());
+    println("Forecast last update FMI: " + lastUpdate());
     anim_phase = 0;
   }
 
@@ -42,7 +41,6 @@ class WeatherNew {
 
   public void update() {
     if (last_update != hour()) {
-      println("CHECK");
 
       reachable = checkConnection();
 
@@ -51,9 +49,9 @@ class WeatherNew {
         hirlam = loadXML(URL_HIRLAM);
         last_update = hour();
       } else {
-        harmonie = loadXML("forecast_data_placeholder.xml");
-        hirlam = loadXML("forecast_data_placeholder.xml");
-        println("No connection");
+        harmonie = loadXML("placeholder_forecast_fmi.xml");
+        hirlam = loadXML("placeholder_forecast_fmi.xml");
+        println("Forecast FMI - No connection");
       }
 
       data_times = getForecast("Time");
@@ -83,7 +81,7 @@ class WeatherNew {
     String type_test, value;
     // Use these to trim the result to certain timeframe
     int start_at = 2;
-    int end_at = 26;
+    int end_at = 34;
     int count = 0;
 
     // Go through all elements

@@ -1,0 +1,2321 @@
+<weatherdata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.api.met.no/schemas/weatherapi-0.4.xsd" created="2021-05-30T06:48:39Z">
+<meta>
+<model name="met_public_forecast" termin="2021-05-30T06:00:00Z" runended="2021-05-30T05:53:55Z" nextrun="2021-05-30T06:53:55Z" from="2021-05-30T06:00:00Z" to="2021-06-08T06:00:00Z"/>
+</meta>
+<product class="pointData">
+<time datatype="forecast" from="2021-05-30T06:00:00Z" to="2021-05-30T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="11.3"/>
+<windDirection id="dd" deg="29.3" name="NE"/>
+<windSpeed id="ff" mps="2.8" beaufort="2" name="Svak vind"/>
+<windGust id="ff_gust" mps="5.1"/>
+<humidity unit="percent" value="44.3"/>
+<pressure id="pr" unit="hPa" value="1027.1"/>
+<cloudiness id="NN" percent="0.0"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="0.0"/>
+<temperatureProbability unit="probabilitycode" value="0"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="-0.6"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T05:00:00Z" to="2021-05-30T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T07:00:00Z" to="2021-05-30T07:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="12.9"/>
+<windDirection id="dd" deg="31.2" name="NE"/>
+<windSpeed id="ff" mps="3.8" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="6.9"/>
+<humidity unit="percent" value="38.2"/>
+<pressure id="pr" unit="hPa" value="1027.3"/>
+<cloudiness id="NN" percent="0.0"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="-1.2"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T06:00:00Z" to="2021-05-30T07:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T08:00:00Z" to="2021-05-30T08:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="14.2"/>
+<windDirection id="dd" deg="30.8" name="NE"/>
+<windSpeed id="ff" mps="4.0" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="7.5"/>
+<humidity unit="percent" value="35.9"/>
+<pressure id="pr" unit="hPa" value="1027.5"/>
+<cloudiness id="NN" percent="0.0"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="-0.9"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T07:00:00Z" to="2021-05-30T08:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T09:00:00Z" to="2021-05-30T09:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="15.5"/>
+<windDirection id="dd" deg="25.4" name="NE"/>
+<windSpeed id="ff" mps="3.7" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="7.4"/>
+<humidity unit="percent" value="34.6"/>
+<pressure id="pr" unit="hPa" value="1027.4"/>
+<cloudiness id="NN" percent="0.1"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="-0.2"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T08:00:00Z" to="2021-05-30T09:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T10:00:00Z" to="2021-05-30T10:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="16.7"/>
+<windDirection id="dd" deg="22.6" name="NE"/>
+<windSpeed id="ff" mps="3.8" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="7.7"/>
+<humidity unit="percent" value="34.3"/>
+<pressure id="pr" unit="hPa" value="1027.0"/>
+<cloudiness id="NN" percent="0.1"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="0.7"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T09:00:00Z" to="2021-05-30T10:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T11:00:00Z" to="2021-05-30T11:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="17.5"/>
+<windDirection id="dd" deg="24.7" name="NE"/>
+<windSpeed id="ff" mps="3.6" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="7.7"/>
+<humidity unit="percent" value="34.4"/>
+<pressure id="pr" unit="hPa" value="1026.6"/>
+<cloudiness id="NN" percent="0.0"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="1.5"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T10:00:00Z" to="2021-05-30T11:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T05:00:00Z" to="2021-05-30T11:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="11.3"/>
+<maxTemperature id="TTT" unit="celsius" value="17.5"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T12:00:00Z" to="2021-05-30T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="18.3"/>
+<windDirection id="dd" deg="26.7" name="NE"/>
+<windSpeed id="ff" mps="3.0" beaufort="2" name="Svak vind"/>
+<windGust id="ff_gust" mps="7.6"/>
+<humidity unit="percent" value="34.3"/>
+<pressure id="pr" unit="hPa" value="1026.4"/>
+<cloudiness id="NN" percent="0.0"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="0.0"/>
+<temperatureProbability unit="probabilitycode" value="0"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="2.2"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T11:00:00Z" to="2021-05-30T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T06:00:00Z" to="2021-05-30T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="12.9"/>
+<maxTemperature id="TTT" unit="celsius" value="18.3"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+<symbolProbability unit="probabilitycode" value="0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T13:00:00Z" to="2021-05-30T13:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="18.9"/>
+<windDirection id="dd" deg="27.3" name="NE"/>
+<windSpeed id="ff" mps="2.4" beaufort="2" name="Svak vind"/>
+<windGust id="ff_gust" mps="6.8"/>
+<humidity unit="percent" value="34.2"/>
+<pressure id="pr" unit="hPa" value="1026.1"/>
+<cloudiness id="NN" percent="0.0"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="2.6"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T12:00:00Z" to="2021-05-30T13:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T07:00:00Z" to="2021-05-30T13:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="14.2"/>
+<maxTemperature id="TTT" unit="celsius" value="18.9"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T14:00:00Z" to="2021-05-30T14:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="19.2"/>
+<windDirection id="dd" deg="352.0" name="N"/>
+<windSpeed id="ff" mps="2.8" beaufort="2" name="Svak vind"/>
+<windGust id="ff_gust" mps="6.3"/>
+<humidity unit="percent" value="34.2"/>
+<pressure id="pr" unit="hPa" value="1025.8"/>
+<cloudiness id="NN" percent="0.4"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.4"/>
+<mediumClouds id="MEDIUM" percent="0.1"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="3.0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T13:00:00Z" to="2021-05-30T14:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T08:00:00Z" to="2021-05-30T14:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="15.5"/>
+<maxTemperature id="TTT" unit="celsius" value="19.2"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T15:00:00Z" to="2021-05-30T15:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="18.7"/>
+<windDirection id="dd" deg="293.9" name="NW"/>
+<windSpeed id="ff" mps="4.9" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="8.7"/>
+<humidity unit="percent" value="42.1"/>
+<pressure id="pr" unit="hPa" value="1025.3"/>
+<cloudiness id="NN" percent="1.3"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="1.1"/>
+<mediumClouds id="MEDIUM" percent="0.3"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="5.5"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T14:00:00Z" to="2021-05-30T15:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T09:00:00Z" to="2021-05-30T15:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="16.7"/>
+<maxTemperature id="TTT" unit="celsius" value="19.2"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T16:00:00Z" to="2021-05-30T16:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="17.3"/>
+<windDirection id="dd" deg="302.1" name="NW"/>
+<windSpeed id="ff" mps="6.0" beaufort="4" name="Laber bris"/>
+<windGust id="ff_gust" mps="10.7"/>
+<humidity unit="percent" value="43.5"/>
+<pressure id="pr" unit="hPa" value="1025.3"/>
+<cloudiness id="NN" percent="2.5"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="1.7"/>
+<mediumClouds id="MEDIUM" percent="0.8"/>
+<highClouds id="HIGH" percent="0.1"/>
+<dewpointTemperature id="TD" unit="celsius" value="4.7"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T15:00:00Z" to="2021-05-30T16:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T10:00:00Z" to="2021-05-30T16:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="17.3"/>
+<maxTemperature id="TTT" unit="celsius" value="19.2"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T17:00:00Z" to="2021-05-30T17:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="16.5"/>
+<windDirection id="dd" deg="309.6" name="NW"/>
+<windSpeed id="ff" mps="4.9" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="9.7"/>
+<humidity unit="percent" value="42.6"/>
+<pressure id="pr" unit="hPa" value="1025.1"/>
+<cloudiness id="NN" percent="3.4"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="3.3"/>
+<dewpointTemperature id="TD" unit="celsius" value="3.6"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T16:00:00Z" to="2021-05-30T17:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T11:00:00Z" to="2021-05-30T17:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="16.5"/>
+<maxTemperature id="TTT" unit="celsius" value="19.2"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T18:00:00Z" to="2021-05-30T18:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="15.6"/>
+<windDirection id="dd" deg="315.4" name="NW"/>
+<windSpeed id="ff" mps="3.8" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="7.6"/>
+<humidity unit="percent" value="42.3"/>
+<pressure id="pr" unit="hPa" value="1024.7"/>
+<cloudiness id="NN" percent="0.0"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="0.0"/>
+<temperatureProbability unit="probabilitycode" value="0"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="2.8"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T17:00:00Z" to="2021-05-30T18:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T12:00:00Z" to="2021-05-30T18:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="15.6"/>
+<maxTemperature id="TTT" unit="celsius" value="19.2"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+<symbolProbability unit="probabilitycode" value="0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T19:00:00Z" to="2021-05-30T19:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="14.3"/>
+<windDirection id="dd" deg="308.6" name="NW"/>
+<windSpeed id="ff" mps="2.6" beaufort="2" name="Svak vind"/>
+<windGust id="ff_gust" mps="5.6"/>
+<humidity unit="percent" value="50.9"/>
+<pressure id="pr" unit="hPa" value="1024.5"/>
+<cloudiness id="NN" percent="80.3"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="80.3"/>
+<dewpointTemperature id="TD" unit="celsius" value="4.1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T18:00:00Z" to="2021-05-30T19:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T13:00:00Z" to="2021-05-30T19:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="14.3"/>
+<maxTemperature id="TTT" unit="celsius" value="19.2"/>
+<symbol id="LightCloud" number="2" code="fair_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T20:00:00Z" to="2021-05-30T20:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="13.0"/>
+<windDirection id="dd" deg="258.5" name="W"/>
+<windSpeed id="ff" mps="2.6" beaufort="2" name="Svak vind"/>
+<windGust id="ff_gust" mps="3.4"/>
+<humidity unit="percent" value="52.9"/>
+<pressure id="pr" unit="hPa" value="1024.5"/>
+<cloudiness id="NN" percent="85.1"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="85.1"/>
+<dewpointTemperature id="TD" unit="celsius" value="3.5"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T19:00:00Z" to="2021-05-30T20:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T14:00:00Z" to="2021-05-30T20:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="13.0"/>
+<maxTemperature id="TTT" unit="celsius" value="18.7"/>
+<symbol id="LightCloud" number="2" code="fair_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T21:00:00Z" to="2021-05-30T21:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="11.8"/>
+<windDirection id="dd" deg="240.7" name="SW"/>
+<windSpeed id="ff" mps="3.2" beaufort="2" name="Svak vind"/>
+<windGust id="ff_gust" mps="4.5"/>
+<humidity unit="percent" value="62.8"/>
+<pressure id="pr" unit="hPa" value="1024.5"/>
+<cloudiness id="NN" percent="44.7"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="44.7"/>
+<dewpointTemperature id="TD" unit="celsius" value="4.9"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T20:00:00Z" to="2021-05-30T21:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_night"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T15:00:00Z" to="2021-05-30T21:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="11.8"/>
+<maxTemperature id="TTT" unit="celsius" value="17.3"/>
+<symbol id="LightCloud" number="2" code="fair_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T22:00:00Z" to="2021-05-30T22:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="10.7"/>
+<windDirection id="dd" deg="217.6" name="SW"/>
+<windSpeed id="ff" mps="3.2" beaufort="2" name="Svak vind"/>
+<windGust id="ff_gust" mps="4.5"/>
+<humidity unit="percent" value="66.3"/>
+<pressure id="pr" unit="hPa" value="1024.7"/>
+<cloudiness id="NN" percent="43.0"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="43.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="4.7"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T21:00:00Z" to="2021-05-30T22:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_night"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T16:00:00Z" to="2021-05-30T22:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="10.7"/>
+<maxTemperature id="TTT" unit="celsius" value="16.5"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T23:00:00Z" to="2021-05-30T23:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="9.9"/>
+<windDirection id="dd" deg="214.7" name="SW"/>
+<windSpeed id="ff" mps="2.9" beaufort="2" name="Svak vind"/>
+<windGust id="ff_gust" mps="4.3"/>
+<humidity unit="percent" value="66.7"/>
+<pressure id="pr" unit="hPa" value="1024.5"/>
+<cloudiness id="NN" percent="91.2"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="91.2"/>
+<dewpointTemperature id="TD" unit="celsius" value="4.0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T22:00:00Z" to="2021-05-30T23:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_night"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T17:00:00Z" to="2021-05-30T23:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="9.9"/>
+<maxTemperature id="TTT" unit="celsius" value="15.6"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_night"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T00:00:00Z" to="2021-05-31T00:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="9.4"/>
+<windDirection id="dd" deg="205.8" name="SW"/>
+<windSpeed id="ff" mps="3.1" beaufort="2" name="Svak vind"/>
+<windGust id="ff_gust" mps="4.3"/>
+<humidity unit="percent" value="66.3"/>
+<pressure id="pr" unit="hPa" value="1024.2"/>
+<cloudiness id="NN" percent="88.8"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="88.8"/>
+<temperatureProbability unit="probabilitycode" value="0"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="3.4"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T23:00:00Z" to="2021-05-31T00:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_night"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T18:00:00Z" to="2021-05-31T00:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="9.4"/>
+<maxTemperature id="TTT" unit="celsius" value="14.3"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_night"/>
+<symbolProbability unit="probabilitycode" value="0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T01:00:00Z" to="2021-05-31T01:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="9.1"/>
+<windDirection id="dd" deg="202.9" name="SW"/>
+<windSpeed id="ff" mps="3.5" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="4.8"/>
+<humidity unit="percent" value="68.6"/>
+<pressure id="pr" unit="hPa" value="1023.8"/>
+<cloudiness id="NN" percent="92.7"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="92.7"/>
+<dewpointTemperature id="TD" unit="celsius" value="3.5"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T00:00:00Z" to="2021-05-31T01:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_night"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T19:00:00Z" to="2021-05-31T01:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="9.1"/>
+<maxTemperature id="TTT" unit="celsius" value="13.0"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_night"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T02:00:00Z" to="2021-05-31T02:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="9.4"/>
+<windDirection id="dd" deg="210.2" name="SW"/>
+<windSpeed id="ff" mps="3.9" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="5.5"/>
+<humidity unit="percent" value="66.1"/>
+<pressure id="pr" unit="hPa" value="1023.1"/>
+<cloudiness id="NN" percent="93.4"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="7.1"/>
+<mediumClouds id="MEDIUM" percent="0.1"/>
+<highClouds id="HIGH" percent="93.3"/>
+<dewpointTemperature id="TD" unit="celsius" value="3.3"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T01:00:00Z" to="2021-05-31T02:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T20:00:00Z" to="2021-05-31T02:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="9.1"/>
+<maxTemperature id="TTT" unit="celsius" value="11.8"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_night"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T03:00:00Z" to="2021-05-31T03:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="10.5"/>
+<windDirection id="dd" deg="219.6" name="SW"/>
+<windSpeed id="ff" mps="4.4" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="6.6"/>
+<humidity unit="percent" value="56.1"/>
+<pressure id="pr" unit="hPa" value="1022.3"/>
+<cloudiness id="NN" percent="98.1"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="11.0"/>
+<mediumClouds id="MEDIUM" percent="2.6"/>
+<highClouds id="HIGH" percent="97.9"/>
+<dewpointTemperature id="TD" unit="celsius" value="2.0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T02:00:00Z" to="2021-05-31T03:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T21:00:00Z" to="2021-05-31T03:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="9.1"/>
+<maxTemperature id="TTT" unit="celsius" value="10.7"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_night"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T04:00:00Z" to="2021-05-31T04:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="11.6"/>
+<windDirection id="dd" deg="226.7" name="SW"/>
+<windSpeed id="ff" mps="5.0" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="7.5"/>
+<humidity unit="percent" value="49.1"/>
+<pressure id="pr" unit="hPa" value="1021.6"/>
+<cloudiness id="NN" percent="99.9"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.4"/>
+<mediumClouds id="MEDIUM" percent="13.4"/>
+<highClouds id="HIGH" percent="99.8"/>
+<dewpointTemperature id="TD" unit="celsius" value="1.1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T03:00:00Z" to="2021-05-31T04:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T22:00:00Z" to="2021-05-31T04:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="9.1"/>
+<maxTemperature id="TTT" unit="celsius" value="11.6"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_night"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T05:00:00Z" to="2021-05-31T05:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="12.3"/>
+<windDirection id="dd" deg="234.2" name="SW"/>
+<windSpeed id="ff" mps="5.0" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="7.9"/>
+<humidity unit="percent" value="47.3"/>
+<pressure id="pr" unit="hPa" value="1021.1"/>
+<cloudiness id="NN" percent="100.0"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="31.5"/>
+<highClouds id="HIGH" percent="100.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="1.3"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T04:00:00Z" to="2021-05-31T05:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-30T23:00:00Z" to="2021-05-31T05:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="9.1"/>
+<maxTemperature id="TTT" unit="celsius" value="12.3"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T06:00:00Z" to="2021-05-31T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="12.8"/>
+<windDirection id="dd" deg="234.0" name="SW"/>
+<windSpeed id="ff" mps="4.9" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="7.7"/>
+<humidity unit="percent" value="49.8"/>
+<pressure id="pr" unit="hPa" value="1020.4"/>
+<cloudiness id="NN" percent="100.0"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="63.4"/>
+<highClouds id="HIGH" percent="100.0"/>
+<temperatureProbability unit="probabilitycode" value="0"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="2.5"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T05:00:00Z" to="2021-05-31T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T00:00:00Z" to="2021-05-31T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="9.1"/>
+<maxTemperature id="TTT" unit="celsius" value="12.8"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+<symbolProbability unit="probabilitycode" value="0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T07:00:00Z" to="2021-05-31T07:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="12.9"/>
+<windDirection id="dd" deg="237.8" name="SW"/>
+<windSpeed id="ff" mps="5.4" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="8.5"/>
+<humidity unit="percent" value="53.7"/>
+<pressure id="pr" unit="hPa" value="1019.8"/>
+<cloudiness id="NN" percent="100.0"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="97.5"/>
+<highClouds id="HIGH" percent="100.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="3.6"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T06:00:00Z" to="2021-05-31T07:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T01:00:00Z" to="2021-05-31T07:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="9.4"/>
+<maxTemperature id="TTT" unit="celsius" value="12.9"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T08:00:00Z" to="2021-05-31T08:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="12.6"/>
+<windDirection id="dd" deg="264.9" name="W"/>
+<windSpeed id="ff" mps="4.9" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="8.6"/>
+<humidity unit="percent" value="62.0"/>
+<pressure id="pr" unit="hPa" value="1019.8"/>
+<cloudiness id="NN" percent="100.0"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.2"/>
+<mediumClouds id="MEDIUM" percent="100.0"/>
+<highClouds id="HIGH" percent="100.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="5.5"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T07:00:00Z" to="2021-05-31T08:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T02:00:00Z" to="2021-05-31T08:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="10.5"/>
+<maxTemperature id="TTT" unit="celsius" value="12.9"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T09:00:00Z" to="2021-05-31T09:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="12.2"/>
+<windDirection id="dd" deg="257.8" name="W"/>
+<windSpeed id="ff" mps="3.6" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="7.7"/>
+<humidity unit="percent" value="66.7"/>
+<pressure id="pr" unit="hPa" value="1019.6"/>
+<cloudiness id="NN" percent="92.4"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="2.5"/>
+<mediumClouds id="MEDIUM" percent="87.0"/>
+<highClouds id="HIGH" percent="80.2"/>
+<dewpointTemperature id="TD" unit="celsius" value="6.1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T08:00:00Z" to="2021-05-31T09:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T03:00:00Z" to="2021-05-31T09:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="11.6"/>
+<maxTemperature id="TTT" unit="celsius" value="12.9"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T10:00:00Z" to="2021-05-31T10:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="15.3"/>
+<windDirection id="dd" deg="256.0" name="W"/>
+<windSpeed id="ff" mps="3.8" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="7.0"/>
+<humidity unit="percent" value="61.1"/>
+<pressure id="pr" unit="hPa" value="1019.1"/>
+<cloudiness id="NN" percent="0.4"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.4"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="7.9"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T09:00:00Z" to="2021-05-31T10:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T04:00:00Z" to="2021-05-31T10:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="12.2"/>
+<maxTemperature id="TTT" unit="celsius" value="15.3"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T11:00:00Z" to="2021-05-31T11:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="18.6"/>
+<windDirection id="dd" deg="327.0" name="NW"/>
+<windSpeed id="ff" mps="4.7" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="8.6"/>
+<humidity unit="percent" value="52.6"/>
+<pressure id="pr" unit="hPa" value="1018.6"/>
+<cloudiness id="NN" percent="0.1"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="0.1"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="8.7"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T10:00:00Z" to="2021-05-31T11:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T05:00:00Z" to="2021-05-31T11:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="12.2"/>
+<maxTemperature id="TTT" unit="celsius" value="18.6"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T12:00:00Z" to="2021-05-31T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="19.9"/>
+<windDirection id="dd" deg="344.8" name="N"/>
+<windSpeed id="ff" mps="5.9" beaufort="4" name="Laber bris"/>
+<windGust id="ff_gust" mps="10.5"/>
+<humidity unit="percent" value="41.5"/>
+<pressure id="pr" unit="hPa" value="1017.8"/>
+<cloudiness id="NN" percent="17.2"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="16.9"/>
+<mediumClouds id="MEDIUM" percent="0.9"/>
+<highClouds id="HIGH" percent="0.0"/>
+<temperatureProbability unit="probabilitycode" value="1"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="6.4"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T11:00:00Z" to="2021-05-31T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="LightCloud" number="2" code="fair_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T06:00:00Z" to="2021-05-31T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="12.2"/>
+<maxTemperature id="TTT" unit="celsius" value="19.9"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+<symbolProbability unit="probabilitycode" value="0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T13:00:00Z" to="2021-05-31T13:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="19.8"/>
+<windDirection id="dd" deg="357.0" name="N"/>
+<windSpeed id="ff" mps="6.2" beaufort="4" name="Laber bris"/>
+<windGust id="ff_gust" mps="11.0"/>
+<humidity unit="percent" value="39.3"/>
+<pressure id="pr" unit="hPa" value="1017.3"/>
+<cloudiness id="NN" percent="33.0"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="12.9"/>
+<mediumClouds id="MEDIUM" percent="24.5"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="5.5"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T12:00:00Z" to="2021-05-31T13:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="LightCloud" number="2" code="fair_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T07:00:00Z" to="2021-05-31T13:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="12.2"/>
+<maxTemperature id="TTT" unit="celsius" value="19.9"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T14:00:00Z" to="2021-05-31T14:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="19.2"/>
+<windDirection id="dd" deg="1.3" name="N"/>
+<windSpeed id="ff" mps="6.3" beaufort="4" name="Laber bris"/>
+<windGust id="ff_gust" mps="10.7"/>
+<humidity unit="percent" value="39.7"/>
+<pressure id="pr" unit="hPa" value="1016.9"/>
+<cloudiness id="NN" percent="62.2"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="23.3"/>
+<mediumClouds id="MEDIUM" percent="48.7"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="5.2"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T13:00:00Z" to="2021-05-31T14:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T08:00:00Z" to="2021-05-31T14:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="12.2"/>
+<maxTemperature id="TTT" unit="celsius" value="19.9"/>
+<symbol id="LightCloud" number="2" code="fair_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T15:00:00Z" to="2021-05-31T15:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="18.7"/>
+<windDirection id="dd" deg="6.8" name="N"/>
+<windSpeed id="ff" mps="6.7" beaufort="4" name="Laber bris"/>
+<windGust id="ff_gust" mps="11.1"/>
+<humidity unit="percent" value="41.4"/>
+<pressure id="pr" unit="hPa" value="1016.9"/>
+<cloudiness id="NN" percent="69.5"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="45.3"/>
+<mediumClouds id="MEDIUM" percent="46.7"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="5.3"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T14:00:00Z" to="2021-05-31T15:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T09:00:00Z" to="2021-05-31T15:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="15.3"/>
+<maxTemperature id="TTT" unit="celsius" value="19.9"/>
+<symbol id="LightCloud" number="2" code="fair_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T16:00:00Z" to="2021-05-31T16:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="17.9"/>
+<windDirection id="dd" deg="16.0" name="N"/>
+<windSpeed id="ff" mps="6.4" beaufort="4" name="Laber bris"/>
+<windGust id="ff_gust" mps="11.1"/>
+<humidity unit="percent" value="44.5"/>
+<pressure id="pr" unit="hPa" value="1017.3"/>
+<cloudiness id="NN" percent="68.9"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="57.8"/>
+<mediumClouds id="MEDIUM" percent="36.2"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="5.6"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T15:00:00Z" to="2021-05-31T16:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T10:00:00Z" to="2021-05-31T16:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="17.9"/>
+<maxTemperature id="TTT" unit="celsius" value="19.9"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T17:00:00Z" to="2021-05-31T17:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="16.9"/>
+<windDirection id="dd" deg="23.6" name="NE"/>
+<windSpeed id="ff" mps="6.4" beaufort="4" name="Laber bris"/>
+<windGust id="ff_gust" mps="10.4"/>
+<humidity unit="percent" value="46.4"/>
+<pressure id="pr" unit="hPa" value="1017.7"/>
+<cloudiness id="NN" percent="74.1"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="71.0"/>
+<mediumClouds id="MEDIUM" percent="32.6"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="5.3"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T16:00:00Z" to="2021-05-31T17:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T11:00:00Z" to="2021-05-31T17:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="16.9"/>
+<maxTemperature id="TTT" unit="celsius" value="19.9"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T18:00:00Z" to="2021-05-31T18:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="15.9"/>
+<windDirection id="dd" deg="28.1" name="NE"/>
+<windSpeed id="ff" mps="5.7" beaufort="4" name="Laber bris"/>
+<windGust id="ff_gust" mps="10.2"/>
+<humidity unit="percent" value="50.2"/>
+<pressure id="pr" unit="hPa" value="1018.1"/>
+<cloudiness id="NN" percent="80.5"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="76.6"/>
+<mediumClouds id="MEDIUM" percent="60.9"/>
+<highClouds id="HIGH" percent="0.0"/>
+<temperatureProbability unit="probabilitycode" value="1"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="5.5"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T17:00:00Z" to="2021-05-31T18:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T12:00:00Z" to="2021-05-31T18:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="15.9"/>
+<maxTemperature id="TTT" unit="celsius" value="19.8"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+<symbolProbability unit="probabilitycode" value="1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T19:00:00Z" to="2021-05-31T19:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="14.9"/>
+<windDirection id="dd" deg="50.0" name="NE"/>
+<windSpeed id="ff" mps="4.8" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="9.3"/>
+<humidity unit="percent" value="55.2"/>
+<pressure id="pr" unit="hPa" value="1018.6"/>
+<cloudiness id="NN" percent="79.2"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="60.4"/>
+<mediumClouds id="MEDIUM" percent="53.5"/>
+<highClouds id="HIGH" percent="0.1"/>
+<dewpointTemperature id="TD" unit="celsius" value="6.0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T18:00:00Z" to="2021-05-31T19:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T13:00:00Z" to="2021-05-31T19:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="14.9"/>
+<maxTemperature id="TTT" unit="celsius" value="19.2"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T20:00:00Z" to="2021-05-31T20:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="13.9"/>
+<windDirection id="dd" deg="53.0" name="NE"/>
+<windSpeed id="ff" mps="5.2" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="8.8"/>
+<humidity unit="percent" value="59.8"/>
+<pressure id="pr" unit="hPa" value="1019.2"/>
+<cloudiness id="NN" percent="88.7"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="73.4"/>
+<mediumClouds id="MEDIUM" percent="58.6"/>
+<highClouds id="HIGH" percent="23.5"/>
+<dewpointTemperature id="TD" unit="celsius" value="6.2"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T19:00:00Z" to="2021-05-31T20:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T14:00:00Z" to="2021-05-31T20:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="13.9"/>
+<maxTemperature id="TTT" unit="celsius" value="18.7"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T21:00:00Z" to="2021-05-31T21:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="13.4"/>
+<windDirection id="dd" deg="51.4" name="NE"/>
+<windSpeed id="ff" mps="4.7" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="7.7"/>
+<humidity unit="percent" value="63.4"/>
+<pressure id="pr" unit="hPa" value="1019.6"/>
+<cloudiness id="NN" percent="72.3"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="32.2"/>
+<mediumClouds id="MEDIUM" percent="19.3"/>
+<highClouds id="HIGH" percent="51.3"/>
+<dewpointTemperature id="TD" unit="celsius" value="6.5"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T20:00:00Z" to="2021-05-31T21:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_night"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T15:00:00Z" to="2021-05-31T21:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="13.4"/>
+<maxTemperature id="TTT" unit="celsius" value="17.9"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T22:00:00Z" to="2021-05-31T22:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="12.2"/>
+<windDirection id="dd" deg="37.4" name="NE"/>
+<windSpeed id="ff" mps="4.0" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="7.1"/>
+<humidity unit="percent" value="66.2"/>
+<pressure id="pr" unit="hPa" value="1020.0"/>
+<cloudiness id="NN" percent="20.1"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="9.0"/>
+<mediumClouds id="MEDIUM" percent="0.4"/>
+<highClouds id="HIGH" percent="13.5"/>
+<dewpointTemperature id="TD" unit="celsius" value="6.0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T21:00:00Z" to="2021-05-31T22:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="LightCloud" number="2" code="fair_night"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T16:00:00Z" to="2021-05-31T22:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="12.2"/>
+<maxTemperature id="TTT" unit="celsius" value="16.9"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T23:00:00Z" to="2021-05-31T23:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="11.3"/>
+<windDirection id="dd" deg="29.5" name="NE"/>
+<windSpeed id="ff" mps="3.6" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="5.7"/>
+<humidity unit="percent" value="71.7"/>
+<pressure id="pr" unit="hPa" value="1020.3"/>
+<cloudiness id="NN" percent="15.1"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="13.4"/>
+<mediumClouds id="MEDIUM" percent="1.8"/>
+<highClouds id="HIGH" percent="0.1"/>
+<dewpointTemperature id="TD" unit="celsius" value="6.3"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T22:00:00Z" to="2021-05-31T23:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="LightCloud" number="2" code="fair_night"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T17:00:00Z" to="2021-05-31T23:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="11.3"/>
+<maxTemperature id="TTT" unit="celsius" value="15.9"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_night"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T00:00:00Z" to="2021-06-01T00:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="10.5"/>
+<windDirection id="dd" deg="22.9" name="NE"/>
+<windSpeed id="ff" mps="3.6" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="5.2"/>
+<humidity unit="percent" value="76.5"/>
+<pressure id="pr" unit="hPa" value="1020.6"/>
+<cloudiness id="NN" percent="12.8"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="5.4"/>
+<mediumClouds id="MEDIUM" percent="8.4"/>
+<highClouds id="HIGH" percent="0.0"/>
+<temperatureProbability unit="probabilitycode" value="0"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="6.5"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T23:00:00Z" to="2021-06-01T00:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Sun" number="1" code="clearsky_night"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T18:00:00Z" to="2021-06-01T00:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="10.5"/>
+<maxTemperature id="TTT" unit="celsius" value="14.9"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_night"/>
+<symbolProbability unit="probabilitycode" value="0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T01:00:00Z" to="2021-06-01T01:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="9.7"/>
+<windDirection id="dd" deg="24.7" name="NE"/>
+<windSpeed id="ff" mps="3.9" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="5.6"/>
+<humidity unit="percent" value="78.8"/>
+<pressure id="pr" unit="hPa" value="1021.0"/>
+<cloudiness id="NN" percent="16.6"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="16.3"/>
+<mediumClouds id="MEDIUM" percent="0.3"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="6.1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T00:00:00Z" to="2021-06-01T01:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="LightCloud" number="2" code="fair_night"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T19:00:00Z" to="2021-06-01T01:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="9.7"/>
+<maxTemperature id="TTT" unit="celsius" value="13.9"/>
+<symbol id="LightCloud" number="2" code="fair_night"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T02:00:00Z" to="2021-06-01T02:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="9.4"/>
+<windDirection id="dd" deg="35.8" name="NE"/>
+<windSpeed id="ff" mps="4.5" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="6.6"/>
+<humidity unit="percent" value="79.3"/>
+<pressure id="pr" unit="hPa" value="1021.5"/>
+<cloudiness id="NN" percent="10.1"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="10.1"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="5.9"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T01:00:00Z" to="2021-06-01T02:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T20:00:00Z" to="2021-06-01T02:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="9.4"/>
+<maxTemperature id="TTT" unit="celsius" value="13.4"/>
+<symbol id="LightCloud" number="2" code="fair_night"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T03:00:00Z" to="2021-06-01T03:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="9.4"/>
+<windDirection id="dd" deg="33.7" name="NE"/>
+<windSpeed id="ff" mps="4.2" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="6.7"/>
+<humidity unit="percent" value="80.4"/>
+<pressure id="pr" unit="hPa" value="1021.9"/>
+<cloudiness id="NN" percent="21.2"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="21.3"/>
+<mediumClouds id="MEDIUM" percent="0.1"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="6.2"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T02:00:00Z" to="2021-06-01T03:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="LightCloud" number="2" code="fair_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T21:00:00Z" to="2021-06-01T03:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="9.4"/>
+<maxTemperature id="TTT" unit="celsius" value="12.2"/>
+<symbol id="LightCloud" number="2" code="fair_night"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T04:00:00Z" to="2021-06-01T04:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="10.2"/>
+<windDirection id="dd" deg="49.3" name="NE"/>
+<windSpeed id="ff" mps="4.6" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="7.2"/>
+<humidity unit="percent" value="78.6"/>
+<pressure id="pr" unit="hPa" value="1022.3"/>
+<cloudiness id="NN" percent="33.1"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="33.1"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="6.6"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T03:00:00Z" to="2021-06-01T04:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="LightCloud" number="2" code="fair_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T22:00:00Z" to="2021-06-01T04:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="9.4"/>
+<maxTemperature id="TTT" unit="celsius" value="11.3"/>
+<symbol id="LightCloud" number="2" code="fair_night"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T05:00:00Z" to="2021-06-01T05:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="11.8"/>
+<windDirection id="dd" deg="63.3" name="NE"/>
+<windSpeed id="ff" mps="5.3" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="8.6"/>
+<humidity unit="percent" value="74.5"/>
+<pressure id="pr" unit="hPa" value="1022.6"/>
+<cloudiness id="NN" percent="67.2"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="67.3"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="7.4"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T04:00:00Z" to="2021-06-01T05:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-05-31T23:00:00Z" to="2021-06-01T05:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="9.4"/>
+<maxTemperature id="TTT" unit="celsius" value="11.8"/>
+<symbol id="LightCloud" number="2" code="fair_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T06:00:00Z" to="2021-06-01T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="12.3"/>
+<windDirection id="dd" deg="73.7" name="E"/>
+<windSpeed id="ff" mps="5.1" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="8.9"/>
+<humidity unit="percent" value="72.1"/>
+<pressure id="pr" unit="hPa" value="1023.2"/>
+<cloudiness id="NN" percent="92.2"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="92.2"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="0.0"/>
+<temperatureProbability unit="probabilitycode" value="0"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="7.4"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T05:00:00Z" to="2021-06-01T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T00:00:00Z" to="2021-06-01T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="9.4"/>
+<maxTemperature id="TTT" unit="celsius" value="12.3"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+<symbolProbability unit="probabilitycode" value="1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T07:00:00Z" to="2021-06-01T07:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="13.0"/>
+<windDirection id="dd" deg="72.9" name="E"/>
+<windSpeed id="ff" mps="5.2" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="8.6"/>
+<humidity unit="percent" value="69.8"/>
+<pressure id="pr" unit="hPa" value="1023.9"/>
+<cloudiness id="NN" percent="95.9"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="96.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="0.0"/>
+<dewpointTemperature id="TD" unit="celsius" value="7.6"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T06:00:00Z" to="2021-06-01T07:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T01:00:00Z" to="2021-06-01T07:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="9.4"/>
+<maxTemperature id="TTT" unit="celsius" value="13.0"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T08:00:00Z" to="2021-06-01T08:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="12.6"/>
+<windDirection id="dd" deg="88.9" name="E"/>
+<windSpeed id="ff" mps="4.7" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="8.6"/>
+<humidity unit="percent" value="69.8"/>
+<pressure id="pr" unit="hPa" value="1024.5"/>
+<cloudiness id="NN" percent="99.3"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="99.3"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="0.5"/>
+<dewpointTemperature id="TD" unit="celsius" value="7.2"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T07:00:00Z" to="2021-06-01T08:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T02:00:00Z" to="2021-06-01T08:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="9.4"/>
+<maxTemperature id="TTT" unit="celsius" value="13.0"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T09:00:00Z" to="2021-06-01T09:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="13.5"/>
+<windDirection id="dd" deg="91.6" name="E"/>
+<windSpeed id="ff" mps="4.7" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="8.0"/>
+<humidity unit="percent" value="68.0"/>
+<pressure id="pr" unit="hPa" value="1025.0"/>
+<cloudiness id="NN" percent="93.9"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="93.7"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="3.9"/>
+<dewpointTemperature id="TD" unit="celsius" value="7.7"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T08:00:00Z" to="2021-06-01T09:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T03:00:00Z" to="2021-06-01T09:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="10.2"/>
+<maxTemperature id="TTT" unit="celsius" value="13.5"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T10:00:00Z" to="2021-06-01T10:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="14.5"/>
+<windDirection id="dd" deg="92.5" name="E"/>
+<windSpeed id="ff" mps="4.1" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="8.0"/>
+<humidity unit="percent" value="63.2"/>
+<pressure id="pr" unit="hPa" value="1025.4"/>
+<cloudiness id="NN" percent="96.6"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="95.4"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="18.1"/>
+<dewpointTemperature id="TD" unit="celsius" value="7.6"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T09:00:00Z" to="2021-06-01T10:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T04:00:00Z" to="2021-06-01T10:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="11.8"/>
+<maxTemperature id="TTT" unit="celsius" value="14.5"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T11:00:00Z" to="2021-06-01T11:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="14.2"/>
+<windDirection id="dd" deg="87.6" name="E"/>
+<windSpeed id="ff" mps="3.6" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="7.2"/>
+<humidity unit="percent" value="62.7"/>
+<pressure id="pr" unit="hPa" value="1025.9"/>
+<cloudiness id="NN" percent="92.0"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="79.1"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="38.1"/>
+<dewpointTemperature id="TD" unit="celsius" value="7.1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T10:00:00Z" to="2021-06-01T11:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T05:00:00Z" to="2021-06-01T11:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="12.3"/>
+<maxTemperature id="TTT" unit="celsius" value="14.5"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T12:00:00Z" to="2021-06-01T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="15.5"/>
+<windDirection id="dd" deg="70.8" name="E"/>
+<windSpeed id="ff" mps="3.5" beaufort="3" name="Lett bris"/>
+<windGust id="ff_gust" mps="6.4"/>
+<humidity unit="percent" value="58.3"/>
+<pressure id="pr" unit="hPa" value="1026.2"/>
+<cloudiness id="NN" percent="92.4"/>
+<fog id="FOG" percent="0.0"/>
+<lowClouds id="LOW" percent="90.3"/>
+<mediumClouds id="MEDIUM" percent="0.5"/>
+<highClouds id="HIGH" percent="12.3"/>
+<temperatureProbability unit="probabilitycode" value="0"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="7.3"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T11:00:00Z" to="2021-06-01T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T06:00:00Z" to="2021-06-01T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="12.6"/>
+<maxTemperature id="TTT" unit="celsius" value="15.5"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+<symbolProbability unit="probabilitycode" value="0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T18:00:00Z" to="2021-06-01T18:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="16.5"/>
+<windDirection id="dd" deg="293.6" name="NW"/>
+<windSpeed id="ff" mps="1.0" beaufort="1" name="Flau vind"/>
+<humidity unit="percent" value="71.9"/>
+<pressure id="pr" unit="hPa" value="1026.9"/>
+<cloudiness id="NN" percent="93.0"/>
+<lowClouds id="LOW" percent="80.5"/>
+<mediumClouds id="MEDIUM" percent="39.8"/>
+<highClouds id="HIGH" percent="25.0"/>
+<temperatureProbability unit="probabilitycode" value="0"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="11.6"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T12:00:00Z" to="2021-06-01T18:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="16.5"/>
+<maxTemperature id="TTT" unit="celsius" value="18.1"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+<symbolProbability unit="probabilitycode" value="0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-02T00:00:00Z" to="2021-06-02T00:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="10.8"/>
+<windDirection id="dd" deg="80.5" name="E"/>
+<windSpeed id="ff" mps="1.0" beaufort="1" name="Flau vind"/>
+<humidity unit="percent" value="90.0"/>
+<pressure id="pr" unit="hPa" value="1029.4"/>
+<cloudiness id="NN" percent="55.5"/>
+<lowClouds id="LOW" percent="25.8"/>
+<mediumClouds id="MEDIUM" percent="9.4"/>
+<highClouds id="HIGH" percent="1.6"/>
+<temperatureProbability unit="probabilitycode" value="1"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="9.2"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-01T18:00:00Z" to="2021-06-02T00:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="10.8"/>
+<maxTemperature id="TTT" unit="celsius" value="15.2"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_night"/>
+<symbolProbability unit="probabilitycode" value="0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-02T06:00:00Z" to="2021-06-02T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="15.1"/>
+<windDirection id="dd" deg="358.5" name="N"/>
+<windSpeed id="ff" mps="1.1" beaufort="1" name="Flau vind"/>
+<humidity unit="percent" value="65.6"/>
+<pressure id="pr" unit="hPa" value="1030.6"/>
+<cloudiness id="NN" percent="58.6"/>
+<lowClouds id="LOW" percent="11.7"/>
+<mediumClouds id="MEDIUM" percent="29.3"/>
+<highClouds id="HIGH" percent="0.0"/>
+<temperatureProbability unit="probabilitycode" value="0"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="9.1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-02T00:00:00Z" to="2021-06-02T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="10.2"/>
+<maxTemperature id="TTT" unit="celsius" value="15.1"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+<symbolProbability unit="probabilitycode" value="0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-02T12:00:00Z" to="2021-06-02T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="19.6"/>
+<windDirection id="dd" deg="324.5" name="NW"/>
+<windSpeed id="ff" mps="1.5" beaufort="1" name="Flau vind"/>
+<humidity unit="percent" value="52.5"/>
+<pressure id="pr" unit="hPa" value="1031.3"/>
+<cloudiness id="NN" percent="98.0"/>
+<lowClouds id="LOW" percent="55.5"/>
+<mediumClouds id="MEDIUM" percent="94.1"/>
+<highClouds id="HIGH" percent="0.0"/>
+<temperatureProbability unit="probabilitycode" value="1"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="10.7"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-02T06:00:00Z" to="2021-06-02T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="16.8"/>
+<maxTemperature id="TTT" unit="celsius" value="20.2"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+<symbolProbability unit="probabilitycode" value="0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-02T18:00:00Z" to="2021-06-02T18:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="17.4"/>
+<windDirection id="dd" deg="208.4" name="SW"/>
+<windSpeed id="ff" mps="1.1" beaufort="1" name="Flau vind"/>
+<humidity unit="percent" value="70.9"/>
+<pressure id="pr" unit="hPa" value="1031.4"/>
+<cloudiness id="NN" percent="68.4"/>
+<lowClouds id="LOW" percent="11.7"/>
+<mediumClouds id="MEDIUM" percent="58.6"/>
+<highClouds id="HIGH" percent="0.0"/>
+<temperatureProbability unit="probabilitycode" value="0"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="12.1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-02T12:00:00Z" to="2021-06-02T18:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="17.4"/>
+<maxTemperature id="TTT" unit="celsius" value="19.8"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+<symbolProbability unit="probabilitycode" value="0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-03T00:00:00Z" to="2021-06-03T00:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="11.8"/>
+<windDirection id="dd" deg="94.8" name="E"/>
+<windSpeed id="ff" mps="1.2" beaufort="1" name="Flau vind"/>
+<humidity unit="percent" value="86.9"/>
+<pressure id="pr" unit="hPa" value="1032.8"/>
+<cloudiness id="NN" percent="80.5"/>
+<lowClouds id="LOW" percent="8.2"/>
+<mediumClouds id="MEDIUM" percent="59.4"/>
+<highClouds id="HIGH" percent="0.8"/>
+<temperatureProbability unit="probabilitycode" value="1"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="9.6"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-02T18:00:00Z" to="2021-06-03T00:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="11.7"/>
+<maxTemperature id="TTT" unit="celsius" value="16.2"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_night"/>
+<symbolProbability unit="probabilitycode" value="0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-03T06:00:00Z" to="2021-06-03T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="15.5"/>
+<windDirection id="dd" deg="347.5" name="N"/>
+<windSpeed id="ff" mps="1.3" beaufort="1" name="Flau vind"/>
+<humidity unit="percent" value="63.7"/>
+<pressure id="pr" unit="hPa" value="1033.2"/>
+<cloudiness id="NN" percent="67.2"/>
+<lowClouds id="LOW" percent="3.9"/>
+<mediumClouds id="MEDIUM" percent="43.0"/>
+<highClouds id="HIGH" percent="0.0"/>
+<temperatureProbability unit="probabilitycode" value="0"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="8.9"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-03T00:00:00Z" to="2021-06-03T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="11.1"/>
+<maxTemperature id="TTT" unit="celsius" value="15.5"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+<symbolProbability unit="probabilitycode" value="0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-03T12:00:00Z" to="2021-06-03T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="21.0"/>
+<windDirection id="dd" deg="212.2" name="SW"/>
+<windSpeed id="ff" mps="1.9" beaufort="2" name="Svak vind"/>
+<humidity unit="percent" value="48.0"/>
+<pressure id="pr" unit="hPa" value="1032.5"/>
+<cloudiness id="NN" percent="96.1"/>
+<lowClouds id="LOW" percent="40.6"/>
+<mediumClouds id="MEDIUM" percent="83.6"/>
+<highClouds id="HIGH" percent="0.0"/>
+<temperatureProbability unit="probabilitycode" value="1"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="10.0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-03T06:00:00Z" to="2021-06-03T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="17.2"/>
+<maxTemperature id="TTT" unit="celsius" value="21.2"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+<symbolProbability unit="probabilitycode" value="0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-03T18:00:00Z" to="2021-06-03T18:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="17.7"/>
+<windDirection id="dd" deg="259.9" name="W"/>
+<windSpeed id="ff" mps="1.4" beaufort="1" name="Flau vind"/>
+<humidity unit="percent" value="68.0"/>
+<pressure id="pr" unit="hPa" value="1031.2"/>
+<cloudiness id="NN" percent="77.3"/>
+<lowClouds id="LOW" percent="6.6"/>
+<mediumClouds id="MEDIUM" percent="14.8"/>
+<highClouds id="HIGH" percent="40.6"/>
+<temperatureProbability unit="probabilitycode" value="1"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="11.6"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-03T12:00:00Z" to="2021-06-03T18:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="17.7"/>
+<maxTemperature id="TTT" unit="celsius" value="21.0"/>
+<symbol id="Cloud" number="4" code="cloudy"/>
+<symbolProbability unit="probabilitycode" value="0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-04T00:00:00Z" to="2021-06-04T00:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="11.2"/>
+<windDirection id="dd" deg="109.8" name="E"/>
+<windSpeed id="ff" mps="1.1" beaufort="1" name="Flau vind"/>
+<humidity unit="percent" value="88.6"/>
+<pressure id="pr" unit="hPa" value="1031.4"/>
+<cloudiness id="NN" percent="71.1"/>
+<lowClouds id="LOW" percent="4.7"/>
+<mediumClouds id="MEDIUM" percent="7.8"/>
+<highClouds id="HIGH" percent="57.0"/>
+<temperatureProbability unit="probabilitycode" value="1"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="9.3"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-03T18:00:00Z" to="2021-06-04T00:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="11.2"/>
+<maxTemperature id="TTT" unit="celsius" value="16.6"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_night"/>
+<symbolProbability unit="probabilitycode" value="1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-04T06:00:00Z" to="2021-06-04T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="15.7"/>
+<windDirection id="dd" deg="86.0" name="E"/>
+<windSpeed id="ff" mps="0.9" beaufort="1" name="Flau vind"/>
+<humidity unit="percent" value="63.6"/>
+<pressure id="pr" unit="hPa" value="1031.0"/>
+<cloudiness id="NN" percent="57.4"/>
+<lowClouds id="LOW" percent="5.5"/>
+<mediumClouds id="MEDIUM" percent="2.0"/>
+<highClouds id="HIGH" percent="34.4"/>
+<temperatureProbability unit="probabilitycode" value="1"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="9.1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-04T00:00:00Z" to="2021-06-04T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="10.3"/>
+<maxTemperature id="TTT" unit="celsius" value="15.7"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+<symbolProbability unit="probabilitycode" value="1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-04T12:00:00Z" to="2021-06-04T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="21.5"/>
+<windDirection id="dd" deg="259.3" name="W"/>
+<windSpeed id="ff" mps="2.3" beaufort="2" name="Svak vind"/>
+<humidity unit="percent" value="48.7"/>
+<pressure id="pr" unit="hPa" value="1029.4"/>
+<cloudiness id="NN" percent="93.0"/>
+<lowClouds id="LOW" percent="7.8"/>
+<mediumClouds id="MEDIUM" percent="50.0"/>
+<highClouds id="HIGH" percent="39.1"/>
+<temperatureProbability unit="probabilitycode" value="1"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="11.0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-04T06:00:00Z" to="2021-06-04T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="17.4"/>
+<maxTemperature id="TTT" unit="celsius" value="21.6"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+<symbolProbability unit="probabilitycode" value="1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-04T18:00:00Z" to="2021-06-04T18:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="18.0"/>
+<windDirection id="dd" deg="245.7" name="SW"/>
+<windSpeed id="ff" mps="1.6" beaufort="2" name="Svak vind"/>
+<humidity unit="percent" value="66.3"/>
+<pressure id="pr" unit="hPa" value="1027.6"/>
+<cloudiness id="NN" percent="56.2"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="21.1"/>
+<highClouds id="HIGH" percent="25.8"/>
+<temperatureProbability unit="probabilitycode" value="1"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="11.6"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-04T12:00:00Z" to="2021-06-04T18:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="18.0"/>
+<maxTemperature id="TTT" unit="celsius" value="21.2"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+<symbolProbability unit="probabilitycode" value="1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-05T00:00:00Z" to="2021-06-05T00:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="11.8"/>
+<windDirection id="dd" deg="59.1" name="NE"/>
+<windSpeed id="ff" mps="1.4" beaufort="1" name="Flau vind"/>
+<humidity unit="percent" value="87.3"/>
+<pressure id="pr" unit="hPa" value="1026.2"/>
+<cloudiness id="NN" percent="68.0"/>
+<lowClouds id="LOW" percent="2.3"/>
+<mediumClouds id="MEDIUM" percent="8.6"/>
+<highClouds id="HIGH" percent="3.9"/>
+<temperatureProbability unit="probabilitycode" value="1"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="9.6"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-04T18:00:00Z" to="2021-06-05T00:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="11.7"/>
+<maxTemperature id="TTT" unit="celsius" value="16.7"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_night"/>
+<symbolProbability unit="probabilitycode" value="1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-05T06:00:00Z" to="2021-06-05T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="16.3"/>
+<windDirection id="dd" deg="246.6" name="SW"/>
+<windSpeed id="ff" mps="1.4" beaufort="1" name="Flau vind"/>
+<humidity unit="percent" value="63.2"/>
+<pressure id="pr" unit="hPa" value="1025.2"/>
+<cloudiness id="NN" percent="50.4"/>
+<lowClouds id="LOW" percent="1.2"/>
+<mediumClouds id="MEDIUM" percent="7.4"/>
+<highClouds id="HIGH" percent="13.3"/>
+<temperatureProbability unit="probabilitycode" value="1"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="9.5"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-05T00:00:00Z" to="2021-06-05T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="11.2"/>
+<maxTemperature id="TTT" unit="celsius" value="16.3"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+<symbolProbability unit="probabilitycode" value="1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-05T12:00:00Z" to="2021-06-05T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="22.4"/>
+<windDirection id="dd" deg="186.1" name="S"/>
+<windSpeed id="ff" mps="2.8" beaufort="2" name="Svak vind"/>
+<humidity unit="percent" value="45.8"/>
+<pressure id="pr" unit="hPa" value="1024.0"/>
+<cloudiness id="NN" percent="71.1"/>
+<lowClouds id="LOW" percent="4.7"/>
+<mediumClouds id="MEDIUM" percent="47.7"/>
+<highClouds id="HIGH" percent="3.1"/>
+<temperatureProbability unit="probabilitycode" value="2"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="10.2"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-05T06:00:00Z" to="2021-06-05T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="18.4"/>
+<maxTemperature id="TTT" unit="celsius" value="22.5"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+<symbolProbability unit="probabilitycode" value="1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-05T18:00:00Z" to="2021-06-05T18:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="19.3"/>
+<windDirection id="dd" deg="295.9" name="NW"/>
+<windSpeed id="ff" mps="2.3" beaufort="2" name="Svak vind"/>
+<humidity unit="percent" value="61.4"/>
+<pressure id="pr" unit="hPa" value="1023.5"/>
+<cloudiness id="NN" percent="4.3"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="0.0"/>
+<temperatureProbability unit="probabilitycode" value="2"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="11.2"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-05T12:00:00Z" to="2021-06-05T18:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="19.3"/>
+<maxTemperature id="TTT" unit="celsius" value="23.0"/>
+<symbol id="LightCloud" number="2" code="fair_day"/>
+<symbolProbability unit="probabilitycode" value="1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-06T00:00:00Z" to="2021-06-06T00:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="11.9"/>
+<windDirection id="dd" deg="234.3" name="SW"/>
+<windSpeed id="ff" mps="1.7" beaufort="2" name="Svak vind"/>
+<humidity unit="percent" value="86.2"/>
+<pressure id="pr" unit="hPa" value="1023.5"/>
+<cloudiness id="NN" percent="43.4"/>
+<lowClouds id="LOW" percent="2.7"/>
+<mediumClouds id="MEDIUM" percent="18.7"/>
+<highClouds id="HIGH" percent="0.0"/>
+<temperatureProbability unit="probabilitycode" value="2"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="9.8"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-05T18:00:00Z" to="2021-06-06T00:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="11.9"/>
+<maxTemperature id="TTT" unit="celsius" value="17.6"/>
+<symbol id="LightCloud" number="2" code="fair_night"/>
+<symbolProbability unit="probabilitycode" value="1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-06T06:00:00Z" to="2021-06-06T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="16.3"/>
+<windDirection id="dd" deg="343.8" name="N"/>
+<windSpeed id="ff" mps="1.6" beaufort="2" name="Svak vind"/>
+<humidity unit="percent" value="65.1"/>
+<pressure id="pr" unit="hPa" value="1022.4"/>
+<cloudiness id="NN" percent="40.6"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="5.1"/>
+<highClouds id="HIGH" percent="0.0"/>
+<temperatureProbability unit="probabilitycode" value="2"/>
+<windProbability unit="probabilitycode" value="1"/>
+<dewpointTemperature id="TD" unit="celsius" value="9.7"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-06T00:00:00Z" to="2021-06-06T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="11.3"/>
+<maxTemperature id="TTT" unit="celsius" value="16.3"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+<symbolProbability unit="probabilitycode" value="1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-06T12:00:00Z" to="2021-06-06T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="21.6"/>
+<windDirection id="dd" deg="233.1" name="SW"/>
+<windSpeed id="ff" mps="2.9" beaufort="2" name="Svak vind"/>
+<humidity unit="percent" value="46.0"/>
+<pressure id="pr" unit="hPa" value="1021.4"/>
+<cloudiness id="NN" percent="68.7"/>
+<lowClouds id="LOW" percent="6.2"/>
+<mediumClouds id="MEDIUM" percent="39.1"/>
+<highClouds id="HIGH" percent="0.0"/>
+<temperatureProbability unit="probabilitycode" value="2"/>
+<windProbability unit="probabilitycode" value="1"/>
+<dewpointTemperature id="TD" unit="celsius" value="9.4"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-06T06:00:00Z" to="2021-06-06T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="18.1"/>
+<maxTemperature id="TTT" unit="celsius" value="22.1"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+<symbolProbability unit="probabilitycode" value="1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-06T18:00:00Z" to="2021-06-06T18:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="19.1"/>
+<windDirection id="dd" deg="327.6" name="NW"/>
+<windSpeed id="ff" mps="1.7" beaufort="2" name="Svak vind"/>
+<humidity unit="percent" value="59.4"/>
+<pressure id="pr" unit="hPa" value="1020.5"/>
+<cloudiness id="NN" percent="3.9"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="1.6"/>
+<highClouds id="HIGH" percent="0.0"/>
+<temperatureProbability unit="probabilitycode" value="2"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="9.9"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-06T12:00:00Z" to="2021-06-06T18:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="19.1"/>
+<maxTemperature id="TTT" unit="celsius" value="22.7"/>
+<symbol id="LightCloud" number="2" code="fair_day"/>
+<symbolProbability unit="probabilitycode" value="1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-07T00:00:00Z" to="2021-06-07T00:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="12.3"/>
+<windDirection id="dd" deg="29.3" name="NE"/>
+<windSpeed id="ff" mps="1.5" beaufort="1" name="Flau vind"/>
+<humidity unit="percent" value="83.2"/>
+<pressure id="pr" unit="hPa" value="1019.2"/>
+<cloudiness id="NN" percent="59.8"/>
+<lowClouds id="LOW" percent="1.2"/>
+<mediumClouds id="MEDIUM" percent="9.4"/>
+<highClouds id="HIGH" percent="7.0"/>
+<temperatureProbability unit="probabilitycode" value="2"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="9.3"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-06T18:00:00Z" to="2021-06-07T00:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="12.3"/>
+<maxTemperature id="TTT" unit="celsius" value="16.8"/>
+<symbol id="LightCloud" number="2" code="fair_night"/>
+<symbolProbability unit="probabilitycode" value="1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-07T06:00:00Z" to="2021-06-07T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="17.0"/>
+<windDirection id="dd" deg="10.2" name="N"/>
+<windSpeed id="ff" mps="1.4" beaufort="1" name="Flau vind"/>
+<humidity unit="percent" value="58.7"/>
+<pressure id="pr" unit="hPa" value="1019.8"/>
+<cloudiness id="NN" percent="0.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="0.0"/>
+<temperatureProbability unit="probabilitycode" value="2"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="7.9"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-07T00:00:00Z" to="2021-06-07T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="11.4"/>
+<maxTemperature id="TTT" unit="celsius" value="17.0"/>
+<symbol id="LightCloud" number="2" code="fair_day"/>
+<symbolProbability unit="probabilitycode" value="1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-07T12:00:00Z" to="2021-06-07T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="22.9"/>
+<windDirection id="dd" deg="234.4" name="SW"/>
+<windSpeed id="ff" mps="3.4" beaufort="3" name="Lett bris"/>
+<humidity unit="percent" value="40.1"/>
+<pressure id="pr" unit="hPa" value="1019.1"/>
+<cloudiness id="NN" percent="0.4"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.0"/>
+<highClouds id="HIGH" percent="0.0"/>
+<temperatureProbability unit="probabilitycode" value="2"/>
+<windProbability unit="probabilitycode" value="1"/>
+<dewpointTemperature id="TD" unit="celsius" value="9.6"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-07T06:00:00Z" to="2021-06-07T12:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="18.3"/>
+<maxTemperature id="TTT" unit="celsius" value="23.0"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+<symbolProbability unit="probabilitycode" value="1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-07T18:00:00Z" to="2021-06-07T18:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="18.9"/>
+<windDirection id="dd" deg="53.2" name="NE"/>
+<windSpeed id="ff" mps="2.2" beaufort="2" name="Svak vind"/>
+<humidity unit="percent" value="59.7"/>
+<pressure id="pr" unit="hPa" value="1018.1"/>
+<cloudiness id="NN" percent="1.6"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="0.8"/>
+<highClouds id="HIGH" percent="0.0"/>
+<temperatureProbability unit="probabilitycode" value="2"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="10.7"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-07T12:00:00Z" to="2021-06-07T18:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="18.9"/>
+<maxTemperature id="TTT" unit="celsius" value="23.3"/>
+<symbol id="Sun" number="1" code="clearsky_day"/>
+<symbolProbability unit="probabilitycode" value="1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-08T00:00:00Z" to="2021-06-08T00:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="12.2"/>
+<windDirection id="dd" deg="223.7" name="SW"/>
+<windSpeed id="ff" mps="1.7" beaufort="2" name="Svak vind"/>
+<humidity unit="percent" value="87.8"/>
+<pressure id="pr" unit="hPa" value="1017.4"/>
+<cloudiness id="NN" percent="30.5"/>
+<lowClouds id="LOW" percent="0.8"/>
+<mediumClouds id="MEDIUM" percent="7.8"/>
+<highClouds id="HIGH" percent="9.4"/>
+<temperatureProbability unit="probabilitycode" value="1"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="10.0"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-07T18:00:00Z" to="2021-06-08T00:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="12.2"/>
+<maxTemperature id="TTT" unit="celsius" value="17.2"/>
+<symbol id="LightCloud" number="2" code="fair_night"/>
+<symbolProbability unit="probabilitycode" value="1"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-08T06:00:00Z" to="2021-06-08T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<temperature id="TTT" unit="celsius" value="16.5"/>
+<windDirection id="dd" deg="193.4" name="S"/>
+<windSpeed id="ff" mps="1.7" beaufort="2" name="Svak vind"/>
+<humidity unit="percent" value="62.9"/>
+<pressure id="pr" unit="hPa" value="1017.9"/>
+<cloudiness id="NN" percent="52.0"/>
+<lowClouds id="LOW" percent="0.0"/>
+<mediumClouds id="MEDIUM" percent="3.9"/>
+<highClouds id="HIGH" percent="24.6"/>
+<temperatureProbability unit="probabilitycode" value="2"/>
+<windProbability unit="probabilitycode" value="0"/>
+<dewpointTemperature id="TD" unit="celsius" value="9.5"/>
+</location>
+</time>
+<time datatype="forecast" from="2021-06-08T00:00:00Z" to="2021-06-08T06:00:00Z">
+<location altitude="29" latitude="60.4785" longitude="22.27094">
+<precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<minTemperature id="TTT" unit="celsius" value="11.5"/>
+<maxTemperature id="TTT" unit="celsius" value="16.5"/>
+<symbol id="PartlyCloud" number="3" code="partlycloudy_day"/>
+<symbolProbability unit="probabilitycode" value="1"/>
+</location>
+</time>
+</product>
+</weatherdata>
