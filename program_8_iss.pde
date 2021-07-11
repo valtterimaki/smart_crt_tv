@@ -11,6 +11,7 @@ class IssTracker {
   int last_update = 99;
   String condition;
   LocalDateTime next_sighting;
+  LocalDateTime current_time;
   int current_sighting_no;
 
   public IssTracker() {
@@ -42,7 +43,7 @@ class IssTracker {
 
   public void update() {
 
-    LocalDateTime current_time = LocalDateTime.now();
+    current_time = LocalDateTime.now();
 
     if (last_update != hour()) {
 
@@ -67,6 +68,9 @@ class IssTracker {
       }
     }
     next_sighting = parseData(current_sighting_no);
+    println("DIFFERENCE days" + localDateTimeDiff(current_time, next_sighting, "d"));
+    println("DIFFERENCE hrs" + localDateTimeDiff(current_time, next_sighting, "h"));
+    println("DIFFERENCE mins" + localDateTimeDiff(current_time, next_sighting, "m"));
     forecast_yr.update();
   }
 
@@ -83,7 +87,16 @@ class IssTracker {
 
   LocalDateTime parseData(int index) {
 
-    int corrected_hour = int(getData(index, "Time").substring(6,8));
+    int corrected_hour, corrected_minute;
+
+    if (getData(index, "Time").substring(7,8).equals(":")) {
+      corrected_hour = int(getData(index, "Time").substring(6,7));
+      corrected_minute = int(getData(index, "Time").substring(8,10));
+    } else {
+      corrected_hour = int(getData(index, "Time").substring(6,8));
+      corrected_minute = int(getData(index, "Time").substring(9,11));
+    }
+
     if (getData(index, "Time").substring(12,14).equals("PM")) {
       corrected_hour += 12;
     }
@@ -94,30 +107,47 @@ class IssTracker {
       int(getData(index, "raw_date").substring(5,7)),
       int(getData(index, "raw_date").substring(8,10)),
       corrected_hour,
-      int(getData(index, "Time").substring(9,11))
+      corrected_minute
     );
 
     println("parsetest !!! "+parsed_date);
     return parsed_date;
   }
 
+  String timeLeft() {
+    String result = "error";
+
+    if (localDateTimeDiff(current_time, next_sighting, "d") != 0) {
+      result = "In ~" + str(localDateTimeDiff(current_time, next_sighting, "d")) + " days";
+    }
+    if (localDateTimeDiff(current_time, next_sighting, "d") == 0 && localDateTimeDiff(current_time, next_sighting, "h") != 0) {
+      result = "In " + nf(localDateTimeDiff(current_time, next_sighting, "h")) + " hours and " + nf(localDateTimeDiff(current_time, next_sighting, "m")) + " minutes";
+    }
+    if (localDateTimeDiff(current_time, next_sighting, "d") == 0 && localDateTimeDiff(current_time, next_sighting, "h") == 0) {
+      result = "In " + nf(localDateTimeDiff(current_time, next_sighting, "m")) + " minutes";
+    }
+
+    return result;
+  }
+
   public void run() {
       textFont(aspace_thin);
       textSize(80);
-      text("ISS",                             64, height - 250);
+      text("ISS",                                               64, height - 250);
       textFont(bungee_regular);
       textSize(14);
     if (sightings.length > 0) {
-      text("Next sighting",                   64, height - 200);
+      text("Next sighting",                                     64, height - 200);
       text(getData(current_sighting_no, "Date"),                64, height - 160);
       text(getData(current_sighting_no, "Time"),                64, height - 140);
       text(getData(current_sighting_no, "Duration"),            64, height - 120);
       text(getData(current_sighting_no, "Maximum Elevation"),   64, height - 100);
       text(getData(current_sighting_no, "Approach"),            64, height - 80);
       text(getData(current_sighting_no, "Departure"),           64, height - 60);
-      text(condition,  64, height - 40);
+      text(condition,                                           64, height - 40);
+      text(timeLeft(),                                          64, 100);
     } else {
-      text("No sightings for some time now.", 64, height - 200);
+      text("No sightings for some time now.",                   64, height - 200);
     }
   }
 

@@ -402,6 +402,35 @@ void rectStriped(float x_pos, float y_pos, float x_dim_input, float y_dim_input,
 
   popMatrix();
 
-
-
 }
+
+int localDateTimeDiff(LocalDateTime from, LocalDateTime to, String type) {
+
+  LocalDateTime fromTemp = LocalDateTime.from(from);
+
+  long days = fromTemp.until(to, ChronoUnit.DAYS);
+  fromTemp = fromTemp.plusDays(days);
+
+  long hours = fromTemp.until(to, ChronoUnit.HOURS);
+  fromTemp = fromTemp.plusHours(hours);
+
+  long minutes = fromTemp.until(to, ChronoUnit.MINUTES);
+
+  if (type.equals("d")) {
+    return int(days);
+  }
+  if (type.equals("h")) {
+    return int(hours);
+  }
+  if (type.equals("m")) {
+    return int(minutes);
+  }
+
+  // 0 if something fails
+  return 0;
+}
+
+
+
+
+
