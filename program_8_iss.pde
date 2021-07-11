@@ -11,6 +11,7 @@ class IssTracker {
   int last_update = 99;
   String condition;
   LocalDateTime next_sighting;
+  int current_sighting_no;
 
   public IssTracker() {
     update();
@@ -40,13 +41,16 @@ class IssTracker {
   }
 
   public void update() {
+
+    LocalDateTime current_time = LocalDateTime.now();
+
     if (last_update != hour()) {
 
       reachable = checkConnection();
 
       if (reachable) {
-        //iss_data = loadXML(URL).getChild("channel");
-        iss_data = loadXML("iss_data_placeholder.xml").getChild("channel"); // test
+        iss_data = loadXML(URL).getChild("channel");
+        //iss_data = loadXML("iss_data_placeholder.xml").getChild("channel"); // test
         last_update = hour();
       } else {
         //////////// TODO make better placeholders here and for weather ///////////
@@ -55,9 +59,14 @@ class IssTracker {
       }
     }
     sightings = iss_data.getChildren("item");
-    next_sighting = parseData(0);
-    //condition = forecast_yr.findIssMatch();
-    //println("test " + condition);
+    println("TESSSS" + current_time);
+    for (int i = 0; i < sightings.length; ++i) {
+      if (current_time.compareTo(parseData(i)) < 0 ) {
+        current_sighting_no = i;
+        break;
+      }
+    }
+    next_sighting = parseData(current_sighting_no);
     forecast_yr.update();
   }
 
@@ -97,15 +106,15 @@ class IssTracker {
       textSize(80);
       text("ISS",                             64, height - 250);
       textFont(bungee_regular);
-      textSize(18);
+      textSize(14);
     if (sightings.length > 0) {
       text("Next sighting",                   64, height - 200);
-      text(getData(0, "Date"),                64, height - 160);
-      text(getData(0, "Time"),                64, height - 140);
-      text(getData(0, "Duration"),            64, height - 120);
-      text(getData(0, "Maximum Elevation"),   64, height - 100);
-      text(getData(0, "Approach"),            64, height - 80);
-      text(getData(0, "Departure"),           64, height - 60);
+      text(getData(current_sighting_no, "Date"),                64, height - 160);
+      text(getData(current_sighting_no, "Time"),                64, height - 140);
+      text(getData(current_sighting_no, "Duration"),            64, height - 120);
+      text(getData(current_sighting_no, "Maximum Elevation"),   64, height - 100);
+      text(getData(current_sighting_no, "Approach"),            64, height - 80);
+      text(getData(current_sighting_no, "Departure"),           64, height - 60);
       text(condition,  64, height - 40);
     } else {
       text("No sightings for some time now.", 64, height - 200);
