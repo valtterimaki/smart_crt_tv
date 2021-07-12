@@ -120,16 +120,20 @@ class IssTracker {
   }
 
   String timeLeft() {
-    String result = "error";
+    String result = "";
 
     if (localDateTimeDiff(current_time, next_sighting, "d") != 0) {
       result = "In about " + str(localDateTimeDiff(current_time, next_sighting, "d")) + " days";
     }
     if (localDateTimeDiff(current_time, next_sighting, "d") == 0 && localDateTimeDiff(current_time, next_sighting, "h") != 0) {
-      result = "In " + nf(localDateTimeDiff(current_time, next_sighting, "h")) + " hours and " + nf(localDateTimeDiff(current_time, next_sighting, "m")) + " minutes";
+      if (int(millis() / 500) % 4 != 0)  {
+        result = "In " + nf(localDateTimeDiff(current_time, next_sighting, "h")) + " hours and " + nf(localDateTimeDiff(current_time, next_sighting, "m")) + " minutes";
+      }
     }
     if (localDateTimeDiff(current_time, next_sighting, "d") == 0 && localDateTimeDiff(current_time, next_sighting, "h") == 0) {
-      result = "In " + nf(localDateTimeDiff(current_time, next_sighting, "m")) + " minutes";
+      if (int(millis() / 300) % 4 != 0)  {
+        result = "In " + nf(localDateTimeDiff(current_time, next_sighting, "m")) + " minutes";
+      }
     }
 
     return result;
@@ -165,7 +169,8 @@ class IssTracker {
       text(getData(current_sighting_no, "Departure"),           64, height - 80);
       text(condition,                                           64, height - 60);
       textSize(24);
-      text(timeLeft(),                                          64, 150);
+      text(timeLeft(),                                        64, 150);
+
     } else {
       text("No sightings for some time now.",                   64, height - 220);
     }
