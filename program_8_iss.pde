@@ -97,9 +97,14 @@ class IssTracker {
       corrected_minute = int(getData(index, "Time").substring(9,11));
     }
 
-    if (getData(index, "Time").substring(12,14).equals("PM")) {
+    if (getData(index, "Time").substring(12,14).equals("PM") || getData(index, "Time").substring(11,13).equals("PM")) {
       corrected_hour += 12;
     }
+    else if (corrected_hour == 12) {
+      corrected_hour = 0;
+    }
+
+
     if (corrected_hour == 24) { corrected_hour = 0; }
 
     LocalDateTime parsed_date = LocalDateTime.of(
@@ -118,7 +123,7 @@ class IssTracker {
     String result = "error";
 
     if (localDateTimeDiff(current_time, next_sighting, "d") != 0) {
-      result = "In ~" + str(localDateTimeDiff(current_time, next_sighting, "d")) + " days";
+      result = "In about " + str(localDateTimeDiff(current_time, next_sighting, "d")) + " days";
     }
     if (localDateTimeDiff(current_time, next_sighting, "d") == 0 && localDateTimeDiff(current_time, next_sighting, "h") != 0) {
       result = "In " + nf(localDateTimeDiff(current_time, next_sighting, "h")) + " hours and " + nf(localDateTimeDiff(current_time, next_sighting, "m")) + " minutes";
@@ -130,24 +135,39 @@ class IssTracker {
     return result;
   }
 
+  color timeLeftBackground() {
+    color result = color(0);
+
+    if (localDateTimeDiff(current_time, next_sighting, "d") == 0 && localDateTimeDiff(current_time, next_sighting, "h") != 0) {
+      result = color(30, 100, 200);
+    }
+    if (localDateTimeDiff(current_time, next_sighting, "d") == 0 && localDateTimeDiff(current_time, next_sighting, "h") == 0) {
+      result = color(60, 180, 110);
+    }
+
+    return result;
+  }
+
   public void run() {
+      background(timeLeftBackground());
       textFont(aspace_thin);
       textSize(80);
-      text("ISS",                                               64, height - 250);
+      text("ISS",                                               64, height - 270);
       textFont(bungee_regular);
       textSize(14);
     if (sightings.length > 0) {
-      text("Next sighting",                                     64, height - 200);
-      text(getData(current_sighting_no, "Date"),                64, height - 160);
-      text(getData(current_sighting_no, "Time"),                64, height - 140);
-      text(getData(current_sighting_no, "Duration"),            64, height - 120);
-      text(getData(current_sighting_no, "Maximum Elevation"),   64, height - 100);
-      text(getData(current_sighting_no, "Approach"),            64, height - 80);
-      text(getData(current_sighting_no, "Departure"),           64, height - 60);
-      text(condition,                                           64, height - 40);
-      text(timeLeft(),                                          64, 100);
+      text("Next sighting",                                     64, height - 220);
+      text(getData(current_sighting_no, "Date"),                64, height - 180);
+      text(getData(current_sighting_no, "Time"),                64, height - 160);
+      text(getData(current_sighting_no, "Duration"),            64, height - 140);
+      text(getData(current_sighting_no, "Maximum Elevation"),   64, height - 120);
+      text(getData(current_sighting_no, "Approach"),            64, height - 100);
+      text(getData(current_sighting_no, "Departure"),           64, height - 80);
+      text(condition,                                           64, height - 60);
+      textSize(24);
+      text(timeLeft(),                                          64, 150);
     } else {
-      text("No sightings for some time now.",                   64, height - 200);
+      text("No sightings for some time now.",                   64, height - 220);
     }
   }
 

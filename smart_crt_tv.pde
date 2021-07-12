@@ -397,6 +397,9 @@ void draw() {
     /////// draw here
     iss.run();
 
+    // static distortion effect
+    fxStatic();
+
     // end program after 5 seconds
     if (counter >= 14) {
       objWeathericon = null;
