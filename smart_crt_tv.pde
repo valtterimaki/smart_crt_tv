@@ -16,7 +16,7 @@ import java.time.temporal.ChronoUnit;
 
 // program number
 public int program_number = 0;
-public int[] program_cycle = new int[7];
+public int[] program_cycle = new int[8];
 public int program_cycle_counter = 0;
 
 // main counter variable that can be set inside programs
@@ -384,8 +384,6 @@ void draw() {
   // 8 is ISS
   if (program_number == 8) {
 
-    /* TODO remember to add weather update interval */
-
     // set of actions that happen in the start of the program
     if (program_started == true) {
       iss.update();
@@ -394,7 +392,7 @@ void draw() {
       program_started = false;
     }
 
-    /////// draw here
+    // draw here
     iss.run();
 
     // static distortion effect
