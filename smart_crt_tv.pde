@@ -75,7 +75,6 @@ void setup() {
   //fullScreen(P2D);  //use this in the actual build in the tv
   size(720, 576, P2D);
   smooth(1);
-  frameRate(50);
 
   // Creating always-on flash object
   objFlash1 = new ObjFlash(0.9, 0.9, 50);
@@ -114,6 +113,7 @@ void setup() {
   mplus_thin = createFont("MPLUSRounded1c-Thin.ttf", 128);
   mplus_regular = createFont("MPLUSRounded1c-Regular.ttf", 128);
 
+  frameRate(50);
 }
 
 
