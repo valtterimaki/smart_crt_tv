@@ -79,18 +79,21 @@ class ForecastYr {
     return result;
   }
 
-  void findIssMatch() {
+  int findIssMatch() {
     String result = "no result";
+    int number = 0;
     for (int i = 0; i < data_conditions.size(); ++i) {
       LocalDateTime compare_start = LocalDateTime.parse(data_conditions.get(i).getString("from").substring(0,16));
       LocalDateTime compare_end = LocalDateTime.parse(data_conditions.get(i).getString("to").substring(0,16));
       println(compare_start + " " + compare_end + " " + iss.next_sighting);
       if (( compare_start.compareTo(iss.next_sighting) < 0 && compare_end.compareTo(iss.next_sighting) > 0 ) || compare_start.compareTo(iss.next_sighting) == 0) {
         result = data_conditions.get(i).getChild("location").getChild("symbol").getString("code");
+        number = int(data_conditions.get(i).getChild("location").getChild("symbol").getString("number"));
         break;
       }
     }
     iss.condition = result;
+    return number;
   }
 
 }

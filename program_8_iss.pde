@@ -119,23 +119,72 @@ class IssTracker {
     return parsed_date;
   }
 
-  String timeLeft() {
-    String result = "";
-
+  int urgency() {
+    int result = 0;
     if (localDateTimeDiff(current_time, next_sighting, "d") != 0) {
-      result = "In about " + str(localDateTimeDiff(current_time, next_sighting, "d")) + " days";
+      result = 1;
     }
     if (localDateTimeDiff(current_time, next_sighting, "d") == 0 && localDateTimeDiff(current_time, next_sighting, "h") != 0) {
-      if (int(millis() / 500) % 4 != 0)  {
-        result = "In " + nf(localDateTimeDiff(current_time, next_sighting, "h")) + " hours and " + nf(localDateTimeDiff(current_time, next_sighting, "m")) + " minutes";
-      }
+      result = 2;
     }
     if (localDateTimeDiff(current_time, next_sighting, "d") == 0 && localDateTimeDiff(current_time, next_sighting, "h") == 0) {
-      if (int(millis() / 300) % 4 != 0)  {
-        result = "In " + nf(localDateTimeDiff(current_time, next_sighting, "m")) + " minutes";
-      }
+      result = 3;
+    }
+    return result;
+  }
+
+  String timeLeft() {
+    String result = "";
+    if (urgency() == 1) {
+      result = "In about " + str(localDateTimeDiff(current_time, next_sighting, "d")) + " days";
+    }
+    if (urgency() == 2) {
+      result = "In " + nf(localDateTimeDiff(current_time, next_sighting, "h")) + " hours and " + nf(localDateTimeDiff(current_time, next_sighting, "m")) + " minutes";
+    }
+    if (urgency() == 3) {
+      result = "In " + nf(localDateTimeDiff(current_time, next_sighting, "m")) + " minutes";
+    }
+    return result;
+  }
+
+  String likeliness() {
+    String result = "error";
+    switch (forecast_yr.findIssMatch()) {
+      case 1:
+      case 2:
+        result = "Likely visible";
+        break;
+      case 3:
+      case 41:
+      case 25:
+      case 43:
+      case 27:
+      case 45:
+      case 29:
+      case 40:
+      case 24:
+      case 42:
+      case 44:
+      case 26:
+      case 28:
+      case 5:
+      case 6:
+      case 7:
+      case 20:
+      case 8:
+      case 21:
+        result = "Possibly visible";
+        break;
+      default:
+       result = "Unlikely visible";
+       break;
     }
 
+    if (urgency() == 2 && int(millis() / 500) % 4 == 0)  {
+      return "";
+    } else if (urgency() == 3 && int(millis() / 300) % 4 == 0) {
+      return "";
+    }
     return result;
   }
 
@@ -167,9 +216,10 @@ class IssTracker {
       text(getData(current_sighting_no, "Maximum Elevation"),   64, height - 120);
       text(getData(current_sighting_no, "Approach"),            64, height - 100);
       text(getData(current_sighting_no, "Departure"),           64, height - 80);
-      text(condition,                                           64, height - 60);
+      text("Condition: " + condition,                           64, height - 60);
       textSize(24);
-      text(timeLeft(),                                        64, 150);
+      text(timeLeft(),                                          64, 130);
+      text(likeliness(),                                        64, 155);
 
     } else {
       text("No sightings for some time now.",                   64, height - 220);
