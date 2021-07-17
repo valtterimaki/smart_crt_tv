@@ -127,7 +127,7 @@ class IssTracker {
     if (localDateTimeDiff(current_time, next_sighting, "d") == 0 && localDateTimeDiff(current_time, next_sighting, "h") != 0) {
       result = 2;
     }
-    if (localDateTimeDiff(current_time, next_sighting, "d") == 0 && localDateTimeDiff(current_time, next_sighting, "h") == 0) {
+    if (localDateTimeDiff(current_time, next_sighting, "d") == 0 && localDateTimeDiff(current_time, next_sighting, "h") == 0 && localDateTimeDiff(current_time, next_sighting, "m") < 10) {
       result = 3;
     }
     return result;
@@ -179,30 +179,33 @@ class IssTracker {
        result = "Unlikely visible";
        break;
     }
-
-    if (urgency() == 2 && int(millis() / 500) % 4 == 0)  {
-      return "";
-    } else if (urgency() == 3 && int(millis() / 300) % 4 == 0) {
-      return "";
-    }
     return result;
   }
 
   color timeLeftBackground() {
     color result = color(0);
 
-    if (localDateTimeDiff(current_time, next_sighting, "d") == 0 && localDateTimeDiff(current_time, next_sighting, "h") != 0) {
-      result = color(30, 100, 200);
+    if (likeliness().equals("Likely visible") == true) {
+      if (urgency() == 2) {
+        result = color(30, 100, 200);
+      }
+      if (urgency() == 3) {
+        result = color(60, 180, 110);
+        if (int(millis() / 300) % 4 == 0) {
+          result = color(0);
+        }
+      }
+    } else if (likeliness().equals("Possibly visible") == true) {
+      result = color(90, 80, 80);
+    } else if (likeliness().equals("Unlikely visible") == true) {
+      result = color(0);
     }
-    if (localDateTimeDiff(current_time, next_sighting, "d") == 0 && localDateTimeDiff(current_time, next_sighting, "h") == 0) {
-      result = color(60, 180, 110);
-    }
-
     return result;
   }
 
   public void run() {
       background(timeLeftBackground());
+      textAlign(LEFT);
       textFont(aspace_thin);
       textSize(80);
       text("ISS",                                               64, height - 270);
@@ -219,7 +222,9 @@ class IssTracker {
       text("Condition: " + condition,                           64, height - 60);
       textSize(24);
       text(timeLeft(),                                          64, 130);
-      text(likeliness(),                                        64, 155);
+      if ( (urgency() == 2 && int(millis() / 500) % 4 != 0) || (urgency() == 3 && int(millis() / 300) % 4 != 0) )  {
+        text(likeliness(),                                      64, 155);
+      }
 
     } else {
       text("No sightings for some time now.",                   64, height - 220);

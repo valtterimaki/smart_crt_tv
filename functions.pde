@@ -140,6 +140,15 @@ void programChange() {
 
 }
 
+//// test for changing programs for debugging
+
+void programChangeTest(int test1, int test2) {   // Put tested numbers here
+  program_cycle[0] = test1;
+  program_cycle[1] = test2;
+  program_cycle_counter++;
+  program_number = program_cycle[program_cycle_counter-1];
+}
+
 
 //// manually speed up program change
 

@@ -1,4 +1,4 @@
-// particle system for snow objects
+// particle system for sunray objects
 
 class SunSystem {
   ArrayList<ObjSunRay> rays;
@@ -61,7 +61,7 @@ class SunSystem {
 }
 
 
-// Snowflake object.
+// Sunray object.
 
 class ObjSunRay {
 
