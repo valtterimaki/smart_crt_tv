@@ -60,17 +60,15 @@ class IssTracker {
       }
     }
     sightings = iss_data.getChildren("item");
-    println("TESSSS" + current_time);
     for (int i = 0; i < sightings.length; ++i) {
       if (current_time.compareTo(parseData(i)) < 0 ) {
         current_sighting_no = i;
         break;
       }
     }
-    next_sighting = parseData(current_sighting_no);
-    println("DIFFERENCE days" + localDateTimeDiff(current_time, next_sighting, "d"));
-    println("DIFFERENCE hrs" + localDateTimeDiff(current_time, next_sighting, "h"));
-    println("DIFFERENCE mins" + localDateTimeDiff(current_time, next_sighting, "m"));
+    if (sightings.length > 0) {
+      next_sighting = parseData(current_sighting_no);
+    } else {next_sighting = current_time; } // if there are nosightings data, save some effort for too much code and just set a placeholder datetime of the current time to avoid nullpointerexceptions
     forecast_yr.update();
   }
 
@@ -184,22 +182,23 @@ class IssTracker {
 
   color timeLeftBackground() {
     color result = color(0);
-
-    if (likeliness().equals("Likely visible") == true) {
-      if (urgency() == 2) {
-        result = color(30, 100, 200);
-      }
-      if (urgency() == 3) {
-        result = color(60, 180, 110);
-        if (int(millis() / 300) % 4 == 0) {
-          result = color(0);
+    if (sightings.length > 0) {
+      if (likeliness().equals("Likely visible") == true) {
+        if (urgency() == 2) {
+          result = color(30, 100, 200);
         }
+        if (urgency() == 3) {
+          result = color(60, 180, 110);
+          if (int(millis() / 300) % 4 == 0) {
+            result = color(0);
+          }
+        }
+      } else if (likeliness().equals("Possibly visible") == true) {
+        result = color(90, 80, 80);
+      } else if (likeliness().equals("Unlikely visible") == true) {
+        result = color(0);
       }
-    } else if (likeliness().equals("Possibly visible") == true) {
-      result = color(90, 80, 80);
-    } else if (likeliness().equals("Unlikely visible") == true) {
-      result = color(0);
-    }
+    } else {result = color(0);}
     return result;
   }
 
@@ -211,7 +210,7 @@ class IssTracker {
       text("ISS",                                               64, height - 270);
       textFont(bungee_regular);
       textSize(14);
-    if (sightings.length > 0) {
+    if ( sightings.length > 0 && current_time.compareTo(next_sighting) < 0 ) {
       text("Next sighting",                                     64, height - 220);
       text(getData(current_sighting_no, "Date"),                64, height - 180);
       text(getData(current_sighting_no, "Time"),                64, height - 160);
