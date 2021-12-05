@@ -26,6 +26,9 @@ public int counter = 0;
 // variable to check if program just started
 public boolean program_started = true;
 
+// global screenshot
+PImage snapshot;
+
 
 /* OBJECTS */
 
@@ -77,7 +80,7 @@ void setup() {
   smooth(1);
 
   // Creating always-on flash object
-  objFlash1 = new ObjFlash(0.9, 0.9, 50);
+  objFlash1 = new ObjFlash(0.9, 0.9, 100);
 
   // Weather object
   weather = new Weather();
@@ -126,6 +129,11 @@ void draw() {
   if ( (millis() - counterstart) > 1000 ) {
     counter++;
     counterstart = millis();
+  }
+
+  // Take a snapshot for the flash before clearing the screen
+  if (program_number == 0) {
+    snapshot = get();
   }
 
   // clear screen
@@ -192,7 +200,7 @@ void draw() {
     // static distortion effect
     fxStatic();
 
-    // end program after 5 seconds
+    // end program after 14 seconds
     if (counter >= 14) {
       objWeathericon = null;
       counter = 0;
@@ -217,7 +225,7 @@ void draw() {
     forecast_fmi.update();
     forecast_fmi.drawForecast();
 
-    // end program after 5 seconds
+    // end program after 14 seconds
     if (counter >= 14) {
       counter = 0;
       program_number = 0;
@@ -303,7 +311,7 @@ void draw() {
       program_started = false;
     }
 
-    // end program after 8 seconds
+    // end program after 10 seconds
     if (counter >= 10) {
       counter = 0;
       program_number = 0;
@@ -345,7 +353,7 @@ void draw() {
       program_started = false;
     }
 
-    // end program after 8 seconds
+    // end program after 10 seconds
     if (counter >= 10) {
       counter = 0;
       program_number = 0;
@@ -398,7 +406,7 @@ void draw() {
     // static distortion effect
     fxStatic();
 
-    // end program after 5 seconds
+    // end program after 14 seconds
     if (counter >= 14) {
       objWeathericon = null;
       counter = 0;

@@ -205,6 +205,24 @@ void fxStatic() {
   updatePixels();
 }
 
+//custom brightness function (not used atm)
+void fxBrightnessAmp(float factor) {
+
+  float f = constrain(factor, 0, 1);
+
+  loadPixels();
+  for (int i = 0; i < height; ++i) {
+    for (int j = 0; j < width; ++j) {
+      float r = red(pixels[(i*width+j)]);
+      float g = green(pixels[(i*width+j)]);
+      float b = blue(pixels[(i*width+j)]);
+
+      pixels[(i*width+j)] = color(r * (f * (255-r)), g * (f * (255-g)), b * (f * (255-b)));
+    }
+  }
+  updatePixels();
+}
+
 
 // exit with mousepress
 

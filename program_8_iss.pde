@@ -113,7 +113,7 @@ class IssTracker {
       corrected_minute
     );
 
-    println("parsetest !!! "+parsed_date);
+    //println("parsetest !!! "+parsed_date);
     return parsed_date;
   }
 
@@ -207,6 +207,7 @@ class IssTracker {
       textAlign(LEFT);
       textFont(aspace_thin);
       textSize(80);
+      fill(255);
       text("ISS",                                               64, height - 270);
       textFont(bungee_regular);
       textSize(14);
