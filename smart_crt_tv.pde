@@ -69,6 +69,7 @@ PFont bungee_thin, bungee_regular;
 PFont aspace_thin, aspace_light, aspace_regular;
 PFont rajdhani_light;
 PFont mplus_thin, mplus_regular;
+PFont robotomono_light, robotomono_regular, robotomono_semibold;
 
 
 // SETUP //////////////////////////////////////////////////////////////////////
@@ -115,6 +116,9 @@ void setup() {
   rajdhani_light = createFont("rajdhani-light.ttf", 128);
   mplus_thin = createFont("MPLUSRounded1c-Thin.ttf", 128);
   mplus_regular = createFont("MPLUSRounded1c-Regular.ttf", 128);
+  robotomono_regular = createFont("RobotoMono-Regular.ttf", 128);
+  robotomono_light = createFont("RobotoMono-Light.ttf", 128);
+  robotomono_semibold = createFont("RobotoMono-SemiBold.ttf", 128);
 
   frameRate(50);
 }
@@ -166,32 +170,36 @@ void draw() {
     if (program_started == true) {
       // icon set
       weather_icon = "img/" + weather.getWeatherConditionIcon() + ".svg";
-      objWeathericon = new ObjSvg(weather_icon, 330, 100, 3, 0.6, 1833);
+      objWeathericon = new ObjSvg(weather_icon, 330, 40, 3, 0.6, 1833);
       program_started = false;
     }
 
     int leftmargin = 96;
-    int topmargin = 220;
-    int lineheight = 26;
+    int topmargin = 400;
+    int lineheight = 28;
 
     fill(255);
-
-    textFont(source_code_light);
-    textSize(24);
     textAlign(LEFT);
-
-
-    text("Sää, " + weather.getWeatherCondition(), leftmargin, topmargin + lineheight * 1);
-    text(round(weather.getTemperatureMin()) + " - " + round(weather.getTemperatureMax()) + " °c", leftmargin, topmargin + lineheight * 2);
-    text("Kosteus " + weather.getHumidity() + " %", leftmargin, topmargin + lineheight * 4);
-    //text("Paine " + weather.getPressure() + " hPa", leftmargin, topmargin + lineheight * 5);
-    text("Päivänvaloa " + minutes_to_time(get_sun_in_minutes("rise"))+ " - " + minutes_to_time(get_sun_in_minutes("set")), leftmargin, topmargin + lineheight * 6);
-    //text("Aurinko nousee klo " + minutes_to_time(get_sun_in_minutes("rise")), leftmargin, topmargin + lineheight * 7);
-    //text("Aurinko laskee klo " + minutes_to_time(get_sun_in_minutes("set")), leftmargin, topmargin + lineheight * 8);
 
     textFont(aspace_thin);
     textSize(96);
     text(round(weather.getTemperature()) + "°c", leftmargin-10, 180);
+
+    textFont(source_code_light);
+    textSize(25);
+    text("Max " + round(weather.getTemperatureMax()) + "°c", leftmargin, 220);
+    text("Min " + round(weather.getTemperatureMin()) + "°c", leftmargin, 245);
+
+    textFont(source_code_light);
+    textSize(25);
+    text("Olosuhteet, " + weather.getWeatherCondition(), leftmargin, topmargin + lineheight * 1);
+    text("Kosteus " + weather.getHumidity() + " %", leftmargin, topmargin + lineheight * 2);
+    //text("Paine " + weather.getPressure() + " hPa", leftmargin, topmargin + lineheight * 5);
+    text("Päivänvaloa " + minutes_to_time(get_sun_in_minutes("rise"))+ " - " + minutes_to_time(get_sun_in_minutes("set")), leftmargin, topmargin + lineheight * 3);
+    //text("Aurinko nousee klo " + minutes_to_time(get_sun_in_minutes("rise")), leftmargin, topmargin + lineheight * 7);
+    //text("Aurinko laskee klo " + minutes_to_time(get_sun_in_minutes("set")), leftmargin, topmargin + lineheight * 8);
+
+
 
 
     objWeathericon.update();
