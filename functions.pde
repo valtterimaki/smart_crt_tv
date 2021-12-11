@@ -189,8 +189,8 @@ void cloudShadow(float x_pos, float y_pos, float x_dim, float y_dim) {
 
 void fxStatic() {
 
-  int distortion_min = 5;
-  int distortion_max = 10;
+  int distortion_min = 2;
+  int distortion_max = int(Ease.quinticIn(noise(millis()/1000))*100) + 6;
 
   loadPixels();
   for (int i = 0; i < height; ++i) {
