@@ -460,6 +460,17 @@ int localDateTimeDiff(LocalDateTime from, LocalDateTime to, String type) {
 }
 
 
+float mapEased(float val, float lo1, float hi1, float lo2, float hi2) {
+
+  // convert the input value to 0.0 - 1.0 range
+  float phase = (val - lo1) / (hi1 - lo1);
+
+  // map the value to the desired range with the eased phase
+  float result = map(Ease.cubicBoth(phase), 0, 1, lo2, hi2);
+
+  return result;
+
+}
 
 
 
