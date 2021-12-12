@@ -19,11 +19,32 @@ void draw_sun_diagram() {
   PVector sunset_pt = new PVector((cos(minsToRad(sunset_mins)) * arc_radius + origo.x), (sin(minsToRad(sunset_mins)) * arc_radius + origo.y));
   PVector sun_now_pt = new PVector((cos(minsToRad(sun_now_mins)) * arc_radius + origo.x), (sin(minsToRad(sun_now_mins)) * arc_radius + origo.y));
 
-  stroke(255);
   strokeWeight(1);
-
   noFill();
+  strokeWeight(1.5);
+
+  stroke(255);
   arc(origo.x, origo.y, arc_radius * 2, arc_radius * 2, minsToRad(sunrise_mins), minsToRad(sunset_mins));
+
+  stroke(255,100,100);
+  pushMatrix();
+  translate(origo.x, origo.y);
+  rotate(minsToRad(sunset_mins));
+  for (float i = minsToRad(sunset_mins); i < minsToRad(sunrise_mins) + TWO_PI; i += PI/64) {
+    rotate(PI/64);
+    point(arc_radius, 0);
+  }
+  popMatrix();
+
+  stroke(255);
+  for (int i = 0; i < width ; i += 8) {
+    if (i < 100 || i > width - 100) {
+      point(i, origo.y);
+    }
+    //if (i < 80 || i > height - 80) {
+      point(origo.x, i);
+    //}
+  }
 
   line(
     sunrise_pt.x - (sunset_pt.x - sunrise_pt.x),
@@ -36,7 +57,6 @@ void draw_sun_diagram() {
   strokeWeight(2);
   float sun_line_angle = random(PI);
   float sun_line_deviation = random(10);
-
 
   fill(0);
   noStroke();
@@ -65,8 +85,8 @@ void draw_sun_diagram() {
   textFont(source_code_light);
   textSize(20);
   textAlign(LEFT);
-  text(sunrise_corr, sunrise_pt.x + 16, sunrise_pt.y);
-  text(sunset_corr, sunset_pt.x + 16, sunset_pt.y);
+  text(sunrise_corr, sunrise_pt.x, sunrise_pt.y + 26);
+  text(sunset_corr, sunset_pt.x, sunset_pt.y + 26);
   text(time_now, sun_now_pt.x - 100, sun_now_pt.y + 8);
 
 }

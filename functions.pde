@@ -431,6 +431,8 @@ void rectStriped(float x_pos, float y_pos, float x_dim_input, float y_dim_input,
 
 }
 
+// Specific datetime difference calculator
+
 int localDateTimeDiff(LocalDateTime from, LocalDateTime to, String type) {
 
   LocalDateTime fromTemp = LocalDateTime.from(from);

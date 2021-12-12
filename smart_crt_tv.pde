@@ -328,6 +328,9 @@ void draw() {
 
     // draw and update sun diagram
     draw_sun_diagram();
+
+    // static distortion effect
+    fxStatic();
   }
 
 
