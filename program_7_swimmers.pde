@@ -123,7 +123,7 @@ class ObjSwimmer {
 
     //line(0, 0, segLength/2, 0);
     ellipse(0, 0, s, s);
-    line(0, 0, -segLength/2, 0);
+    line(0, segLength/2, 0, -segLength/2);
 
     popMatrix();
 

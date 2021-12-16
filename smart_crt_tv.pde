@@ -212,7 +212,7 @@ void draw() {
     objWeathericon.display();
 
     // static distortion effect
-    post_fx.verticalNoise();
+    post_fx.verticalNoise(1, true);
 
     // end program after 14 seconds
     if (counter >= 14) {
@@ -238,6 +238,9 @@ void draw() {
     /////// draw here
     forecast_fmi.update();
     forecast_fmi.drawForecast();
+
+    // static distortion effect
+    post_fx.verticalNoise(1, true);
 
     // end program after 14 seconds
     if (counter >= 14) {
@@ -314,6 +317,10 @@ void draw() {
      // this is exected here so that the particle system can detect the program change and remove the particles
      cloud_system.run();
     }
+
+    // static distortion effect
+    post_fx.verticalNoise(10, true);
+
   }
 
 
@@ -336,7 +343,7 @@ void draw() {
     draw_sun_diagram();
 
     // static distortion effect
-    post_fx.verticalNoise();
+    post_fx.verticalNoise(50, true);
 
   }
 
@@ -359,6 +366,9 @@ void draw() {
 
     pseudo_code_one.update();
     pseudo_code_one.draw();
+
+    // static distortion effect
+    post_fx.verticalNoise(50, true);
   }
 
 
@@ -380,6 +390,9 @@ void draw() {
 
     // this is exected here so that the particle system can detect the program change and remove the particles
     wave_system.run();
+
+    // static distortion effect
+    post_fx.verticalNoise(10, false);
 
   }
 
@@ -404,6 +417,9 @@ void draw() {
 
     // this is exected here so that the particle system can detect the program change and remove the particles
     swimmer_system.run();
+
+    // static distortion effect
+    post_fx.verticalNoise(80, true);
   }
 
 
@@ -422,7 +438,7 @@ void draw() {
     iss.run();
 
     // static distortion effect
-    post_fx.verticalNoise();
+    post_fx.verticalNoise(5, true);
 
     // end program after 14 seconds
     if (counter >= 14) {
