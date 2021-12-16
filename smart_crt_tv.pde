@@ -12,21 +12,21 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 
-/* VARIABLES */
+/* GLOBAL VARIABLES */
 
-// program number
+// Program number
 public int program_number = 0;
 public int[] program_cycle = new int[8];
 public int program_cycle_counter = 0;
 
-// main counter variable that can be set inside programs
+// Main counter variable that can be set inside programs
 public int counterstart = millis();
 public int counter = 0;
 
-// variable to check if program just started
+// Variable to check if program just started
 public boolean program_started = true;
 
-// global screenshot
+// Global general use snapshot holder
 PImage snapshot;
 
 
@@ -45,9 +45,12 @@ SunSystem sun_system;
 // Flash object
 ObjFlash objFlash1;
 
-// create variable for weather icon path
+// Post FX object
+ObjFx post_fx;
+
+// Create variable for weather icon path
 public String weather_icon;
-// Weather icon object init
+// weather icon object init
 ObjSvg objWeathericon;
 
 // Weather object for handling weather stuff
@@ -76,12 +79,15 @@ PFont robotomono_light, robotomono_regular, robotomono_semibold;
 
 
 void setup() {
+
   //fullScreen(P2D);  //use this in the actual build in the tv
   size(720, 576, P2D);
   smooth(1);
 
-  // Creating always-on flash object
+  // Flash object after each program
   objFlash1 = new ObjFlash(0.9, 0.9, 100);
+
+  post_fx = new ObjFx();
 
   // Weather object
   weather = new Weather();
@@ -206,7 +212,7 @@ void draw() {
     objWeathericon.display();
 
     // static distortion effect
-    fxStatic();
+    post_fx.verticalNoise();
 
     // end program after 14 seconds
     if (counter >= 14) {
@@ -330,7 +336,8 @@ void draw() {
     draw_sun_diagram();
 
     // static distortion effect
-    fxStatic();
+    post_fx.verticalNoise();
+
   }
 
 
@@ -415,7 +422,7 @@ void draw() {
     iss.run();
 
     // static distortion effect
-    fxStatic();
+    post_fx.verticalNoise();
 
     // end program after 14 seconds
     if (counter >= 14) {

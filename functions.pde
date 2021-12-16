@@ -185,25 +185,6 @@ void cloudShadow(float x_pos, float y_pos, float x_dim, float y_dim) {
 
 }
 
-//// basic static noise image distortion effect
-
-void fxStatic() {
-
-  int distortion_min = 2;
-  int distortion_max = int(Ease.quinticIn(noise(millis()/1000))*100) + 6;
-
-  loadPixels();
-  for (int i = 0; i < height; ++i) {
-    if (int(random(100)) == 1) {
-      for (int j = 0; j < width; ++j) {
-        if (i < height - 1) {
-          pixels[(i*width+j)] = pixels[(i*width+j+int(random(distortion_min, distortion_max)))];
-        }
-      }
-    }
-  }
-  updatePixels();
-}
 
 //custom brightness function (not used atm)
 void fxBrightnessAmp(float factor) {
@@ -312,7 +293,6 @@ void dashedLine(float x1, float y1, float x2, float y2, float l, float g) {
     currentPos = currentPos + lPercent + gPercent;
   }
 }
-
 
 
 // Shaded text
@@ -431,6 +411,7 @@ void rectStriped(float x_pos, float y_pos, float x_dim_input, float y_dim_input,
 
 }
 
+
 // Specific datetime difference calculator
 
 int localDateTimeDiff(LocalDateTime from, LocalDateTime to, String type) {
@@ -460,13 +441,94 @@ int localDateTimeDiff(LocalDateTime from, LocalDateTime to, String type) {
 }
 
 
-float mapEased(float val, float lo1, float hi1, float lo2, float hi2) {
+//// basic static noise image distortion effect
+
+
+
+class ObjFx {
+
+  // variables
+  float vert_noise_pos = 200;
+  float vert_noise_width = 7;
+  float vert_noise_amp;
+
+  ObjFx () {
+
+  }
+
+  void verticalNoise() {
+
+    int distortion_min = 2;
+    int distortion_max = int(Ease.quinticIn(noise(float(millis())/1000))*100) + 6;
+    int intensity = int(Ease.quinticIn(noise(float(millis())/1000))*50);
+
+    vert_noise_amp = random(8, 10);
+
+    if (vert_noise_pos < height + vert_noise_width) {
+      vert_noise_pos++;
+    } else {
+      vert_noise_pos = -vert_noise_width;
+    }
+
+    loadPixels();
+    for (int i = 0; i < height; ++i) {
+      if (i > vert_noise_pos - vert_noise_width && i < vert_noise_pos + vert_noise_width) {
+        for (int j = 0; j < width; ++j) {
+          if (i < height - 1) {
+            pixels[(i*width+j)] = pixels[(i*width+j+int(mapEased(i, vert_noise_pos - vert_noise_width, vert_noise_pos + vert_noise_width, 0, vert_noise_amp, "cubicIn", true)))];
+          }
+        }
+      }
+      if (int(random(100)) <= intensity) {
+        for (int j = 0; j < width; ++j) {
+          if (i < height - 1) {
+            pixels[(i*width+j)] = pixels[(i*width+j+int(random(distortion_min, distortion_max)))];
+          }
+        }
+      }
+    }
+    updatePixels();
+  }
+
+}
+
+float mapEased(float val, float lo1, float hi1, float lo2, float hi2, String type, boolean dbl) {
+
+  float result = 0;
 
   // convert the input value to 0.0 - 1.0 range
   float phase = (val - lo1) / (hi1 - lo1);
 
-  // map the value to the desired range with the eased phase
-  float result = map(Ease.cubicBoth(phase), 0, 1, lo2, hi2);
+  // map the value to the desired range with the eased phase with certain type
+  switch(type) {
+    case "cubicIn":
+      if (dbl == true && phase < 0.5) {
+        result = map(Ease.cubicIn(phase * 2), 0, 0.5, lo2, hi2);
+      } else if (dbl == true && phase >= 0.5) {
+        result = map(Ease.cubicIn(phase * 2 -1), 0.5, 1, hi2, lo2);
+      } else {
+        result = map(Ease.cubicIn(phase), 0, 1, lo2, hi2);
+      }
+      break;
+    case "cubicOut":
+      if (dbl == true && phase < 0.5) {
+        result = map(Ease.cubicOut(phase * 2), 0, 1, lo2, hi2);
+      } else if (dbl == true && phase >= 0.5) {
+        result = map(Ease.cubicOut(phase * 2 - 1), 0, 1, hi2, lo2);
+      } else {
+        result = map(Ease.cubicOut(phase), 0, 1, lo2, hi2);
+      }
+      break;
+    case "cubicBoth":
+      if (dbl == true && phase < 0.5) {
+        result = map(Ease.cubicBoth(phase * 2), 0, 0.5, lo2, hi2);
+      } else if (dbl == true && phase >= 0.5) {
+        result = map(Ease.cubicBoth(phase * 2 - 1), 0.5, 1, hi2, lo2);
+      } else {
+        result = map(Ease.cubicBoth(phase), 0, 1, lo2, hi2);
+      }
+      break;
+  }
 
   return result;
 
