@@ -82,8 +82,8 @@ PFont robotomono_light, robotomono_regular, robotomono_semibold;
 
 void setup() {
 
-  fullScreen(P3D);        // use this in the actual build in the tv
-  //size(720, 576, P3D);  // use this for development
+  fullScreen(P2D);        // use this in the actual build in the tv
+  //size(720, 576, P2D);  // use this for development
   smooth(1);
 
   // Flash object after each program
