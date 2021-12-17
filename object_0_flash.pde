@@ -56,6 +56,8 @@ class ObjFlash{
     if (phase < 1) {
 
       // drawing the flash
+      // NOTE! TOO HEAVY
+      /*
       noStroke();
       textureMode(NORMAL);
       beginShape();
@@ -65,9 +67,11 @@ class ObjFlash{
       vertex(c.x, c.y, 1, 1);
       vertex(d.x, d.y, 0, 1);
       endShape();
+      */
 
       // quick white brightness layer
-      fill(255, pow(phase, 2) * 20000);
+      //fill(255, pow(phase, 2) * 20000);
+      fill(255)
       beginShape();
       vertex(a.x, a.y);
       vertex(b.x, b.y);

@@ -460,7 +460,7 @@ class ObjFx {
 
     int distortion_min = 2;
     int distortion_max = int(Ease.quinticIn(noise(float(millis())/1000))*100) + 6;
-    int intensity = int(Ease.quinticIn(noise(float(millis())/1000))*stren)+1;
+    int intensity = int(Ease.quinticIn(noise(float(millis())/1000))*stren/2)+1;
 
     vert_noise_amp = random(6, 8);
 
