@@ -24,7 +24,10 @@ void draw_sun_diagram() {
   strokeWeight(1.5);
 
   stroke(255);
+  pushMatrix();
+  translate(0,0,-100);
   arc(origo.x, origo.y, arc_radius * 2, arc_radius * 2, minsToRad(sunrise_mins), minsToRad(sunset_mins));
+  popMatrix();
 
   stroke(255,100,100);
   pushMatrix();

@@ -130,6 +130,8 @@ void setup() {
 
   obj_iss = loadShape("3d/iss.obj");
 
+  ortho();
+
   frameRate(50);
 }
 
