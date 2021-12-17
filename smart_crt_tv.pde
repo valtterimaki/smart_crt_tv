@@ -29,6 +29,8 @@ public boolean program_started = true;
 // Global general use snapshot holder
 PImage snapshot;
 
+// 3d objects
+PShape obj_iss;
 
 /* OBJECTS */
 
@@ -80,8 +82,8 @@ PFont robotomono_light, robotomono_regular, robotomono_semibold;
 
 void setup() {
 
-  //fullScreen(P2D);  //use this in the actual build in the tv
-  size(720, 576, P2D);
+  fullScreen(P3D);        // use this in the actual build in the tv
+  //size(720, 576, P3D);  // use this for development
   smooth(1);
 
   // Flash object after each program
@@ -125,6 +127,8 @@ void setup() {
   robotomono_regular = createFont("RobotoMono-Regular.ttf", 128);
   robotomono_light = createFont("RobotoMono-Light.ttf", 128);
   robotomono_semibold = createFont("RobotoMono-SemiBold.ttf", 128);
+
+  obj_iss = loadShape("3d/iss.obj");
 
   frameRate(50);
 }

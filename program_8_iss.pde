@@ -203,14 +203,16 @@ class IssTracker {
   }
 
   public void run() {
-      background(timeLeftBackground());
-      textAlign(LEFT);
-      textFont(aspace_thin);
-      textSize(80);
-      fill(255);
-      text("ISS",                                               64, height - 270);
-      textFont(bungee_regular);
-      textSize(14);
+
+    background(timeLeftBackground());
+    textAlign(LEFT);
+    textFont(aspace_thin);
+    textSize(80);
+    fill(255);
+    text("ISS",                                               64, height - 270);
+    textFont(bungee_regular);
+    textSize(14);
+
     if ( sightings.length > 0 && current_time.compareTo(next_sighting) < 0 ) {
       text("Next sighting",                                     64, height - 220);
       text(getData(current_sighting_no, "Date"),                64, height - 180);
@@ -229,6 +231,22 @@ class IssTracker {
     } else {
       text("No sightings for some time now.",                   64, height - 220);
     }
+
+    // Testing 3d
+
+    obj_iss.setStroke(true);
+    obj_iss.setStroke(color(255)); // needs to be different from black
+    obj_iss.setStrokeWeight(0.2f); // if the weight is too small, the stroke won't be visible (it will be occluded by the faces of the object (strokes in 3D can be tricky).
+    obj_iss.setFill(color(0));
+
+    translate(width*0.65, height*0.55);
+    scale(200,200,200);
+    rotateX(-PI/8);
+    rotateY(float(millis())/9000);
+    ortho();
+    shapeMode(CENTER);
+    shape(obj_iss, 0.7, 0);
+
   }
 
 }
