@@ -30,7 +30,8 @@ public boolean program_started = true;
 PImage snapshot;
 
 // 3d objects
-PShape obj_iss;
+// NOTE! CANNOT DO THIS WITHOUT BETTER GEAR (PI4)
+//PShape obj_iss;
 
 /* OBJECTS */
 
@@ -128,9 +129,8 @@ void setup() {
   robotomono_light = createFont("RobotoMono-Light.ttf", 128);
   robotomono_semibold = createFont("RobotoMono-SemiBold.ttf", 128);
 
-  obj_iss = loadShape("3d/iss.obj");
-
-  ortho();
+  //obj_iss = loadShape("3d/iss.obj");
+  //ortho();
 
   frameRate(50);
 }

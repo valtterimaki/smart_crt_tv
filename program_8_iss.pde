@@ -232,8 +232,9 @@ class IssTracker {
       text("No sightings for some time now.",                   64, height - 220);
     }
 
-    // Testing 3d
-
+    // 3D model
+    // NOTE! DOES NOT WORK WITHOUT BETTER GEAR (PI4)
+    /*
     obj_iss.setStroke(true);
     obj_iss.setStroke(color(255)); // needs to be different from black
     obj_iss.setStrokeWeight(0.2f); // if the weight is too small, the stroke won't be visible (it will be occluded by the faces of the object (strokes in 3D can be tricky).
@@ -246,7 +247,7 @@ class IssTracker {
     ortho();
     shapeMode(CENTER);
     shape(obj_iss, 0.7, 0);
-
+    */
   }
 
 }
