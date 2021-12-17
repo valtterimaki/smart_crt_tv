@@ -71,7 +71,7 @@ class ObjFlash{
 
       // quick white brightness layer
       //fill(255, pow(phase, 2) * 20000);
-      fill(255)
+      fill(255);
       beginShape();
       vertex(a.x, a.y);
       vertex(b.x, b.y);
