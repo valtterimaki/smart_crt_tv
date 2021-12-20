@@ -8,8 +8,8 @@ class ObjFlash{
   PVector b = new PVector();
   PVector c = new PVector();
   PVector d = new PVector();
-  PVector target_a = new PVector(lerp(width*0.05, width*0.4, random(1)),lerp(height*0.3, height*0.7, random(1)));
-  PVector target_b = new PVector(lerp(width*0.6, width*0.95, random(1)),lerp(height*0.3, height*0.7, random(1)));
+  PVector target_a = new PVector(lerp(width*0.05, width*0.4, random(1)),lerp(height*0.4, height*0.6, random(1)));
+  PVector target_b = new PVector(lerp(width*0.6, width*0.95, random(1)),lerp(height*0.4, height*0.6, random(1)));
 
   ObjFlash (float xd, float yd, float dr) {
     xinit = xd;
@@ -37,12 +37,12 @@ class ObjFlash{
 
     else {
       phase = 0;
-      target_a.set(lerp(width*0.05, width*0.4, random(1)),lerp(height*0.3, height*0.7, random(1)));
-      target_b.set(lerp(width*0.6, width*0.95, random(1)),lerp(height*0.3, height*0.7, random(1)));
+      target_a.set(lerp(width*0.05, width*0.4, random(1)),lerp(height*0.4, height*0.6, random(1)));
+      target_b.set(lerp(width*0.6, width*0.95, random(1)),lerp(height*0.4, height*0.6, random(1)));
 
       programChange();
       //programChangeTest(3,8); // use this to test certain programs together for debugging
-      //program_number = 4; // NOTE! Use this to force certain program for debugging
+      //program_number = 0; // NOTE! Use this to force certain program for debugging
 
       program_started = true;
       // & reset counter
@@ -56,21 +56,8 @@ class ObjFlash{
     if (phase < 1) {
 
       // drawing the flash
-      // NOTE! TOO HEAVY
-      /*
-      noStroke();
-      textureMode(NORMAL);
-      beginShape();
-      texture(snapshot);
-      vertex(a.x, a.y, 0, 0);
-      vertex(b.x, b.y, 1, 0);
-      vertex(c.x, c.y, 1, 1);
-      vertex(d.x, d.y, 0, 1);
-      endShape();
-      */
-
-      // quick white brightness layer
       //fill(255, pow(phase, 2) * 20000);
+      noStroke();
       fill(255);
       beginShape();
       vertex(a.x, a.y);

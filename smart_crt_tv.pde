@@ -88,7 +88,7 @@ void setup() {
   smooth(1);
 
   // Flash object after each program
-  objFlash1 = new ObjFlash(0.9, 0.9, 100);
+  objFlash1 = new ObjFlash(0.9, 0.9, 80);
 
   post_fx = new ObjFx();
 
@@ -245,9 +245,6 @@ void draw() {
     forecast_fmi.update();
     forecast_fmi.drawForecast();
 
-    // static distortion effect
-    post_fx.verticalNoise(1, true);
-
     // end program after 14 seconds
     if (counter >= 14) {
       counter = 0;
@@ -324,9 +321,6 @@ void draw() {
      cloud_system.run();
     }
 
-    // static distortion effect
-    post_fx.verticalNoise(10, true);
-
   }
 
 
@@ -397,8 +391,6 @@ void draw() {
     // this is exected here so that the particle system can detect the program change and remove the particles
     wave_system.run();
 
-    // static distortion effect
-    post_fx.verticalNoise(10, false);
 
   }
 
