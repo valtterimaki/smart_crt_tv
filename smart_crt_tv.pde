@@ -26,9 +26,6 @@ public int counter = 0;
 // Variable to check if program just started
 public boolean program_started = true;
 
-// Global general use snapshot holder
-PImage snapshot;
-
 // 3d objects
 // NOTE! CANNOT DO THIS WITHOUT BETTER GEAR (PI4)
 //PShape obj_iss;
@@ -147,11 +144,6 @@ void draw() {
     counterstart = millis();
   }
 
-  // Take a snapshot for the flash before clearing the screen
-  if (program_number == 0) {
-    snapshot = get();
-  }
-
   // clear screen
   background(0);
 
@@ -265,7 +257,7 @@ void draw() {
     }
 
     if (str(weather.getWeatherConditionID()).charAt(0) == '5' || str(weather.getWeatherConditionID()).charAt(0) == '3' || str(weather.getWeatherConditionID()).charAt(0) == '2') {
-      println("drizzle or rain or thunder");
+      //println("drizzle or rain or thunder");
       // set of actions that happen in the start of the program
       if (program_started == true) {
         for (int i = 0; i < 400; ++i) {
@@ -283,7 +275,7 @@ void draw() {
     }
 
     if (str(weather.getWeatherConditionID()).charAt(0) == '6') {
-      println("snow");
+      //println("snow");
       // set of actions that happen in the start of the program
       if (program_started == true) {
         for (int i = 0; i < 100; ++i) {
@@ -300,7 +292,7 @@ void draw() {
     }*/
 
     if (str(weather.getWeatherConditionID()).equals("800")) {
-      println("clear");
+      //println("clear");
       // set of actions that happen in the start of the program
       if (program_started == true) {
         sun_system.setup();
@@ -311,7 +303,7 @@ void draw() {
     }
 
     if ((str(weather.getWeatherConditionID()).charAt(0) == '8' && str(weather.getWeatherConditionID()).charAt(2) != '0') || str(weather.getWeatherConditionID()).charAt(0) == '7') {
-      println("clouds or foggy");
+      //println("clouds or foggy");
       // set of actions that happen in the start of the program
       if (program_started == true) {
         cloud_system.setup();
