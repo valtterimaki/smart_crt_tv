@@ -335,7 +335,7 @@ void draw() {
     draw_sun_diagram();
 
     // static distortion effect
-    post_fx.verticalNoise(50, true);
+    post_fx.verticalNoise(5, true);
 
   }
 
@@ -360,7 +360,7 @@ void draw() {
     pseudo_code_one.draw();
 
     // static distortion effect
-    post_fx.verticalNoise(50, true);
+    post_fx.verticalNoise(5, true);
   }
 
 
@@ -409,7 +409,7 @@ void draw() {
     swimmer_system.run();
 
     // static distortion effect
-    post_fx.verticalNoise(80, true);
+    post_fx.verticalNoise(20, true);
   }
 
 
