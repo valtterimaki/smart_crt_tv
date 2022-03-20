@@ -147,13 +147,6 @@ void draw() {
   // clear screen
   background(0);
 
-  // resolution check
-  textAlign(LEFT);
-  textFont(bungee_regular);
-  textSize(30);
-  fill(255);
-  text(width, 130, 130);
-  text(height, 130, 230);
 
   /* "PROGRAMS" */
 
