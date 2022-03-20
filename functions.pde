@@ -479,7 +479,7 @@ class ObjFx {
           }
         }
       }
-      if (int(random(100)) <= intensity) {
+      if (int(random(1000)) <= intensity) {
         for (int j = 0; j < width; ++j) {
           if (i < height - 1) {
             pixels[(i*width+j)] = pixels[(i*width+j+int(Ease.quinticIn(random(0,1)) * (distortion_max - distortion_min) + distortion_min ))];

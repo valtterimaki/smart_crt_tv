@@ -147,6 +147,13 @@ void draw() {
   // clear screen
   background(0);
 
+  // resolution check
+  textAlign(LEFT);
+  textFont(bungee_regular);
+  textSize(30);
+  fill(255);
+  text(width, 30, 30);
+  text(height, 30, 30);
 
   /* "PROGRAMS" */
 
@@ -409,7 +416,7 @@ void draw() {
     swimmer_system.run();
 
     // static distortion effect
-    post_fx.verticalNoise(20, true);
+    post_fx.verticalNoise(2, true);
   }
 
 
@@ -428,7 +435,7 @@ void draw() {
     iss.run();
 
     // static distortion effect
-    post_fx.verticalNoise(5, true);
+    post_fx.verticalNoise(1, true);
 
     // end program after 14 seconds
     if (counter >= 14) {
