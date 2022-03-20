@@ -152,8 +152,8 @@ void draw() {
   textFont(bungee_regular);
   textSize(30);
   fill(255);
-  text(width, 30, 30);
-  text(height, 30, 30);
+  text(width, 130, 130);
+  text(height, 130, 230);
 
   /* "PROGRAMS" */
 
