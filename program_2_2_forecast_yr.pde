@@ -1,6 +1,6 @@
 
 /*
-FMI weather xml fetcher
+YR.no weather xml fetcher
 By Fossa
  */
 

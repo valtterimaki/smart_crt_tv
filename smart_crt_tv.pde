@@ -26,6 +26,9 @@ public int counter = 0;
 // Variable to check if program just started
 public boolean program_started = true;
 
+// Animator helpers
+public float anim_1_start, anim_1_duration, anim_1_phase = 0;
+
 // 3d objects
 // NOTE! CANNOT DO THIS WITHOUT BETTER GEAR (PI4)
 //PShape obj_iss;
