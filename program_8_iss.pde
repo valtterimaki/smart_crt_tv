@@ -14,14 +14,13 @@ class IssTracker {
   LocalDateTime current_time;
   int current_sighting_no;
   PShape iss_logo;
+  Animator anim1 = new Animator();
 
   public IssTracker() {
     update();
     println("ISS last update: " + lastUpdate());
-    anim_phase = 0;
     iss_logo = loadShape("img/iss_logo.svg");
     iss_logo.disableStyle();
-
   }
 
   /* General methods*/
@@ -46,7 +45,7 @@ class IssTracker {
 
   public void update() {
 
-    anim_1_phase = 0; // reset animation
+    anim1.reset();
 
     current_time = LocalDateTime.now();
 
@@ -209,53 +208,60 @@ class IssTracker {
 
   public void run() {
 
+    anim1.start();
+
     background(timeLeftBackground());
 
-    if (counter < 2) {
+    if (counter < 3) {
 
-      fill(255);
+      fill(0,0,255);
       shape(iss_logo, 128, 176, 464, 266);
+      fill(timeLeftBackground());
+      rect(128,176,32,anim1.animate(176, 0, 0, 1700, "quinticBoth"));
+      rect(160,224,anim1.animate(436, 0, 50, 1700, "quinticBoth"),48);
+      rect(596,272,anim1.animate(-436, 0, 100, 1700, "quinticBoth"),32);
+      rect(160,304,anim1.animate(436, 0, 150, 1700, "quinticBoth"),48);
+      rect(128,443,170,anim1.animate(-75, 0, 1000, 1700, "quinticBoth"));
 
-    } else if (counter < 3) {
+    } else if (counter < 5) {
 
-      if(anim_1_phase == 0) {
-        anim_1_start = millis()-1; // -1 is so that the anim phase gets moving so this if runs only once
-        anim_1_duration = 1000;
-      }
-
-      anim_1_phase = Ease.quinticBoth(setLinearAnimPhase(anim_1_start, anim_1_duration));
+      fill(anim1.animate(0, 255, 3000, 1000, "quinticBoth"), anim1.animate(0, 255, 3000, 1000, "quinticBoth"), 255);
       shape(iss_logo,
-        lerp(128, 64, anim_1_phase),
-        lerp(176, 200, anim_1_phase),
-        lerp(464, 464/2, anim_1_phase),
-        lerp(266, 266/2, anim_1_phase)
+        anim1.animate(128, 64, 3000, 1000, "quinticBoth"),
+        anim1.animate(176, 170, 3000, 1000, "quinticBoth"),
+        anim1.animate(464, 464/2, 3000, 1000, "quinticBoth"),
+        anim1.animate(266, 266/2, 3000, 1000, "quinticBoth")
       );
 
     } else {
 
       fill(255);
-      shape(iss_logo, 64, 200, 464/2, 266/2);
+      shape(iss_logo, 64, 170, 464/2, 266/2);
+
       textAlign(LEFT);
       textFont(bungee_regular);
-      textSize(14);
+      textSize(16);
 
-      if ( sightings.length > 0 && current_time.compareTo(next_sighting) < 0 ) {
-        text("Next sighting",                                     64, height - 220);
-        text(getData(current_sighting_no, "Date"),                64, height - 180);
-        text(getData(current_sighting_no, "Time"),                64, height - 160);
-        text(getData(current_sighting_no, "Duration"),            64, height - 140);
-        text(getData(current_sighting_no, "Maximum Elevation"),   64, height - 120);
-        text(getData(current_sighting_no, "Approach"),            64, height - 100);
-        text(getData(current_sighting_no, "Departure"),           64, height - 80);
-        text("Condition: " + condition,                           64, height - 60);
-        textSize(24);
-        text(timeLeft(),                                          64, 130);
-        if ( (urgency() == 2 && int(millis() / 500) % 4 != 0) || (urgency() == 3 && int(millis() / 300) % 4 != 0) )  {
-          text(likeliness(),                                      64, 155);
+      if (reachable) {
+        if ( sightings.length > 0 && current_time.compareTo(next_sighting) < 0 ) {
+          text("Next sighting",                                     64, height - 230);
+          text(getData(current_sighting_no, "Date"),                64, height - 190);
+          text(getData(current_sighting_no, "Time"),                64, height - 170);
+          text(getData(current_sighting_no, "Duration"),            64, height - 150);
+          text(getData(current_sighting_no, "Maximum Elevation"),   64, height - 130);
+          text(getData(current_sighting_no, "Approach"),            64, height - 110);
+          text(getData(current_sighting_no, "Departure"),           64, height - 90);
+          text("Condition: " + condition,                           64, height - 70);
+          textSize(24);
+          text(timeLeft(),                                          64, 100);
+          if ( (urgency() == 2 && int(millis() / 500) % 4 != 0) || (urgency() == 3 && int(millis() / 300) % 4 != 0) )  {
+            text(likeliness(),                                      64, 125);
+          }
+        } else {
+          text("No sightings for some time now.",                   64, height - 230);
         }
-
       } else {
-        text("No sightings for some time now.",                   64, height - 220);
+          text("No connection.",                                    64, height - 230);
       }
     }
 
