@@ -498,11 +498,14 @@ void draw() {
     }
   }
 
+  // DOES NOT WORK ON PI
   // horizontal noise shader
+  /*
   tex = get();
   noise.set("time", millis() / 1000.0);
   shader(noise);
   image(tex, 0, 0, width, height);
+  */
 
 
   // TEMPLATE FOR A NEW SYSTEM
