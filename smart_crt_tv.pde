@@ -48,9 +48,6 @@ SunSystem sun_system;
 // Flash object
 ObjFlash objFlash1;
 
-// Post FX object
-ObjFx post_fx;
-
 // Create variable for weather icon path
 public String weather_icon;
 // weather icon object init
@@ -63,6 +60,10 @@ ForecastYr  forecast_yr;
 
 // ISS tracker class
 IssTracker iss;
+
+// noise shader
+PShader noise;
+PImage tex = createImage(1024, 576, RGB);
 
 
 /* FONTS */
@@ -78,6 +79,7 @@ PFont mplus_thin, mplus_regular;
 PFont robotomono_light, robotomono_regular, robotomono_semibold;
 
 
+
 // SETUP //////////////////////////////////////////////////////////////////////
 
 
@@ -89,8 +91,6 @@ void setup() {
 
   // Flash object after each program
   objFlash1 = new ObjFlash(0.9, 0.9, 80);
-
-  post_fx = new ObjFx();
 
   // Weather object
   weather = new Weather();
@@ -128,6 +128,17 @@ void setup() {
   robotomono_regular = createFont("RobotoMono-Regular.ttf", 128);
   robotomono_light = createFont("RobotoMono-Light.ttf", 128);
   robotomono_semibold = createFont("RobotoMono-SemiBold.ttf", 128);
+
+  // noise shader setup
+  textureWrap(REPEAT);
+  noise = loadShader("noise.glsl");
+  noise.set("resolution", float(width), float(height));
+
+  // noise shader default settings
+  noise.set("amount1", 0.1);
+  noise.set("spikiness1", 800.0);
+  noise.set("amount2", 0.0);
+  noise.set("spikiness2", 100.0);
 
   //obj_iss = loadShape("3d/iss.obj");
   //ortho();
@@ -207,13 +218,8 @@ void draw() {
     //text("Aurinko laskee klo " + minutes_to_time(get_sun_in_minutes("set")), leftmargin, topmargin + lineheight * 8);
 
 
-
-
     objWeathericon.update();
     objWeathericon.display();
-
-    // static distortion effect
-    post_fx.verticalNoise(1, true);
 
     // end program after 14 seconds
     if (counter >= 14) {
@@ -337,9 +343,6 @@ void draw() {
     // draw and update sun diagram
     draw_sun_diagram();
 
-    // static distortion effect
-    post_fx.verticalNoise(5, true);
-
   }
 
 
@@ -362,8 +365,6 @@ void draw() {
     pseudo_code_one.update();
     pseudo_code_one.draw();
 
-    // static distortion effect
-    post_fx.verticalNoise(5, true);
   }
 
 
@@ -411,8 +412,6 @@ void draw() {
     // this is exected here so that the particle system can detect the program change and remove the particles
     swimmer_system.run();
 
-    // static distortion effect
-    post_fx.verticalNoise(2, true);
   }
 
 
@@ -429,9 +428,6 @@ void draw() {
 
     // draw here
     iss.run();
-
-    // static distortion effect
-    post_fx.verticalNoise(1, true);
 
     // end program after 14 seconds
     if (counter >= 14) {
@@ -494,9 +490,6 @@ void draw() {
     textSize(40);
     text(nf(hour(), 2) + " : " + nf(minute(), 2) + " : " + nf(second(), 2), cx + 180, cy+10);
 
-    // static distortion effect
-    post_fx.verticalNoise(5, true);
-
     // end program after 9 seconds
     if (counter >= 9) {
       counter = 0;
@@ -504,6 +497,12 @@ void draw() {
       program_started = true;
     }
   }
+
+  // horizontal noise shader
+  tex = get();
+  noise.set("time", millis() / 1000.0);
+  shader(noise);
+  image(tex, 0, 0, width, height);
 
 
   // TEMPLATE FOR A NEW SYSTEM
