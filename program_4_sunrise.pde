@@ -25,7 +25,8 @@ void draw_sun_diagram() {
 
   stroke(255);
   pushMatrix();
-  translate(0,0,-100);
+  translate(0,0);
+  // translate(0,0,-100); // use this only with P3D
   arc(origo.x, origo.y, arc_radius * 2, arc_radius * 2, minsToRad(sunrise_mins), minsToRad(sunset_mins));
   popMatrix();
 

@@ -29,6 +29,14 @@ public boolean program_started = true;
 // Animator helpers
 public float anim_1_start, anim_1_duration, anim_1_phase = 0;
 
+// Variables for setting overscan safe areas
+public int os_left = 48;
+public int os_right = 48;
+public int os_top = 48;
+public int os_bottom = 48;
+public int os_width = width - os_left - os_right;
+public int os_height = height - os_top - os_bottom;
+
 // 3d objects
 // NOTE! CANNOT DO THIS WITHOUT BETTER GEAR (PI4)
 //PShape obj_iss;
@@ -497,6 +505,11 @@ void draw() {
       program_started = true;
     }
   }
+
+  // Draw overscan test area
+
+  drawOverscanArea();
+
 
   // DOES NOT WORK ON PI
   // horizontal noise shader
