@@ -30,10 +30,10 @@ public boolean program_started = true;
 public float anim_1_start, anim_1_duration, anim_1_phase = 0;
 
 // Variables for setting overscan safe areas
-public int os_left = 48;
-public int os_right = 48;
-public int os_top = 48;
-public int os_bottom = 48;
+public int os_left = 50;
+public int os_right = 28;
+public int os_top = 12;
+public int os_bottom = 8;
 public int os_width = width - os_left - os_right;
 public int os_height = height - os_top - os_bottom;
 
