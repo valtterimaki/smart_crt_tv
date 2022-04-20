@@ -115,10 +115,13 @@ class ForecastFmi {
 
   public void drawForecast() {
 
-    float margin = 64;
-    float horiz_density = ((width - margin * 2) / data_temperatures.size());
-    float vert_density = (height - (margin * 2)) / 7 ;
-    float zeroline = vert_density * 4 + margin;
+    float margin_left = os_left + 48;
+    float margin_right = os_right + 40;
+    float margin_top = os_top + 24;
+    float margin_bottom = os_bottom + 40;
+    float horiz_density = ((width - margin_right - margin_left) / data_temperatures.size());
+    float vert_density = (height - margin_top - margin_bottom) / 7 ;
+    float zeroline = vert_density * 4 + margin_top;
     float multiplier = vert_density / 10;
     int main_values_size = 32;
     int scale_size = 15;
@@ -151,10 +154,10 @@ class ForecastFmi {
       );
 
       rectStriped(
-        (horiz_density * i + margin),
-        height - margin,
+        (horiz_density * i + margin_left),
+        height - margin_bottom,
         horiz_density -4,
-        -map(float(data_precipitation.get(i)), 0, 14, 0, (height - margin*2)),
+        -map(float(data_precipitation.get(i)), 0, 14, 0, (height - margin_top - margin_bottom)),
         4,
         radians(45)
       );
@@ -175,20 +178,20 @@ class ForecastFmi {
     for (int i = 0; i <= 7; ++i) {
       noFill();
       stroke(255, 90);
-      line(margin, (vert_density * i) + margin, width - margin, (vert_density * i) + margin);
+      line(margin_left, (vert_density * i) + margin_top, width - margin_right, (vert_density * i) + margin_top);
       noStroke();
       fill(255);
       textAlign(RIGHT);
       text(
         40 - (10 * i),
-        margin - 8,
-        (vert_density * i) + margin + 5
+        margin_left - 8,
+        (vert_density * i) + margin_top + 5
         );
       textAlign(LEFT);
       text(
         14 - (2 * i),
-        width - margin + 8,
-        (vert_density * i) + margin + 5
+        width - margin_right + 8,
+        (vert_density * i) + margin_top + 5
         );
     }
 
@@ -200,13 +203,13 @@ class ForecastFmi {
         textAlign(CENTER);
         noFill();
         stroke(255, 90);
-        line(margin + horiz_density * i, margin, margin + horiz_density * i, height - margin);
+        line(margin_left + horiz_density * i, margin_top, margin_left + horiz_density * i, height - margin_bottom);
         noStroke();
         fill(255);
         text(
           data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12),
-          margin + horiz_density * i,
-          height - margin + scale_size + 8
+          margin_left + horiz_density * i,
+          height - margin_bottom + scale_size + 8
         );
       }
     }
@@ -216,8 +219,8 @@ class ForecastFmi {
         textAlign(LEFT);
         noFill();
         stroke(255);
-        line(margin + horiz_density * i, margin, margin + horiz_density * i, height - margin);
-        textShaded(data_times.get(i).substring(8,10) + "." + data_times.get(i).substring(5,7), margin + horiz_density * i + 8, margin + 16, 255, 0, 2);
+        line(margin_left + horiz_density * i, margin_top, margin_left + horiz_density * i, height - margin_bottom);
+        textShaded(data_times.get(i).substring(8,10) + "." + data_times.get(i).substring(5,7), margin_left + horiz_density * i + 8, margin_top + 16, 255, 0, 2);
       }
     }
 
@@ -226,7 +229,7 @@ class ForecastFmi {
 
     noStroke();
     fill(255);
-    rect(margin, zeroline - 1, width - margin*2, 1);
+    rect(margin_left, zeroline - 1, width - margin_left - margin_right, 1);
 
 
     // Draw the temperature graph
@@ -254,9 +257,9 @@ class ForecastFmi {
           );
       }
       line(
-        (horiz_density * i + margin),
+        (horiz_density * i + margin_left),
         zeroline - float(data_temperatures.get(i)) * multiplier,
-        (horiz_density * (i+1) + margin),
+        (horiz_density * (i+1) + margin_left),
         zeroline - float(data_temperatures.get(i+1)) * multiplier
         );
     }
@@ -274,13 +277,13 @@ class ForecastFmi {
 
     textShaded(
       int(data_temperatures.get(highest_index)) + "°C",
-      (horiz_density * highest_index + margin),
+      (horiz_density * highest_index + margin_left),
       zeroline - float(data_temperatures.get(highest_index)) * multiplier - 16 - ((2 - Ease.quinticOut(anim_phase)*2) * 6),
       255, 0, 2
       );
     textShaded(
       int(data_temperatures.get(lowest_index)) + "°C",
-      (horiz_density * lowest_index + margin),
+      (horiz_density * lowest_index + margin_left),
       zeroline - float(data_temperatures.get(lowest_index)) * multiplier + main_values_size + 8 + ((2 - Ease.quinticOut(anim_phase)*2) * 6),
       255, 0, 2
       );
@@ -288,11 +291,11 @@ class ForecastFmi {
     textAlign(LEFT);
     textFont(mplus_regular);
     textSize(28);
-    textShaded("天気予報", margin + 16, height - margin - 52, 255, 0, 1);
+    textShaded("天気予報", margin_left + 16, height - margin_bottom - 52, 255, 0, 1);
     textFont(bungee_regular);
     textSize(19);
-    textShaded("ENNUSTE, HARMONIE", margin + 16, height - margin - 32, 255, 0, 1);
-    textShaded(data_times.get(2).substring(0,10), margin + 16, height - margin - 16, 255, 0, 1);
+    textShaded("ENNUSTE, HARMONIE", margin_left + 16, height - margin_bottom - 32, 255, 0, 1);
+    textShaded(data_times.get(2).substring(0,10), margin_left + 16, height - margin_bottom - 16, 255, 0, 1);
 
 
     // TEST TEST TEST
