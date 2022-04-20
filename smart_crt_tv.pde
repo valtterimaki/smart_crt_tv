@@ -507,8 +507,8 @@ void draw() {
   }
 
   // Draw overscan test area
-
-  drawOverscanArea(1);
+  // Use this to check if everything fits the screen
+  //drawOverscanArea(1);
 
 
   // DOES NOT WORK ON PI
