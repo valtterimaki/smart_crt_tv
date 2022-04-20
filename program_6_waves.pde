@@ -43,6 +43,7 @@ class WaveSystem {
     strokeWeight(1.2);
     stroke(255);
 
+    pushMatrix();
     translate(width/2, height/2);
     rotate(rotation);
     scale(1.3);
@@ -63,10 +64,11 @@ class WaveSystem {
       endShape();
     }
 
-
     /*for (int i = 0; i < grid.length; ++i) {
       point(grid[i].x, grid[i].y);
     }*/
+
+    popMatrix();
   }
 
 }
