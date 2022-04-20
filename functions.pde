@@ -499,8 +499,9 @@ void drawOverscanArea(int variant) {
     rect(0, height, width, -os_bottom);
   } else if (variant == 1) {
     stroke(255,0,255);
+    strokeWeight(1);
     noFill();
-    rect(os_left, os_top, width - os_left - os_right, height - os_top - os_bottom);
+    rect(os_left-1, os_top-1, width-os_left-os_right+1, height-os_top-os_bottom+1);
   }
 
 }
