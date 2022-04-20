@@ -30,7 +30,7 @@ public boolean program_started = true;
 public float anim_1_start, anim_1_duration, anim_1_phase = 0;
 
 // Variables for setting overscan safe areas
-public int os_left = 50;
+public int os_left = 48;
 public int os_right = 28;
 public int os_top = 12;
 public int os_bottom = 8;
@@ -508,7 +508,7 @@ void draw() {
 
   // Draw overscan test area
 
-  drawOverscanArea();
+  drawOverscanArea(1);
 
 
   // DOES NOT WORK ON PI

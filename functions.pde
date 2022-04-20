@@ -488,13 +488,21 @@ float setLinearAnimPhase(float start, float duration) {
   return result;
 }
 
-void drawOverscanArea() {
-  noStroke();
-  fill(255,0,255);
-  rect(0, 0, os_left, height);
-  rect(0, 0, width, os_top);
-  rect(width, 0, -os_right, height);
-  rect(0, height, width, -os_bottom);
+void drawOverscanArea(int variant) {
+
+  if (variant == 0) {
+    noStroke();
+    fill(255,0,255);
+    rect(0, 0, os_left, height);
+    rect(0, 0, width, os_top);
+    rect(width, 0, -os_right, height);
+    rect(0, height, width, -os_bottom);
+  } else if (variant == 1) {
+    stroke(255,0,255);
+    noFill();
+    rect(os_left, os_top, width - os_left - os_right, height - os_top - os_bottom);
+  }
+
 }
 
 
