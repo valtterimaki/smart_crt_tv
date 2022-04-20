@@ -211,6 +211,7 @@ class IssTracker {
     anim1.start();
 
     background(timeLeftBackground());
+    noStroke();
 
     if (counter < 3) {
 

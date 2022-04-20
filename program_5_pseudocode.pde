@@ -129,7 +129,7 @@ class PseudoCodeOne {
 
   void draw() {
 
-
+    noStroke();
     fill(255);
     textFont(tesserae);
     coloredText(animated_string, 64, 64, width - 64, height - 128, testcolors, text_size);

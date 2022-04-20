@@ -91,6 +91,7 @@ class ObjSunRay {
 
   // This draws the graphics for the object
   void draw() {
+    noStroke();
     fill(255,230,150);
     cloudShape(start_draw.x, start_draw.y, end_draw.x - start_draw.x, end_draw.y - start_draw.y);
   }
