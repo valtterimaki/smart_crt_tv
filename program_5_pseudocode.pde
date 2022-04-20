@@ -132,13 +132,13 @@ class PseudoCodeOne {
     noStroke();
     fill(255);
     textFont(tesserae);
-    coloredText(animated_string, 64, 64, width - 64, height - 128, testcolors, text_size);
+    coloredText(animated_string, os_left + 32, os_top + 40, width - 64, height - 128, testcolors, text_size);
 
     textFont(source_code_light);
     fill(0);
-    rect(width - 150, height - 64 -text_size, textWidth(time_now), text_size * 1.3);
+    rect(width - os_right - 150, height - os_bottom - 48 -text_size, textWidth(time_now), text_size * 1.3);
     fill(255);
-    text(time_now, width - 150, height - 64);
+    text(time_now, width - os_right - 150, height - os_bottom - 48);
 
   }
 

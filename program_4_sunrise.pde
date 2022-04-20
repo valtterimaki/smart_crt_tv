@@ -31,6 +31,7 @@ void draw_sun_diagram() {
   popMatrix();
 
   stroke(255,100,100);
+  strokeWeight(2);
   pushMatrix();
   translate(origo.x, origo.y);
   rotate(minsToRad(sunset_mins));

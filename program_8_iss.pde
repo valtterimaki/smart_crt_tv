@@ -228,7 +228,7 @@ class IssTracker {
 
       fill(anim1.animate(0, 255, 3000, 1000, "quinticBoth"), anim1.animate(0, 255, 3000, 1000, "quinticBoth"), 255);
       shape(iss_logo,
-        anim1.animate(128, 64, 3000, 1000, "quinticBoth"),
+        anim1.animate(128, os_left + 32, 3000, 1000, "quinticBoth"),
         anim1.animate(176, 170, 3000, 1000, "quinticBoth"),
         anim1.animate(464, 464/2, 3000, 1000, "quinticBoth"),
         anim1.animate(266, 266/2, 3000, 1000, "quinticBoth")
@@ -237,7 +237,7 @@ class IssTracker {
     } else {
 
       fill(255);
-      shape(iss_logo, 64, 170, 464/2, 266/2);
+      shape(iss_logo, os_left + 32, 170, 464/2, 266/2);
 
       textAlign(LEFT);
       textFont(bungee_regular);
@@ -245,24 +245,24 @@ class IssTracker {
 
       if (reachable) {
         if ( sightings.length > 0 && current_time.compareTo(next_sighting) < 0 ) {
-          text("Next sighting",                                     64, height - 230);
-          text(getData(current_sighting_no, "Date"),                64, height - 190);
-          text(getData(current_sighting_no, "Time"),                64, height - 170);
-          text(getData(current_sighting_no, "Duration"),            64, height - 150);
-          text(getData(current_sighting_no, "Maximum Elevation"),   64, height - 130);
-          text(getData(current_sighting_no, "Approach"),            64, height - 110);
-          text(getData(current_sighting_no, "Departure"),           64, height - 90);
-          text("Condition: " + condition,                           64, height - 70);
+          text("Next sighting",                                     os_left + 32, height - 230);
+          text(getData(current_sighting_no, "Date"),                os_left + 32, height - 190);
+          text(getData(current_sighting_no, "Time"),                os_left + 32, height - 170);
+          text(getData(current_sighting_no, "Duration"),            os_left + 32, height - 150);
+          text(getData(current_sighting_no, "Maximum Elevation"),   os_left + 32, height - 130);
+          text(getData(current_sighting_no, "Approach"),            os_left + 32, height - 110);
+          text(getData(current_sighting_no, "Departure"),           os_left + 32, height - 90);
+          text("Condition: " + condition,                           os_left + 32, height - 70);
           textSize(24);
-          text(timeLeft(),                                          64, 100);
+          text(timeLeft(),                                          os_left + 32, 100);
           if ( (urgency() == 2 && int(millis() / 500) % 4 != 0) || (urgency() == 3 && int(millis() / 300) % 4 != 0) )  {
-            text(likeliness(),                                      64, 125);
+            text(likeliness(),                                      os_left + 32, 125);
           }
         } else {
-          text("No sightings for some time now.",                   64, height - 230);
+          text("No sightings for some time now.",                   os_left + 32, height - 230);
         }
       } else {
-          text("No connection.",                                    64, height - 230);
+          text("No connection.",                                    os_left + 32, height - 230);
       }
     }
 
