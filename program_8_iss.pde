@@ -215,7 +215,7 @@ class IssTracker {
 
     if (counter < 3) {
 
-      fill(0,0,255);
+      fill(anim1.animate(0, 255, 1000, 1700, "quinticBoth"), anim1.animate(0, 255, 1000, 1700, "quinticBoth"), 255);
       shape(iss_logo, 128, 176, 464, 266);
       fill(timeLeftBackground());
       rect(128,176,32,anim1.animate(176, 0, 0, 1700, "quinticBoth"));
@@ -226,7 +226,7 @@ class IssTracker {
 
     } else if (counter < 5) {
 
-      fill(anim1.animate(0, 255, 3000, 1000, "quinticBoth"), anim1.animate(0, 255, 3000, 1000, "quinticBoth"), 255);
+      fill(255);
       shape(iss_logo,
         anim1.animate(128, os_left + 32, 3000, 1000, "quinticBoth"),
         anim1.animate(176, 170, 3000, 1000, "quinticBoth"),
@@ -267,7 +267,7 @@ class IssTracker {
 
       // 3D model
       // NOTE! DOES NOT WORK WITHOUT BETTER GEAR (PI4)
-      /**/
+
       obj_iss.setStroke(true);
       obj_iss.setStroke(color(255)); // needs to be different from black
       obj_iss.setStrokeWeight(0.2f); // if the weight is too small, the stroke won't be visible (it will be occluded by the faces of the object (strokes in 3D can be tricky).
@@ -275,15 +275,14 @@ class IssTracker {
 
       pushMatrix();
       translate(width*0.65, height*0.55);
-      scale(200,200,200);
+      scale(180,180,180);
       rotateX(-PI/8);
-      rotateY(float(millis())/9000);
+      rotateY(float(int(millis())/1000)/5);
       ortho();
       shapeMode(CENTER);
       shape(obj_iss, 0.7, 0);
       shapeMode(CORNER);
       popMatrix();
-      /**/
 
     }
 
