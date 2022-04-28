@@ -39,7 +39,7 @@ public int os_height = height - os_top - os_bottom;
 
 // 3d objects
 // NOTE! CANNOT DO THIS WITHOUT BETTER GEAR (PI4)
-//PShape obj_iss;
+PShape obj_iss;
 
 /* OBJECTS */
 
@@ -93,8 +93,8 @@ PFont robotomono_light, robotomono_regular, robotomono_semibold;
 
 void setup() {
 
-  fullScreen(P2D);        // use this in the actual build in the tv
-  //size(720, 576, P2D);  // use this for development
+  fullScreen(P3D);        // use this in the actual build in the tv
+  //size(720, 576, P3D);  // use this for development
   smooth(1);
 
   // Flash object after each program
@@ -148,8 +148,8 @@ void setup() {
   noise.set("amount2", 0.0);
   noise.set("spikiness2", 100.0);
 
-  //obj_iss = loadShape("3d/iss.obj");
-  //ortho();
+  obj_iss = loadShape("3d/iss.obj");
+  ortho();
 
   frameRate(50);
 }

@@ -264,25 +264,29 @@ class IssTracker {
       } else {
           text("No connection.",                                    os_left + 32, height - 230);
       }
+
+      // 3D model
+      // NOTE! DOES NOT WORK WITHOUT BETTER GEAR (PI4)
+      /**/
+      obj_iss.setStroke(true);
+      obj_iss.setStroke(color(255)); // needs to be different from black
+      obj_iss.setStrokeWeight(0.2f); // if the weight is too small, the stroke won't be visible (it will be occluded by the faces of the object (strokes in 3D can be tricky).
+      obj_iss.setFill(color(0));
+
+      pushMatrix();
+      translate(width*0.65, height*0.55);
+      scale(200,200,200);
+      rotateX(-PI/8);
+      rotateY(float(millis())/9000);
+      ortho();
+      shapeMode(CENTER);
+      shape(obj_iss, 0.7, 0);
+      shapeMode(CORNER);
+      popMatrix();
+      /**/
+
     }
 
-
-    // 3D model
-    // NOTE! DOES NOT WORK WITHOUT BETTER GEAR (PI4)
-    /*
-    obj_iss.setStroke(true);
-    obj_iss.setStroke(color(255)); // needs to be different from black
-    obj_iss.setStrokeWeight(0.2f); // if the weight is too small, the stroke won't be visible (it will be occluded by the faces of the object (strokes in 3D can be tricky).
-    obj_iss.setFill(color(0));
-
-    translate(width*0.65, height*0.55);
-    scale(200,200,200);
-    rotateX(-PI/8);
-    rotateY(float(millis())/9000);
-    ortho();
-    shapeMode(CENTER);
-    shape(obj_iss, 0.7, 0);
-    */
   }
 
 }
