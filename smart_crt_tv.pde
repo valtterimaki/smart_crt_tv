@@ -39,7 +39,7 @@ public int os_height = height - os_top - os_bottom;
 
 // 3d objects
 // NOTE! CANNOT DO THIS WITHOUT BETTER GEAR (PI4)
-PShape obj_iss;
+//PShape obj_iss;
 
 /* OBJECTS */
 
@@ -154,7 +154,7 @@ void setup() {
   noise2.set("amount2", 0.0);
   noise2.set("spikiness2", 100.0);
 
-  obj_iss = loadShape("3d/iss.obj");
+  //obj_iss = loadShape("3d/iss.obj");
   ortho();
 
   frameRate(50);
