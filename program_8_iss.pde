@@ -19,7 +19,7 @@ class IssTracker {
   public IssTracker() {
     update();
     println("ISS last update: " + lastUpdate());
-    iss_logo = loadShape("img/iss_logo.svg");
+    iss_logo = loadShape("img/iss_logo2.svg");
     iss_logo.disableStyle();
   }
 
@@ -216,28 +216,29 @@ class IssTracker {
     if (counter < 3) {
 
       fill(anim1.animate(0, 255, 1000, 1700, "quinticBoth"), anim1.animate(0, 255, 1000, 1700, "quinticBoth"), 255);
-      shape(iss_logo, 128, 176, 464, 266);
+      shape(iss_logo, 128, 176, 464, 316);
       fill(timeLeftBackground());
+      //fill(#ff0000); // for testing
       rect(128,176,32,anim1.animate(176, 0, 0, 1700, "quinticBoth"));
       rect(160,224,anim1.animate(436, 0, 50, 1700, "quinticBoth"),48);
-      rect(596,272,anim1.animate(-436, 0, 100, 1700, "quinticBoth"),32);
-      rect(160,304,anim1.animate(436, 0, 150, 1700, "quinticBoth"),48);
-      rect(128,443,170,anim1.animate(-75, 0, 1000, 1700, "quinticBoth"));
+      rect(596,272,anim1.animate(-436, 0, 100, 1700, "quinticBoth"),33);
+      rect(160,305,anim1.animate(436, 0, 150, 1700, "quinticBoth"),48);
+      rect(128,493,370,anim1.animate(-125, 0, 1000, 1700, "quinticBoth"));
 
     } else if (counter < 5) {
 
       fill(255);
       shape(iss_logo,
         anim1.animate(128, os_left + 32, 3000, 1000, "quinticBoth"),
-        anim1.animate(176, 170, 3000, 1000, "quinticBoth"),
+        anim1.animate(176, 150, 3000, 1000, "quinticBoth"),
         anim1.animate(464, 464/2, 3000, 1000, "quinticBoth"),
-        anim1.animate(266, 266/2, 3000, 1000, "quinticBoth")
+        anim1.animate(316, 316/2, 3000, 1000, "quinticBoth")
       );
 
     } else {
 
       fill(255);
-      shape(iss_logo, os_left + 32, 170, 464/2, 266/2);
+      shape(iss_logo, os_left + 32, 150, 464/2, 316/2);
 
       textAlign(LEFT);
       textFont(bungee_regular);
@@ -274,10 +275,10 @@ class IssTracker {
       obj_iss.setFill(color(0));
 
       pushMatrix();
-      translate(width*0.65, height*0.55);
+      translate(width*0.7, height*0.5);
       scale(180,180,180);
       rotateX(-PI/8);
-      rotateY(float(int(millis())/1000)/5);
+      rotateY(float(int(millis())/40)/200);
       ortho();
       shapeMode(CENTER);
       shape(obj_iss, 0.7, 0);
