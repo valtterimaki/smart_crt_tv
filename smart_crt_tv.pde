@@ -70,7 +70,7 @@ ForecastYr  forecast_yr;
 IssTracker iss;
 
 // noise shader
-PShader noise;
+PShader noise, noise2;
 PImage tex = createImage(1024, 576, RGB);
 
 
@@ -141,12 +141,18 @@ void setup() {
   textureWrap(REPEAT);
   noise = loadShader("noise.glsl");
   noise.set("resolution", float(width), float(height));
+  noise2 = loadShader("noise2.glsl");
+  noise2.set("resolution", float(width), float(height));
 
   // noise shader default settings
   noise.set("amount1", 0.1);
   noise.set("spikiness1", 800.0);
   noise.set("amount2", 0.0);
   noise.set("spikiness2", 100.0);
+  noise2.set("amount1", 0.1);
+  noise2.set("spikiness1", 800.0);
+  noise2.set("amount2", 0.0);
+  noise2.set("spikiness2", 100.0);
 
   obj_iss = loadShape("3d/iss.obj");
   ortho();
@@ -520,6 +526,13 @@ void draw() {
   image(tex, 0, 0, width, height);
   */
 
+  // other noise shader
+ /*
+  tex = get();
+  noise2.set("time", millis() / 1000.0);
+  shader(noise2);
+  image(tex, 0, 0, width, height);
+*/
 
   // TEMPLATE FOR A NEW SYSTEM
 
