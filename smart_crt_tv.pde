@@ -110,7 +110,7 @@ void setup() {
   snow_system = new SnowSystem();
   rain_system = new RainSystem();
   pseudo_code_one = new PseudoCodeOne();
-  wave_system = new WaveSystem(40,100);
+  wave_system = new WaveSystem(40,130);
   cloud_system = new CloudSystem();
   sun_system = new SunSystem();
   //new_system = new NewSystem();
@@ -392,7 +392,7 @@ void draw() {
     }
 
     // end program after 10 seconds
-    if (counter >= 10) {
+    if (counter >= 14) {
       counter = 0;
       program_number = 0;
       program_started = true;

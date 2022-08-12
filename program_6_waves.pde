@@ -7,11 +7,12 @@ class WaveSystem {
   int density_y;
   PVector[] grid;
   PVector offset;
-  float noise_scale = 0.07;
-  float noise_amp_x = 70;
+  float noise_scale = 0.08;
+  float noise_amp_x = 100;
   float noise_amp_y = 40;
   float phase_one = random(1000);
   float rotation;
+  float noise_val;
 
   WaveSystem(int d_x, int d_y) {
     density_x = d_x;
@@ -28,7 +29,7 @@ class WaveSystem {
   }
 
   void setup() {
-    noiseDetail(5, 0.35);
+    noiseDetail(4, 0.4);
     phase_one = random(1000);
     rotation = random(-HALF_PI/2,HALF_PI/2);
   }
@@ -51,13 +52,15 @@ class WaveSystem {
     for (int c = 0; c < density_x; ++c) {
       beginShape();
       for (int r = 0; r < density_y; ++r) {
+        noise_val = noise(c*noise_scale*1.5+phase_one, r*noise_scale, phase_one);
         stroke(
           map(noise(c*noise_scale+phase_one,r*noise_scale, phase_one+1),    0, 0.6, 0, 255),
           map(noise(c*noise_scale+phase_one,r*noise_scale, phase_one-1),    0, 0.6, 0, 255),
           map(noise(c*noise_scale+phase_one,r*noise_scale, phase_one*1.1),  0, 0.6, 0, 255)
           );
+        strokeWeight((1 - noise_val - 0.5)*2.4+0.5);
         vertex(
-          grid[(c * density_y) + r].x - noise_amp_x/2 + Ease.quarticBoth(cerp(0,0.7,0.6,0,noise(c*noise_scale*1.5+phase_one, r*noise_scale, phase_one)))*noise_amp_x,
+          grid[(c * density_y) + r].x - noise_amp_x/2 + Ease.cubicOut(cerp(0,0.7,0.6,0,noise_val))*noise_amp_x,
           grid[(c * density_y) + r].y - noise_amp_y/2 + noise(c*noise_scale+phase_one,r*noise_scale,phase_one)*noise_amp_y
         );
       }
