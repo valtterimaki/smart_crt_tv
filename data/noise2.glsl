@@ -12,9 +12,6 @@ uniform vec2 resolution;
 
 uniform float time;
 uniform float amount1;
-uniform float amount2;
-uniform float spikiness1;
-uniform float spikiness2;
 
 float rand1(vec2 co) {
     return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);

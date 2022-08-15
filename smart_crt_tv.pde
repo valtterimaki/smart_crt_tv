@@ -150,9 +150,6 @@ void setup() {
   noise.set("amount2", 0.0);
   noise.set("spikiness2", 100.0);
   noise2.set("amount1", 0.1);
-  noise2.set("spikiness1", 800.0);
-  noise2.set("amount2", 0.0);
-  noise2.set("spikiness2", 100.0);
 
   //obj_iss = loadShape("3d/iss.obj");
   ortho();
@@ -172,8 +169,11 @@ void draw() {
     counterstart = millis();
   }
 
+
   // clear screen
-  background(0);
+  if ( program_number != 0 ){
+    background(0);
+  }
 
 
   /* "PROGRAMS" */
@@ -185,12 +185,19 @@ void draw() {
 
     // set of actions that happen in the start of the program
     if (program_started == true) {
+      tex = get();
       program_started = false;
     }
 
     objFlash1.update();
-    objFlash1.display();
+    //objFlash1.display();
+
+    noise2.set("time", millis() / 1000.0);
+    shader(noise2);
+    image(tex, 0, 0, width, height);
   }
+
+  resetShader();
 
 
   // 1 is WEATHER
