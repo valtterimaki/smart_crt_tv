@@ -15,7 +15,7 @@ import java.time.temporal.ChronoUnit;
 /* GLOBAL VARIABLES */
 
 // Program number
-public int program_number = 0;
+public int program_number = 2;
 public int[] program_cycle = new int[9];
 public int program_cycle_counter = 0;
 
@@ -70,7 +70,7 @@ ForecastYr  forecast_yr;
 IssTracker iss;
 
 // noise shader
-PShader noise, noise2;
+PShader noise2;
 PImage tex = createImage(1024, 576, RGB);
 
 
@@ -98,7 +98,7 @@ void setup() {
   smooth(1);
 
   // Flash object after each program
-  objFlash1 = new ObjFlash(0.9, 0.9, 80);
+  objFlash1 = new ObjFlash();
 
   // Weather object
   weather = new Weather();
@@ -139,17 +139,11 @@ void setup() {
 
   // noise shader setup
   textureWrap(REPEAT);
-  noise = loadShader("noise.glsl");
-  noise.set("resolution", float(width), float(height));
   noise2 = loadShader("noise2.glsl");
   noise2.set("resolution", float(width), float(height));
 
   // noise shader default settings
-  noise.set("amount1", 0.1);
-  noise.set("spikiness1", 800.0);
-  noise.set("amount2", 0.0);
-  noise.set("spikiness2", 100.0);
-  noise2.set("amount1", 0.1);
+  noise2.set("amount", 0);
 
   //obj_iss = loadShape("3d/iss.obj");
   ortho();
@@ -192,9 +186,6 @@ void draw() {
     objFlash1.update();
     //objFlash1.display();
 
-    noise2.set("time", millis() / 1000.0);
-    shader(noise2);
-    image(tex, 0, 0, width, height);
   }
 
   resetShader();
@@ -279,13 +270,6 @@ void draw() {
   // 3 is CONDITION
   if (program_number == 3) {
 
-    // check counter and end program if 10 seconds have passed
-    if (counter == 10) {
-      counter = 0;
-      program_number = 0;
-      program_started = true;
-    }
-
     if (str(weather.getWeatherConditionID()).charAt(0) == '5' || str(weather.getWeatherConditionID()).charAt(0) == '3' || str(weather.getWeatherConditionID()).charAt(0) == '2') {
       //println("drizzle or rain or thunder");
       // set of actions that happen in the start of the program
@@ -341,6 +325,13 @@ void draw() {
       }
      // this is exected here so that the particle system can detect the program change and remove the particles
      cloud_system.run();
+    }
+
+    // check counter and end program if 10 seconds have passed
+    if (counter >= 10) {
+      counter = 0;
+      program_number = 0;
+      program_started = true;
     }
 
   }
@@ -523,23 +514,6 @@ void draw() {
   // Use this to check if everything fits the screen
   //drawOverscanArea(1);
 
-
-  // DOES NOT WORK ON PI
-  // horizontal noise shader
-  /*
-  tex = get();
-  noise.set("time", millis() / 1000.0);
-  shader(noise);
-  image(tex, 0, 0, width, height);
-  */
-
-  // other noise shader
- /*
-  tex = get();
-  noise2.set("time", millis() / 1000.0);
-  shader(noise2);
-  image(tex, 0, 0, width, height);
-*/
 
   // TEMPLATE FOR A NEW SYSTEM
 
