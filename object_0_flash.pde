@@ -25,8 +25,8 @@ class ObjFlash{
     }
 
     // Noise effect
-    if (phase < 0.7) {
-      noise2.set("time", millis() / 1000.0);
+    if (phase < random(0.4, 0.8)) {
+      noise2.set("time", (millis() / 1000.0) % 100);
       noise2.set("amount", phase);
       shader(noise2);
       image(tex, 0, 0, width, height);
