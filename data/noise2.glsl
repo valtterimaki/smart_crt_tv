@@ -47,21 +47,18 @@ void main(void)
   // Get the UV Coordinate of your texture or Screen Texture, yo!
   vec2 uv = gl_FragCoord.xy / resolution.xy;
 
-  // Flip that shit, cause shadertool be all "yolo opengl"
-  uv.y = -1.0 - uv.y;
-
-  // testing using only fractal noise
+  // effect using noise
   uv.x +=
     quarticInOut(smoothNoise(vec2(uv.y*2 + smoothNoise(vec2(time*7, 1), seed), time), seed)) * quarticInOut(amount)
-    + (naturalNoise(vec2(uv.y, time), seed) * 0.02) * 0.5
+    + naturalNoise(vec2(uv.y*32, time), seed) * 0.01
     - 0.07;
 
   // Other sine effects, saved here for examples
   //uv.x = uv.x + (sin(uv.y * 6 + time*3) / 10);
   //uv.x = uv.x + (sin(uv.y * 19 + time*27) / 80);
 
-  //scroll effect
-  uv.y += time/8 + smoothNoise(vec2(time*7, 1), seed) * 0.1;
+  // Flip y and scroll effect
+  uv.y = (smoothNoise(vec2(time*7, 1), seed)) * 0.1 - 1.0 - uv.y;
 
   // Get the pixel color at the index. Do the magic.
   vec3 color = texture2D(texture, uv).xyz;
