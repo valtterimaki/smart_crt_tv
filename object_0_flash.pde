@@ -30,6 +30,13 @@ class ObjFlash{
       noise2.set("amount", phase);
       shader(noise2);
       image(tex, 0, 0, width, height);
+      stroke(255);
+      strokeWeight(1);
+      for (int i = 0; i < 30; ++i) {
+        int n_x = int(random(width));
+        int n_y = int(random(height));
+        line(n_x, n_y, n_x + random(3, 20), n_y);
+      }
     } else {
       background(0);
       tex = get();
