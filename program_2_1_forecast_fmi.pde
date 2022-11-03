@@ -7,10 +7,8 @@ By Fossa
 class ForecastFmi {
 
   private XML harmonie;
-  private XML hirlam;
   private boolean reachable;
   private final static String URL_HARMONIE = "http://opendata.fmi.fi/wfs?service=WFS&version=2.0.0&request=getFeature&storedquery_id=fmi::forecast::harmonie::surface::point::simple&place=turku&";
-  private final static String URL_HIRLAM = "http://opendata.fmi.fi/wfs?service=WFS&version=2.0.0&request=getFeature&storedquery_id=fmi::forecast::hirlam::surface::point::simple&place=turku&";
   private final static int TIMEOUT = 5000;
   ArrayList<String> data_temperatures = new ArrayList<String>();
   ArrayList<String> data_times = new ArrayList<String>();
@@ -46,17 +44,15 @@ class ForecastFmi {
 
       if (reachable) {
         harmonie = loadXML(URL_HARMONIE);
-        hirlam = loadXML(URL_HIRLAM);
         last_update = hour();
       } else {
         harmonie = loadXML("placeholder_forecast_fmi.xml");
-        hirlam = loadXML("placeholder_forecast_fmi.xml");
         println("Forecast FMI - No connection");
       }
 
       data_times = getForecast("Time");
       data_temperatures = getForecast("Temperature");
-      data_precipitation = getForecast("Precipitation1h");
+      data_precipitation = getForecast("PrecipitationAmount");
     }
   }
 
@@ -72,9 +68,9 @@ class ForecastFmi {
 
     XML[] forecast_data = harmonie.getChildren("wfs:member");
 
-    // get precipitation from hirlam instead
-    if (type.equals("Precipitation1h")) {
-      forecast_data = hirlam.getChildren("wfs:member");
+    // get precipitation
+    if (type.equals("PrecipitationAmount")) {
+      forecast_data = harmonie.getChildren("wfs:member");
     }
 
     ArrayList<String> result = new ArrayList<String>();
@@ -267,8 +263,8 @@ class ForecastFmi {
     if (hour() < 12) {
       peaks_to = 16;
     }
-    int highest_index = getHighestOrLowest(data_temperatures, "highest", 2, peaks_to);
-    int lowest_index = getHighestOrLowest(data_temperatures, "lowest", 2, peaks_to);
+    int highest_index = getHighestOrLowestString(data_temperatures, "highest", 2, peaks_to);
+    int lowest_index = getHighestOrLowestString(data_temperatures, "lowest", 2, peaks_to);
 
 
     textAlign(CENTER);

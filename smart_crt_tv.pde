@@ -65,6 +65,7 @@ ObjSvg objWeathericon;
 Weather weather;
 ForecastFmi forecast_fmi;
 ForecastYr  forecast_yr;
+ElectricityUse electricity_use;
 
 // ISS tracker class
 IssTracker iss;
@@ -104,6 +105,7 @@ void setup() {
   weather = new Weather();
   forecast_fmi = new ForecastFmi();
   forecast_yr = new ForecastYr();
+  electricity_use = new ElectricityUse();
 
   // Create particle systems
   swimmer_system = new SwimmerSystem();
@@ -250,12 +252,12 @@ void draw() {
 
     // set of actions that happen in the start of the program
     if (program_started == true) {
+      forecast_fmi.update();
       forecast_fmi.anim_phase = 0;
       program_started = false;
     }
 
-    /////// draw here
-    forecast_fmi.update();
+    // draw here
     forecast_fmi.drawForecast();
 
     // end program after 14 seconds
@@ -504,6 +506,27 @@ void draw() {
 
     // end program after 9 seconds
     if (counter >= 9) {
+      counter = 0;
+      program_number = 0;
+      program_started = true;
+    }
+  }
+
+  // 10 is ELECTRICITY USE
+  if (program_number == 10) {
+
+    // set of actions that happen in the start of the program
+    if (program_started == true) {
+      electricity_use.update();
+      electricity_use.anim_phase = 0;
+      program_started = false;
+    }
+
+    // draw here
+    electricity_use.drawElect();
+
+    // end program after 14 seconds
+    if (counter >= 14) {
       counter = 0;
       program_number = 0;
       program_started = true;
