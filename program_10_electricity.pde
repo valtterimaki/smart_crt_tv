@@ -7,21 +7,18 @@ By Fossa
 class ElectricityUse {
 
   private JSONObject elect_json;
-  ////private XML harmonie;
-  ////private XML hirlam;
   private boolean reachable;
-  private final static String URL_ADAFRUIT_IO = "https://io.adafruit.com/api/v2/fossadouglasi/feeds/elect/data/chart?hours=2&x-aio-key=aio_qDsY88YdeTWpzb4u4JnqPMMyhV5x";
-  ////private final static String URL_HIRLAM = "http://opendata.fmi.fi/wfs?service=WFS&version=2.0.0&request=getFeature&storedquery_id=fmi::forecast::hirlam::surface::point::simple&place=turku&";
+  private final static String URL_ADAFRUIT_IO = "https://io.adafruit.com/api/v2/fossadouglasi/feeds/elect/data/chart?hours=4&raw=true&x-aio-key=aio_qDsY88YdeTWpzb4u4JnqPMMyhV5x";
   private final static int TIMEOUT = 5000;
   ArrayList<Float> data_values = new ArrayList<Float>();
   ArrayList<String> data_times = new ArrayList<String>();
-  ////ArrayList<String> data_precipitation = new ArrayList<String>();
+  float usage_sum = 0;
+  int data_range = 1200;
   public float anim_phase;
   int last_update = 99;
 
   public ElectricityUse() {
     update();
-    ////println("Last update electricity chart " + lastUpdate());
     anim_phase = 0;
   }
 
@@ -46,17 +43,13 @@ class ElectricityUse {
       reachable = checkConnection();
 
       if (reachable) {
-        elect_json = loadJSONObject(URL_ADAFRUIT_IO); // REPLACE WITH URL
-        ////harmonie = loadXML(URL_HARMONIE);
-        ////hirlam = loadXML(URL_HIRLAM);
+        elect_json = loadJSONObject(URL_ADAFRUIT_IO);
         last_update = hour();
       } else {
 
         /********* TODO!! FIX THIS TO ALSO FMI **********/
 
         elect_json = loadJSONObject("placeholder_adafruit_io.json"); // FIX THIS to do something useful
-        ////harmonie = loadXML("placeholder_forecast_fmi.xml");
-        ////hirlam = loadXML("placeholder_forecast_fmi.xml");
         println("Electricity chart - No connection");
       }
 
@@ -74,7 +67,7 @@ class ElectricityUse {
   */
 
 
-  /* Get forecast data */
+  /* Parse data */
 
   void parseData() {
 
@@ -84,7 +77,7 @@ class ElectricityUse {
     ArrayList<Float> values_temp = new ArrayList<Float>();
 
 
-    // Go through the data array
+    // Go through the data array, only count data range
     for (int i = 0; i < elect_data.size(); ++i) {
 
       // pick the data array contents in order
@@ -103,6 +96,8 @@ class ElectricityUse {
     data_values = values_temp;
 
     // debug
+    //println(elect_data.size());
+    //println(elect_data);
     //println(times_temp);
     //println(values_temp);
 
@@ -118,14 +113,15 @@ class ElectricityUse {
     float margin_top = os_top + 24;
     float margin_bottom = os_bottom + 40;
     float horiz_density = ((width - margin_right - margin_left) / data_values.size());
-    float vert_density = (height - margin_top - margin_bottom) / 7 ;
-    float zeroline = vert_density * 4 + margin_top;
-    float multiplier = vert_density / 10;
+    float graph_height = (height - margin_top - margin_bottom ) * 0.6;
+    float value_scale = 200;
+    float multiplier = graph_height / value_scale;
+    float vert_density = graph_height / 10 ;
     int main_values_size = 32;
     int scale_size = 15;
     int gap = 10;
     int dash_gap = 9;
-    int peaks_to = 24;
+    float usage_now = data_values.get(data_values.size() - 1);
 
 
     // very simple advance animation phase
@@ -143,17 +139,18 @@ class ElectricityUse {
     textSize(scale_size);
 
 
-    // draw temperature/precipitation scale
+    // draw electricity usage value scale
 
-    for (int i = 0; i <= 7; ++i) {
+    for (int i = 0; i <= 10; ++i) {
       noFill();
       stroke(255, 90);
       line(margin_left, (vert_density * i) + margin_top, width - margin_right, (vert_density * i) + margin_top);
+
       noStroke();
       fill(255);
       textAlign(RIGHT);
       text(
-        40 - (10 * i),
+        int(value_scale - (i * (value_scale/10))),
         margin_left - 8,
         (vert_density * i) + margin_top + 5
         );
@@ -161,42 +158,35 @@ class ElectricityUse {
 
 
     // draw time scale
+    textAlign(CENTER);
+    noFill();
+    stroke(255);
+    line(width - margin_right, margin_top, width - margin_right, margin_top + graph_height);
 
-    for (int i = 0; i < data_values.size() ; ++i) {
-      if (i % 2 == 0) {
-        textAlign(CENTER);
+    for (int i = 0; i < data_values.size() - 1 ; ++i) {
+
+      if ((data_times.get(i).charAt(14) + "" + data_times.get(i).charAt(15)).equals("30")) {
         noFill();
         stroke(255, 90);
-        line(margin_left + horiz_density * i, margin_top, margin_left + horiz_density * i, height - margin_bottom);
+        line(margin_left + horiz_density * i, margin_top, margin_left + horiz_density * i, margin_top + graph_height);
+      }
+
+      if ((data_times.get(i).charAt(14) + "" + data_times.get(i).charAt(15)).equals("00")) {
+        noFill();
+        stroke(255, 90);
+        line(margin_left + horiz_density * i, margin_top, margin_left + horiz_density * i, margin_top + graph_height);
         noStroke();
         fill(255);
+        String scale_hour = data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12);
         text(
-          data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12),
+          ((int(scale_hour) + 2) % 24) + ":00",
           margin_left + horiz_density * i,
-          height - margin_bottom + scale_size + 8
+          margin_top + graph_height + scale_size + 8
         );
       }
     }
 
-    for (int i = 0; i < data_values.size() ; ++i) {
-      if ((data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12)).equals("00")) {
-        textAlign(LEFT);
-        noFill();
-        stroke(255);
-        line(margin_left + horiz_density * i, margin_top, margin_left + horiz_density * i, height - margin_bottom);
-        textShaded(data_times.get(i).substring(8,10) + "." + data_times.get(i).substring(5,7), margin_left + horiz_density * i + 8, margin_top + 16, 255, 0, 2);
-      }
-    }
-
-
-    // draw zeroline
-
-    noStroke();
-    fill(255);
-    rect(margin_left, zeroline - 1, width - margin_left - margin_right, 1);
-
-
-    // Draw the temperature graph
+    // Draw the electricity use graph
 
     noFill();
     stroke(255);
@@ -207,64 +197,29 @@ class ElectricityUse {
       if (i +1  > Ease.quinticBoth(anim_phase) * (data_values.size())) {
         break;
       }
-      if (data_values.get(i) >= 0) {
-        stroke(
-          map(data_values.get(i), 0, 10, 0, 255),
-          constrain(map(data_values.get(i), 0, 40, 255, 80), 80, 255),
-          constrain(map(data_values.get(i), 0, 10, 255, 80), 80, 255)
-          );
-      } else {
-        stroke(
-          0,
-          constrain(map(data_values.get(i), -30, 0, 0, 255),80, 255),
-          255
-          );
-      }
+      stroke(
+        map(data_values.get(i), 0, 50, 0, 255),
+        constrain(map(data_values.get(i), 0, 200, 255, 80), 80, 255),
+        constrain(map(data_values.get(i), 0, 50, 255, 80), 80, 255)
+        );
       line(
         (horiz_density * i + margin_left),
-        zeroline - data_values.get(i) * multiplier,
+        margin_top + graph_height - data_values.get(i) * multiplier,
         (horiz_density * (i+1) + margin_left),
-        zeroline - data_values.get(i+1) * multiplier
+        margin_top + graph_height - data_values.get(i+1) * multiplier
         );
     }
-
-    if (hour() < 12) {
-      peaks_to = 16;
-    }
-    int highest_index = getHighestOrLowestFloat(data_values, "highest", 2, peaks_to);
-    int lowest_index = getHighestOrLowestFloat(data_values, "lowest", 2, peaks_to);
-
-
-    textAlign(CENTER);
-    textFont(aspace_light);
-    textSize(main_values_size);
-
-    textShaded(
-      int(data_values.get(highest_index)) + "°C",
-      (horiz_density * highest_index + margin_left),
-      zeroline - data_values.get(highest_index) * multiplier - 16 - ((2 - Ease.quinticOut(anim_phase)*2) * 6),
-      255, 0, 2
-      );
-    textShaded(
-      int(data_values.get(lowest_index)) + "°C",
-      (horiz_density * lowest_index + margin_left),
-      zeroline - data_values.get(lowest_index) * multiplier + main_values_size + 8 + ((2 - Ease.quinticOut(anim_phase)*2) * 6),
-      255, 0, 2
-      );
 
     textAlign(LEFT);
     textFont(mplus_regular);
     textSize(28);
-    textShaded("天気予報", margin_left + 16, height - margin_bottom - 52, 255, 0, 1);
+    textShaded(usage_now + " Wh / min", margin_left + 16, height - margin_bottom - 84, 255, 0, 1);
     textFont(bungee_regular);
     textSize(19);
-    textShaded("ENNUSTE, HARMONIE", margin_left + 16, height - margin_bottom - 32, 255, 0, 1);
-    textShaded(data_times.get(2).substring(0,10), margin_left + 16, height - margin_bottom - 16, 255, 0, 1);
-
-
-    // TEST TEST TEST
-    //stroke(255, 0, 0);
-    //rectStriped(0, height, 20, -200, 4, radians(millis()/50));
+    textShaded(nf(usage_now * 0.0002885 * 1.24, 0, 5) + " eur / min", margin_left + 16, height - margin_bottom - 64, 255, 0, 1);
+    textShaded(nf(usage_now * 0.0002885 * 60 * 1.24, 0, 2) + " eur / h", margin_left + 16, height - margin_bottom - 48, 255, 0, 1);
+    textShaded(nf(usage_now * 0.0002885 * 60 * 24 * 1.24, 0, 2) + " eur / day", margin_left + 16, height - margin_bottom - 32, 255, 0, 1);
+    textShaded(round(usage_now * 0.0002885 * 60 * 24 * 30 * 1.24) + " eur / month", margin_left + 16, height - margin_bottom - 16, 255, 0, 1);
 
 
   }

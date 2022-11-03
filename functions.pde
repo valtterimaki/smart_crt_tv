@@ -214,7 +214,7 @@ void mousePressed() {
 
 // get highest or lowest value in arraylist
 
-int getHighestOrLowestString(ArrayList<String> src, String which, int from, int to) {
+int getHiOrLoIndexString(ArrayList<String> src, String which, int from, int to) {
 
   ArrayList<String> source = src;
   float val1 = float(source.get(from));
@@ -237,7 +237,7 @@ int getHighestOrLowestString(ArrayList<String> src, String which, int from, int 
 
 }
 
-int getHighestOrLowestFloat(ArrayList<Float> src, String which, int from, int to) {
+int getHiOrLoIndexFloat(ArrayList<Float> src, String which, int from, int to) {
 
   ArrayList<Float> source = src;
   float val1 = source.get(from);
@@ -260,6 +260,28 @@ int getHighestOrLowestFloat(ArrayList<Float> src, String which, int from, int to
 
 }
 
+float getHiOrLoValueFloat(ArrayList<Float> src, String which, int from, int to) {
+
+  ArrayList<Float> source = src;
+  float val1 = source.get(from);
+  float val2;
+  int index = from;
+
+  for (int i = from + 1; i < to; ++i) {
+    val2 = source.get(i);
+    if (val2 > val1 && which == "highest") {
+      val1 = val2;
+      index = i;
+    }
+    if (val2 < val1 && which == "lowest") {
+      val1 = val2;
+      index = i;
+    }
+  }
+
+  return val1;
+
+}
 
 // Dashed line ( by Luhai Cui https://openprocessing.org/sketch/474079 )
 

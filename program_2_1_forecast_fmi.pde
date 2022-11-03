@@ -263,8 +263,8 @@ class ForecastFmi {
     if (hour() < 12) {
       peaks_to = 16;
     }
-    int highest_index = getHighestOrLowestString(data_temperatures, "highest", 2, peaks_to);
-    int lowest_index = getHighestOrLowestString(data_temperatures, "lowest", 2, peaks_to);
+    int highest_index = getHiOrLoIndexString(data_temperatures, "highest", 2, peaks_to);
+    int lowest_index = getHiOrLoIndexString(data_temperatures, "lowest", 2, peaks_to);
 
 
     textAlign(CENTER);
