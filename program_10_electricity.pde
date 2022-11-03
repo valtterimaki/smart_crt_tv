@@ -8,7 +8,6 @@ class ElectricityUse {
 
   private JSONObject elect_json;
   private boolean reachable;
-  private final static String URL_ADAFRUIT_IO = "https://io.adafruit.com/api/v2/fossadouglasi/feeds/elect/data/chart?hours=4&raw=true&x-aio-key=aio_qDsY88YdeTWpzb4u4JnqPMMyhV5x";
   private final static int TIMEOUT = 5000;
   ArrayList<Float> data_values = new ArrayList<Float>();
   ArrayList<String> data_times = new ArrayList<String>();
