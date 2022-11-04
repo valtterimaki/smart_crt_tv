@@ -35,7 +35,7 @@ class ObjFlash{
       for (int i = 0; i < 30; ++i) {
         int n_x = int(random(width));
         int n_y = int(random(height));
-        line(n_x, n_y, n_x + random(3, 20), n_y);
+        line(n_x, n_y, n_x + random(3, 10), n_y);
       }
     } else {
       background(0);

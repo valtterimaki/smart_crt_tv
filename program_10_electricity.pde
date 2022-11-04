@@ -7,12 +7,13 @@ By Fossa
 class ElectricityUse {
 
   private JSONObject elect_json;
+  private JSONObject elect_json_sum;
   private boolean reachable;
   private final static int TIMEOUT = 5000;
   ArrayList<Float> data_values = new ArrayList<Float>();
   ArrayList<String> data_times = new ArrayList<String>();
-  float usage_sum = 0;
-  int data_range = 1200;
+  float usage_sum;
+  int usage_sum_len;
   public float anim_phase;
   int last_update = 99;
 
@@ -25,7 +26,7 @@ class ElectricityUse {
 
   public boolean checkConnection() {
     try {
-      HttpURLConnection connection = (HttpURLConnection) new URL(URL_ADAFRUIT_IO).openConnection();
+      HttpURLConnection connection = (HttpURLConnection) new URL(URL_ADAFRUIT_IO_4H).openConnection();
       connection.setConnectTimeout(TIMEOUT);
       connection.setReadTimeout(TIMEOUT);
       int responseCode = connection.getResponseCode();
@@ -37,24 +38,27 @@ class ElectricityUse {
   }
 
   public void update() {
-    if (last_update != hour()) {
 
-      reachable = checkConnection();
+    println("updating electicity use stats");
 
-      if (reachable) {
-        elect_json = loadJSONObject(URL_ADAFRUIT_IO);
-        last_update = hour();
-      } else {
+    reachable = checkConnection();
 
-        /********* TODO!! FIX THIS TO ALSO FMI **********/
+    if (reachable) {
+      elect_json = loadJSONObject(URL_ADAFRUIT_IO_4H);
+      elect_json_sum = loadJSONObject(URL_ADAFRUIT_IO_24H);
+      last_update = hour();
+    } else {
 
-        elect_json = loadJSONObject("placeholder_adafruit_io.json"); // FIX THIS to do something useful
-        println("Electricity chart - No connection");
-      }
+      /********* TODO!! FIX THIS TO ALSO FMI **********/
 
-      // parse the valus into the arrays for graphs
-      parseData();
+      elect_json = loadJSONObject("placeholder_adafruit_io.json"); // FIX THIS to do something useful
+      elect_json_sum = loadJSONObject("placeholder_adafruit_io.json");
+      println("Electricity chart - No connection");
     }
+
+    // parse the valus into the arrays for graphs
+    parseData();
+
   }
 
   /********* TODO!! MAKE THIS PUBLIC AND GENERIC if even needed **********/
@@ -72,9 +76,12 @@ class ElectricityUse {
 
     // get only the data array from the json
     JSONArray elect_data = elect_json.getJSONArray("data");
+    JSONArray elect_data_sum = elect_json_sum.getJSONArray("data");
     ArrayList<String> times_temp = new ArrayList<String>();
     ArrayList<Float> values_temp = new ArrayList<Float>();
 
+    usage_sum = 0;
+    usage_sum_len = elect_data_sum.size();
 
     // Go through the data array, only count data range
     for (int i = 0; i < elect_data.size(); ++i) {
@@ -91,12 +98,25 @@ class ElectricityUse {
 
     }
 
+    for (int i = 0; i < elect_data_sum.size(); ++i) {
+
+      // pick the data array contents in order
+      JSONArray unit_sum = elect_data_sum.getJSONArray(i);
+      // get data
+      float value_sum = unit_sum.getFloat(1);
+
+      usage_sum += value_sum;
+
+    }
+
     data_times = times_temp;
     data_values = values_temp;
 
     // debug
+    println("usage 24h total " + usage_sum);
     //println(elect_data.size());
     //println(elect_data);
+    //println(elect_data_sum);
     //println(times_temp);
     //println(values_temp);
 
@@ -210,16 +230,31 @@ class ElectricityUse {
     }
 
     textAlign(LEFT);
-    textFont(mplus_regular);
-    textSize(28);
-    textShaded(usage_now + " Wh / min", margin_left + 16, height - margin_bottom - 84, 255, 0, 1);
-    textFont(bungee_regular);
-    textSize(19);
-    textShaded(nf(usage_now * 0.0002885 * 1.24, 0, 5) + " eur / min", margin_left + 16, height - margin_bottom - 64, 255, 0, 1);
-    textShaded(nf(usage_now * 0.0002885 * 60 * 1.24, 0, 2) + " eur / h", margin_left + 16, height - margin_bottom - 48, 255, 0, 1);
-    textShaded(nf(usage_now * 0.0002885 * 60 * 24 * 1.24, 0, 2) + " eur / day", margin_left + 16, height - margin_bottom - 32, 255, 0, 1);
-    textShaded(round(usage_now * 0.0002885 * 60 * 24 * 30 * 1.24) + " eur / month", margin_left + 16, height - margin_bottom - 16, 255, 0, 1);
+    textFont(lastwaerk_regular);
+    textSize(56);
+    textShaded(usage_now + "", margin_left + 16, height - margin_bottom - 120, 255, 0, 1);
+    float usage_textwidth = textWidth(usage_now + "");
+    textFont(robotomono_light);
+    textSize(22);
+    textShaded(" Wh / min", margin_left + 16 + usage_textwidth, height - margin_bottom - 120, 255, 0, 1);
 
+    textFont(rajdhani_light);
+    textSize(32);
+    textShaded("DENKIMATIC", margin_left + 300, height - margin_bottom - 120, 255, 0, 1);
+    textShaded("DENKIMATIC", margin_left + 302, height - margin_bottom - 120, 255, 0, 1);
+
+    textFont(robotomono_light);
+    textSize(22);
+    textShaded(nf(usage_now * 0.0002885 * 1.24, 0, 5) + " € / min", margin_left + 16, height - margin_bottom - 86, 255, 0, 1);
+    textShaded(nf(usage_now * 0.0002885 * 60 * 1.24, 0, 2) + " € / h", margin_left + 16, height - margin_bottom - 64, 255, 0, 1);
+    textShaded(nf(usage_now * 0.0002885 * 60 * 24 * 1.24, 0, 2) + " € / day", margin_left + 16, height - margin_bottom - 42, 255, 0, 1);
+
+    textShaded("Avg. " + round(usage_sum / usage_sum_len) + " Wh / min", margin_left + 300, height - margin_bottom - 42, 255, 0, 1);
+    textShaded(nf(usage_sum * 0.0002885 * 1.24, 0, 2) + " € / last 24h", margin_left + 300, height - margin_bottom - 20, 255, 0, 1);
+
+    textFont(robotomono_semibold);
+    textSize(22);
+    textShaded(round(usage_now * 0.0002885 * 60 * 24 * 30 * 1.24) + " € / month", margin_left + 16, height - margin_bottom - 20, 255, 0, 1);
 
   }
 }
