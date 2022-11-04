@@ -16,7 +16,7 @@ import java.time.temporal.ChronoUnit;
 
 // Program number
 public int program_number = 0;
-public int[] program_cycle = new int[9];
+public int[] program_cycle = new int[10];
 public int program_cycle_counter = 0;
 
 // Main counter variable that can be set inside programs
