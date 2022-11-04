@@ -76,8 +76,8 @@ class ForecastFmi {
     ArrayList<String> result = new ArrayList<String>();
     String type_test, value;
     // Use these to trim the result to certain timeframe
-    int start_at = 2;
-    int end_at = 34;
+    int start_at = 0;
+    int end_at = 32;
     int count = 0;
 
     // Go through all elements
@@ -149,11 +149,13 @@ class ForecastFmi {
         map(float(data_precipitation.get(i)), 0, 4, 130, 255)
       );
 
+      int subt_offs;
+      if (i > 0) {subt_offs = 1;} else {subt_offs = 0;}
       rectStriped(
         (horiz_density * i + margin_left),
         height - margin_bottom,
         horiz_density -4,
-        -map(float(data_precipitation.get(i)), 0, 14, 0, (height - margin_top - margin_bottom)),
+        -map(float(data_precipitation.get(i)) - float(data_precipitation.get(i - subt_offs)), 0, 14, 0, (height - margin_top - margin_bottom)),
         4,
         radians(45)
       );
@@ -203,7 +205,7 @@ class ForecastFmi {
         noStroke();
         fill(255);
         text(
-          data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12),
+          nf((int(data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12)) + 2) % 24, 2, 0),
           margin_left + horiz_density * i,
           height - margin_bottom + scale_size + 8
         );
@@ -211,7 +213,7 @@ class ForecastFmi {
     }
 
     for (int i = 0; i < data_temperatures.size() ; ++i) {
-      if ((data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12)).equals("00")) {
+      if (((int(data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12)) + 2) % 24) == 0 ) {
         textAlign(LEFT);
         noFill();
         stroke(255);
