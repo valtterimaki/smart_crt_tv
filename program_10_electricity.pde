@@ -249,8 +249,8 @@ class ElectricityUse {
     textShaded(nf(usage_now * 0.0002885 * 60 * 1.24, 0, 2) + " € / h", margin_left + 16, height - margin_bottom - 64, 255, 0, 1);
     textShaded(nf(usage_now * 0.0002885 * 60 * 24 * 1.24, 0, 2) + " € / day", margin_left + 16, height - margin_bottom - 42, 255, 0, 1);
 
-    textShaded("Avg. " + round(usage_sum / usage_sum_len) + " Wh / min", margin_left + 300, height - margin_bottom - 42, 255, 0, 1);
-    textShaded(nf(usage_sum * 0.0002885 * 1.24, 0, 2) + " € / last 24h", margin_left + 300, height - margin_bottom - 20, 255, 0, 1);
+    textShaded("Avg. " + round(usage_sum / usage_sum_len) + " Wh / min", margin_left + 300, height - margin_bottom - 42, 255, 0, 1); // 60 is the resolution of the feed
+    textShaded(nf(usage_sum * 60 * 0.0002885 * 1.24, 0, 2) + " € / last 24h", margin_left + 300, height - margin_bottom - 20, 255, 0, 1);
 
     textFont(robotomono_semibold);
     textSize(22);
