@@ -26,7 +26,7 @@ class ElectricityUse {
 
   public boolean checkConnection() {
     try {
-      HttpURLConnection connection = (HttpURLConnection) new URL(URL_ADAFRUIT_IO_4H).openConnection();
+      HttpURLConnection connection = (HttpURLConnection) new URL("https://io.adafruit.com/").openConnection();
       connection.setConnectTimeout(TIMEOUT);
       connection.setReadTimeout(TIMEOUT);
       int responseCode = connection.getResponseCode();

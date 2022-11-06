@@ -25,6 +25,7 @@ class ObjFlash{
     }
 
     // Noise effect
+    /*
     if (phase < random(0.4, 0.8)) {
       noise2.set("time", (millis() / 1000.0) % 100);
       noise2.set("amount", phase);
@@ -41,5 +42,6 @@ class ObjFlash{
       background(0);
       tex = get();
     }
+    */
   }
 }
