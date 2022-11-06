@@ -25,12 +25,13 @@ class ObjFlash{
     }
 
     // Noise effect
-    /*
+    
     if (phase < random(0.4, 0.8)) {
       noise2.set("time", (millis() / 1000.0) % 100);
       noise2.set("amount", phase);
       shader(noise2);
       image(tex, 0, 0, width, height);
+      /*
       stroke(255);
       strokeWeight(1);
       for (int i = 0; i < 30; ++i) {
@@ -38,10 +39,11 @@ class ObjFlash{
         int n_y = int(random(height));
         line(n_x, n_y, n_x + random(3, 10), n_y);
       }
+      */
     } else {
       background(0);
       tex = get();
     }
-    */
+    
   }
 }
