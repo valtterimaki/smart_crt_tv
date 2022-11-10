@@ -26,7 +26,7 @@ class ForecastFmi {
 
   public boolean checkConnection() {
     try {
-      HttpURLConnection connection = (HttpURLConnection) new URL(URL_HARMONIE).openConnection();
+      HttpURLConnection connection = (HttpURLConnection) new URL("http://opendata.fmi.fi/").openConnection();
       connection.setConnectTimeout(TIMEOUT);
       connection.setReadTimeout(TIMEOUT);
       int responseCode = connection.getResponseCode();
