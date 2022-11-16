@@ -50,6 +50,12 @@ class ForecastFmi {
         println("Forecast FMI - No connection");
       }
 
+      // if for some reason we cannot get the data
+      if (harmonie.getChildren("wfs:member") == null) {
+        harmonie = loadXML("placeholder_forecast_fmi.xml");
+        println("Forecast FMI - Data was not gotten for some reason");
+      }
+
       data_times = getForecast("Time");
       data_temperatures = getForecast("Temperature");
       data_precipitation = getForecast("PrecipitationAmount");
