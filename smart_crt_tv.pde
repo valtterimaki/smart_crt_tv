@@ -526,7 +526,7 @@ void draw() {
     electricity_use.drawElect();
 
     // end program after 14 seconds
-    if (counter >= 14) {
+    if (counter >= 20) {
       counter = 0;
       program_number = 0;
       program_started = true;

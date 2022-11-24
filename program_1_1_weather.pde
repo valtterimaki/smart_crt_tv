@@ -51,7 +51,7 @@ class Weather {
       root = loadXML("http://api.openweathermap.org/data/2.5/weather?q=Turku,fi&appid=252d087e98bfe7e2d4bfa4991e0f4671&units=metric&mode=xml&lang=fi");
     } else {
       root = loadXML("weather_data_placeholder.xml");
-      println("No connection");
+      println("Current weather - No connection");
     }
   }
 
