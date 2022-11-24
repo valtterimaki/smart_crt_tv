@@ -30,7 +30,7 @@ class ForecastYr {
       connection.setConnectTimeout(TIMEOUT);
       connection.setReadTimeout(TIMEOUT);
       int responseCode = connection.getResponseCode();
-      println(responseCode);
+      println("yr no response " + responseCode);
       return (200 <= responseCode && responseCode <= 399);
     } catch (IOException exception) {
       return false;
