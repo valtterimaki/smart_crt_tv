@@ -44,6 +44,7 @@ class ElectricityUse {
     reachable = checkConnection();
 
     if (reachable) {
+      delay(500);
       elect_json = loadJSONObject(URL_ADAFRUIT_IO_4H);
       elect_json_sum = loadJSONObject(URL_ADAFRUIT_IO_24H);
       last_update = hour();

@@ -43,6 +43,7 @@ class ForecastFmi {
       reachable = checkConnection();
 
       if (reachable) {
+        delay(500);
         harmonie = loadXML(URL_HARMONIE);
         last_update = hour();
       } else {
