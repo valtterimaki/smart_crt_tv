@@ -93,3 +93,62 @@ class Animator {
   }
 
 }
+
+public void movieEvent(Movie src_mov) {
+  src_mov.read();
+}
+
+class ScanVideo {
+
+  int cumul;
+  int pos_x, pos_y;
+  int thresh, thresh_min, thresh_max;
+  int variance_speed;
+
+  ScanVideo (int px, int py, int tmin, int tmax, int vspd) {
+    pos_x = px;
+    pos_y = py;
+    thresh_min = tmin;
+    thresh_max = tmax;
+    variance_speed = vspd;
+  }
+
+  void updatePos(int px, int py) {
+    pos_x = px;
+    pos_y = py;
+  }
+
+  void run() {
+
+    colorMode(HSB, 360, 100, 100);
+    strokeWeight(1);
+    thresh = int(map(noise(float(millis()) * (0.001 * variance_speed)), 0, 1, thresh_min, thresh_max));
+
+    image(src_mov, width+1, height+1);
+
+    src_mov.loadPixels();
+
+    for (int y = 0; y < src_mov.height; ++y) {
+      cumul = 0;
+
+      for (int x = 0; x < src_mov.width; ++x) {
+        color col = src_mov.pixels[y * src_mov.width + x];
+        if(brightness(col) > 0) {
+          cumul += brightness(col);
+        }
+
+        if (cumul >= thresh) {
+          col = color(hue(col), map(saturation(col), 0, 100, 0, 100), 100);
+          stroke(col);
+          point(x + pos_x, y + pos_y);
+          cumul = 0;
+        }
+      }
+    }
+    colorMode(RGB, 255, 255, 255);
+
+    //src_mov.jump(0); // debug pause video
+
+  }
+
+}

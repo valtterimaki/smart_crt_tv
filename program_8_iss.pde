@@ -235,6 +235,9 @@ class IssTracker {
         anim1.animate(316, 316/2, 3000, 1000, "quinticBoth")
       );
 
+      scanvideo.updatePos(int(anim1.animate(width, 340, 3000, 1000, "quinticBoth")), 110);
+      scanvideo.run();
+
     } else {
 
       fill(255);
@@ -266,26 +269,8 @@ class IssTracker {
           text("No connection.",                                    os_left + 32, height - 230);
       }
 
-      // 3D model
-      // NOTE! DOES NOT WORK WITHOUT BETTER GEAR (PI4)
+      scanvideo.run();
 
-      /*
-      obj_iss.setStroke(true);
-      obj_iss.setStroke(color(255)); // needs to be different from black
-      obj_iss.setStrokeWeight(0.2f); // if the weight is too small, the stroke won't be visible (it will be occluded by the faces of the object (strokes in 3D can be tricky).
-      obj_iss.setFill(color(0));
-
-      pushMatrix();
-      translate(width*0.7, height*0.5);
-      scale(180,180,180);
-      rotateX(-PI/8);
-      rotateY(float(int(millis())/40)/200);
-      ortho();
-      shapeMode(CENTER);
-      shape(obj_iss, 0.7, 0);
-      shapeMode(CORNER);
-      popMatrix();
-      */
     }
 
   }
