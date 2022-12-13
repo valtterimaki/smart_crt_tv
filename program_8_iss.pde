@@ -235,8 +235,8 @@ class IssTracker {
         anim1.animate(316, 316/2, 3000, 1000, "quinticBoth")
       );
 
-      scanvideo.updatePos(int(anim1.animate(width, 340, 3000, 1000, "quinticBoth")), 110);
-      scanvideo.run();
+      ////scanvideo.updatePos(int(anim1.animate(width, 340, 3000, 1000, "quinticBoth")), 110);
+      ////scanvideo.run();
 
     } else {
 
@@ -269,7 +269,7 @@ class IssTracker {
           text("No connection.",                                    os_left + 32, height - 230);
       }
 
-      scanvideo.run();
+      ////scanvideo.run();
 
     }
 
