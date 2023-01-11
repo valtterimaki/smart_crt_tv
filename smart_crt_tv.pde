@@ -339,6 +339,7 @@ void draw() {
 
     // check counter and end program if 10 seconds have passed
     if (counter >= 10) {
+      cloud_system.reset();
       counter = 0;
       program_number = 0;
       program_started = true;
