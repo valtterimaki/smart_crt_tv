@@ -16,7 +16,7 @@ class ObjFlash{
 
       programChange();
       //programChangeTest(3,8); // use this to test certain programs together for debugging
-      //program_number = 6; // NOTE! Use this to force certain program for debugging
+      program_number = 8; // NOTE! Use this to force certain program for debugging
 
       program_started = true;
 
