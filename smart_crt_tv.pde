@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.Date;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import gohai.glvideo.*;
+import processing.video.*;
 
 
 /* GLOBAL VARIABLES */
@@ -76,7 +76,7 @@ PShader noise2;
 PImage tex = createImage(1024, 576, RGB);
 
 // videos
-public GLMovie src_mov;
+public Movie src_mov;
 ScanVideo scanvideo;
 
 
@@ -446,16 +446,13 @@ void draw() {
       iss.update();
       iss.anim_phase = 0;
       forecast_yr.findIssMatch();
-      src_mov = new GLMovie(this, "iss2.mp4");
+      src_mov = new Movie(this, "iss2.mp4");
       src_mov.loop();
       scanvideo.updatePos(300, 100);
       program_started = false;
     }
 
     // draw here
-    if (src_mov.available()) {
-      src_mov.read();
-    }
     iss.run();
 
     // end program after 14 seconds
@@ -548,8 +545,8 @@ void draw() {
     }
   }
 
-  // 11 is GLITCH VIDEO
-  /*
+   // 11 is GLITCH VIDEO
+   /*
   if (program_number == 11) {
 
     // set of actions that happen in the start of the program
@@ -558,7 +555,7 @@ void draw() {
     }
 
     // draw here
-    
+
 
     // end program after 20 seconds
     if (counter >= 20) {

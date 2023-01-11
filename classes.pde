@@ -94,11 +94,11 @@ class Animator {
 
 }
 
-/*
+
 public void movieEvent(Movie src_mov) {
   src_mov.read();
 }
-*/
+
 
 class ScanVideo {
 
