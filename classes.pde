@@ -95,12 +95,12 @@ class Animator {
 }
 
 
-public void movieEvent(Movie src_mov) {
-  src_mov.read();
-}
+//public void movieEvent(Movie src_mov) {
+//  src_mov.read();
+//}
 
 
-class ScanVideo {
+/*class ScanVideo {
 
   int cumul;
   int pos_x, pos_y;
@@ -153,4 +153,4 @@ class ScanVideo {
 
   }
 
-}
+}*/

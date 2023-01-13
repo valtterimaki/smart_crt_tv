@@ -76,8 +76,8 @@ PShader noise2;
 PImage tex = createImage(1024, 576, RGB);
 
 // videos
-public Movie src_mov;
-ScanVideo scanvideo;
+//public Movie src_mov;
+//ScanVideo scanvideo;
 
 
 /* FONTS */
@@ -126,7 +126,7 @@ void setup() {
   iss = new IssTracker();
 
   // video
-  scanvideo = new ScanVideo(0, 0, 5, 1000, 1);
+  //scanvideo = new ScanVideo(0, 0, 5, 1000, 1);
 
   // Set fonts
   source_code_thin = createFont("SourceCodePro-ExtraLight.ttf", 128);
@@ -446,9 +446,9 @@ void draw() {
       iss.update();
       iss.anim_phase = 0;
       forecast_yr.findIssMatch();
-      src_mov = new Movie(this, "iss2.mp4");
-      src_mov.loop();
-      scanvideo.updatePos(300, 100);
+      //src_mov = new Movie(this, "iss2.mp4");
+      //src_mov.loop();
+      //scanvideo.updatePos(300, 100);
       program_started = false;
     }
 
