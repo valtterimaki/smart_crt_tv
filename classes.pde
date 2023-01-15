@@ -94,13 +94,7 @@ class Animator {
 
 }
 
-
-//public void movieEvent(Movie src_mov) {
-//  src_mov.read();
-//}
-
-
-/*class ScanVideo {
+class ScanVideo {
 
   int cumul;
   int pos_x, pos_y;
@@ -126,6 +120,9 @@ class Animator {
     strokeWeight(1);
     thresh = int(map(noise(float(millis()) * (0.001 * variance_speed)), 0, 1, thresh_min, thresh_max));
 
+    if (src_mov.available()) {
+      src_mov.read();
+    }
     image(src_mov, width+1, height+1);
 
     src_mov.loadPixels();
@@ -153,4 +150,4 @@ class Animator {
 
   }
 
-}*/
+}

@@ -551,13 +551,10 @@ void drawOverscanArea(int variant) {
 
 }
 
+/*public void movieEvent(Movie m) {
+  m.read();
+}*/
 
-
-
-
-
-
-
-
-
-
+boolean is_movie_finished(Movie m) {
+  return m.duration() - m.time() < 0.05;
+}
