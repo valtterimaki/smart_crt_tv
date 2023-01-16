@@ -10,7 +10,6 @@ import java.net.URL;
 import java.util.Date;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import processing.video.*;
 
 
 /* GLOBAL VARIABLES */
@@ -76,8 +75,7 @@ PShader noise2;
 PImage tex = createImage(1024, 576, RGB);
 
 // videos
-public Movie src_mov;
-ScanVideo scanvideo;
+ImageSequence vid_iss;
 
 
 /* FONTS */
@@ -126,9 +124,8 @@ void setup() {
   iss = new IssTracker();
 
   // video
-  src_mov = new Movie(this, "iss2.mp4");
-  src_mov.loop();
-  scanvideo = new ScanVideo(0, 0, 5, 1000, 1);
+  vid_iss = new ImageSequence("video_iss/iss", 250);
+  vid_iss.dot_scan_settings(5, 1000, 1);
 
   // Set fonts
   source_code_thin = createFont("SourceCodePro-ExtraLight.ttf", 128);
@@ -448,14 +445,10 @@ void draw() {
       iss.update();
       iss.anim_phase = 0;
       forecast_yr.findIssMatch();
-      scanvideo.updatePos(300, 100);
       program_started = false;
     }
 
     // draw here
-    if (is_movie_finished(src_mov) == true) {
-      src_mov.jump(0);
-    }
     iss.run();
 
     // end program after 14 seconds

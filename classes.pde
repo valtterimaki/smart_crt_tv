@@ -94,44 +94,48 @@ class Animator {
 
 }
 
-class ScanVideo {
+// Class for animating a sequence of PNG's
 
-  int cumul;
-  int pos_x, pos_y;
-  int thresh, thresh_min, thresh_max;
-  int variance_speed;
+class ImageSequence {
+  PImage[] images;
+  int imageCount;
+  int frame;
+  int thresh_min, thresh_max, variance_speed;
+  
+  ImageSequence(String imagePrefix, int count) {
+    imageCount = count;
+    images = new PImage[imageCount];
 
-  ScanVideo (int px, int py, int tmin, int tmax, int vspd) {
-    pos_x = px;
-    pos_y = py;
-    thresh_min = tmin;
-    thresh_max = tmax;
-    variance_speed = vspd;
+    for (int i = 0; i < imageCount; i++) {
+      // Use nf() to number format 'i' into four digits
+      String filename = imagePrefix + nf(i, 4) + ".png";
+      images[i] = loadImage(filename);
+    }
   }
 
-  void updatePos(int px, int py) {
-    pos_x = px;
-    pos_y = py;
+  void display(float xpos, float ypos) {
+    frame = (frame+1) % imageCount;
+    image(images[frame], xpos, ypos);
   }
 
-  void run() {
+  void dot_scan_settings(int t_min, int t_max, int v_spd) {
+    thresh_min = t_min;
+    thresh_max = t_max;
+    variance_speed = v_spd;
+  }
+
+  void display_dot_scan(float xpos, float ypos) {
+    frame = (frame+1) % imageCount;
 
     colorMode(HSB, 360, 100, 100);
     strokeWeight(1);
-    thresh = int(map(noise(float(millis()) * (0.001 * variance_speed)), 0, 1, thresh_min, thresh_max));
+    int thresh = int(map(noise(float(millis()) * (0.001 * variance_speed)), 0, 1, thresh_min, thresh_max));
 
-    if (src_mov.available()) {
-      src_mov.read();
-    }
-    image(src_mov, width+1, height+1);
+    for (int y = 0; y < images[frame].height; ++y) {
+      int cumul = 0;
 
-    src_mov.loadPixels();
-
-    for (int y = 0; y < src_mov.height; ++y) {
-      cumul = 0;
-
-      for (int x = 0; x < src_mov.width; ++x) {
-        color col = src_mov.pixels[y * src_mov.width + x];
+      for (int x = 0; x < images[frame].width; ++x) {
+        color col = images[frame].pixels[y * images[frame].width + x];
         if(brightness(col) > 0) {
           cumul += brightness(col);
         }
@@ -139,15 +143,12 @@ class ScanVideo {
         if (cumul >= thresh) {
           col = color(hue(col), map(saturation(col), 0, 100, 0, 100), 100);
           stroke(col);
-          point(x + pos_x, y + pos_y);
+          point(x + xpos, y + ypos);
           cumul = 0;
         }
       }
     }
     colorMode(RGB, 255, 255, 255);
-
-    //src_mov.jump(0); // debug pause video
-
   }
-
+  
 }
