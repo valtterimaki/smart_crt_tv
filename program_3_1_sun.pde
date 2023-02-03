@@ -58,6 +58,12 @@ class SunSystem {
 
     }
   }
+
+  void reset() {
+    for (int i = rays.size()-1; i >= 0; i--) {
+      ObjSunRay s = rays.get(i);
+      rays.remove(i);
+    }
 }
 
 
