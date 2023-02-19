@@ -340,6 +340,7 @@ void draw() {
     if (counter >= 10) {
       sun_system.reset();
       cloud_system.reset();
+      snow_system.reset();
       counter = 0;
       program_number = 0;
       program_started = true;

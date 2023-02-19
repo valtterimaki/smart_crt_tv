@@ -16,10 +16,6 @@ class SnowSystem {
     for (int i = snowflakes.size()-1; i >= 0; i--) {
       ObjSnow s = snowflakes.get(i);
       s.update();
-
-      if (program_number != 3) {
-        snowflakes.remove(i);
-      }
     }
 
     textFont(bungee_regular);
@@ -27,6 +23,12 @@ class SnowSystem {
     textAlign(CENTER);
     if (counter % 2 == 0) {
      text("LUMISADETTA", width/2, height - 56);
+    }
+  }
+
+  void reset() {
+    for (int i = snowflakes.size()-1; i >= 0; i--) {
+      snowflakes.remove(i);
     }
   }
 }

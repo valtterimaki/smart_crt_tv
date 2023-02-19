@@ -34,7 +34,6 @@ class CloudSystem {
 
   void reset() {
     for (int i = clouds.size()-1; i >= 0; i--) {
-      ObjCloud s = clouds.get(i);
       clouds.remove(i);
     }
   }
