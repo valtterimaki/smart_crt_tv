@@ -75,6 +75,12 @@ class RainSystem {
       text("VESISADETTA", width/2, height - 56);
     }
   }
+
+ void reset() {
+    for (int i = raindrops.size()-1; i >= 0; i--) {
+      raindrops.remove(i);
+    }
+  }
 }
 
 
