@@ -77,14 +77,21 @@ class IssTracker {
   }
 
   String getData(int sighting_no, String input) {
-    if (input.equals("raw_date")) {
-      return sightings[sighting_no].getChild("title").getContent().substring(0, 10);
-    }
-    String data = sightings[sighting_no].getChild("description").getContent().substring(
-      sightings[sighting_no].getChild("description").getContent().indexOf(input) /*+ input.length() + 2*/,
-      sightings[sighting_no].getChild("description").getContent().indexOf("<br/>", sightings[sighting_no].getChild("description").getContent().indexOf(input))
+    try {
+      if (input.equals("raw_date")) {
+        return sightings[sighting_no].getChild("title").getContent().substring(0, 10);
+      }
+      String data = sightings[sighting_no].getChild("description").getContent().substring(
+        sightings[sighting_no].getChild("description").getContent().indexOf(input) /*+ input.length() + 2*/,
+        sightings[sighting_no].getChild("description").getContent().indexOf("<br/>", sightings[sighting_no].getChild("description").getContent().indexOf(input))
       );
-    return data;
+      println(data);
+      return data;
+    } catch(ArrayIndexOutOfBoundsException e) {
+      println("error in sighting number");
+      String data = "Time: ee:ee AM ";
+      return data;
+    }
   }
 
   LocalDateTime parseData(int index) {
