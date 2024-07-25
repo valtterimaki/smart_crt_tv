@@ -91,6 +91,9 @@ class IssTracker {
       println("error in sighting number");
       String data = "Time: ee:ee AM ";
       return data;
+      //if error for debugging
+      println(XML THAT CAUSED ERROR);
+      println(iss_data);
     }
   }
 
