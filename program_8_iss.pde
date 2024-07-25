@@ -90,7 +90,6 @@ class IssTracker {
     } catch(ArrayIndexOutOfBoundsException e) {
       println("error in sighting number");
       //if error for debugging
-      println("XML THAT CAUSED ERROR");
       println(iss_data);
       String data = "Time: ee:ee AM ";
       return data;
