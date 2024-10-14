@@ -15,6 +15,7 @@ class ForecastFmi {
   ArrayList<String> data_precipitation = new ArrayList<String>();
   public float anim_phase;
   int last_update = 99;
+  boolean error = false;
 
   public ForecastFmi() {
     update();
@@ -40,19 +41,27 @@ class ForecastFmi {
   public void update() {
     if (last_update != hour()) {
 
+      error = false;
       reachable = checkConnection();
 
       if (reachable) {
         delay(500);
-        harmonie = loadXML(URL_HARMONIE);
+        try {
+          harmonie = loadXML(URL_HARMONIE);
+        } catch (Exception e) {
+          error = true;
+          harmonie = loadXML("placeholder_forecast_fmi.xml");  
+        }      
         last_update = hour();
       } else {
+        error = true;
         harmonie = loadXML("placeholder_forecast_fmi.xml");
         println("Forecast FMI - No connection");
       }
 
       // if for some reason we cannot get the data
       if (harmonie.getChildren("wfs:member") == null) {
+        error = true;
         harmonie = loadXML("placeholder_forecast_fmi.xml");
         println("Forecast FMI - Data was not gotten for some reason");
       }
@@ -203,29 +212,31 @@ class ForecastFmi {
 
     // draw time scale
 
-    for (int i = 0; i < data_temperatures.size() ; ++i) {
-      if (i % 2 == 0) {
-        textAlign(CENTER);
-        noFill();
-        stroke(255, 90);
-        line(margin_left + horiz_density * i, margin_top, margin_left + horiz_density * i, height - margin_bottom);
-        noStroke();
-        fill(255);
-        text(
-          nf((int(data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12)) + 2) % 24, 2, 0),
-          margin_left + horiz_density * i,
-          height - margin_bottom + scale_size + 8
-        );
+    if (error == false) {
+      for (int i = 0; i < data_temperatures.size() ; ++i) {
+        if (i % 2 == 0) {
+          textAlign(CENTER);
+          noFill();
+          stroke(255, 90);
+          line(margin_left + horiz_density * i, margin_top, margin_left + horiz_density * i, height - margin_bottom);
+          noStroke();
+          fill(255);
+          text(
+            nf((int(data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12)) + 2) % 24, 2, 0),
+            margin_left + horiz_density * i,
+            height - margin_bottom + scale_size + 8
+          );
+        }
       }
-    }
 
-    for (int i = 0; i < data_temperatures.size() ; ++i) {
-      if (((int(data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12)) + 2) % 24) == 0 ) {
-        textAlign(LEFT);
-        noFill();
-        stroke(255);
-        line(margin_left + horiz_density * i, margin_top, margin_left + horiz_density * i, height - margin_bottom);
-        textShaded(data_times.get(i).substring(8,10) + "." + data_times.get(i).substring(5,7), margin_left + horiz_density * i + 8, margin_top + 16, 255, 0, 2);
+      for (int i = 0; i < data_temperatures.size() ; ++i) {
+        if (((int(data_times.get(i).charAt(11) + "" + data_times.get(i).charAt(12)) + 2) % 24) == 0 ) {
+          textAlign(LEFT);
+          noFill();
+          stroke(255);
+          line(margin_left + horiz_density * i, margin_top, margin_left + horiz_density * i, height - margin_bottom);
+          textShaded(data_times.get(i).substring(8,10) + "." + data_times.get(i).substring(5,7), margin_left + horiz_density * i + 8, margin_top + 16, 255, 0, 2);
+        }
       }
     }
 
@@ -244,54 +255,57 @@ class ForecastFmi {
     strokeWeight(3);
     strokeCap(ROUND);
 
-    for (int i = 0; i < data_temperatures.size() - 1; ++i) {
-      if (i +1  > Ease.quinticBoth(anim_phase) * (data_temperatures.size())) {
-        break;
-      }
-      if (float(data_temperatures.get(i)) >= 0) {
-        stroke(
-          map(float(data_temperatures.get(i)), 0, 10, 0, 255),
-          constrain(map(float(data_temperatures.get(i)), 0, 40, 255, 80), 80, 255),
-          constrain(map(float(data_temperatures.get(i)), 0, 10, 255, 80), 80, 255)
+    if (error == false) {
+      for (int i = 0; i < data_temperatures.size() - 1; ++i) {
+        if (i +1  > Ease.quinticBoth(anim_phase) * (data_temperatures.size())) {
+          break;
+        }
+        if (float(data_temperatures.get(i)) >= 0) {
+          stroke(
+            map(float(data_temperatures.get(i)), 0, 10, 0, 255),
+            constrain(map(float(data_temperatures.get(i)), 0, 40, 255, 80), 80, 255),
+            constrain(map(float(data_temperatures.get(i)), 0, 10, 255, 80), 80, 255)
+            );
+        } else {
+          stroke(
+            0,
+            constrain(map(float(data_temperatures.get(i)), -30, 0, 0, 255),80, 255),
+            255
+            );
+        }
+        line(
+          (horiz_density * i + margin_left),
+          zeroline - float(data_temperatures.get(i)) * multiplier,
+          (horiz_density * (i+1) + margin_left),
+          zeroline - float(data_temperatures.get(i+1)) * multiplier
           );
-      } else {
-        stroke(
-          0,
-          constrain(map(float(data_temperatures.get(i)), -30, 0, 0, 255),80, 255),
-          255
-          );
       }
-      line(
-        (horiz_density * i + margin_left),
-        zeroline - float(data_temperatures.get(i)) * multiplier,
-        (horiz_density * (i+1) + margin_left),
-        zeroline - float(data_temperatures.get(i+1)) * multiplier
+    
+
+      if (hour() < 12) {
+        peaks_to = 16;
+      }
+      int highest_index = getHiOrLoIndexString(data_temperatures, "highest", 2, peaks_to);
+      int lowest_index = getHiOrLoIndexString(data_temperatures, "lowest", 2, peaks_to);
+
+
+      textAlign(CENTER);
+      textFont(aspace_light);
+      textSize(main_values_size);
+
+      textShaded(
+        int(data_temperatures.get(highest_index)) + "°C",
+        (horiz_density * highest_index + margin_left),
+        zeroline - float(data_temperatures.get(highest_index)) * multiplier - 16 - ((2 - Ease.quinticOut(anim_phase)*2) * 6),
+        255, 0, 2
+        );
+      textShaded(
+        int(data_temperatures.get(lowest_index)) + "°C",
+        (horiz_density * lowest_index + margin_left),
+        zeroline - float(data_temperatures.get(lowest_index)) * multiplier + main_values_size + 8 + ((2 - Ease.quinticOut(anim_phase)*2) * 6),
+        255, 0, 2
         );
     }
-
-    if (hour() < 12) {
-      peaks_to = 16;
-    }
-    int highest_index = getHiOrLoIndexString(data_temperatures, "highest", 2, peaks_to);
-    int lowest_index = getHiOrLoIndexString(data_temperatures, "lowest", 2, peaks_to);
-
-
-    textAlign(CENTER);
-    textFont(aspace_light);
-    textSize(main_values_size);
-
-    textShaded(
-      int(data_temperatures.get(highest_index)) + "°C",
-      (horiz_density * highest_index + margin_left),
-      zeroline - float(data_temperatures.get(highest_index)) * multiplier - 16 - ((2 - Ease.quinticOut(anim_phase)*2) * 6),
-      255, 0, 2
-      );
-    textShaded(
-      int(data_temperatures.get(lowest_index)) + "°C",
-      (horiz_density * lowest_index + margin_left),
-      zeroline - float(data_temperatures.get(lowest_index)) * multiplier + main_values_size + 8 + ((2 - Ease.quinticOut(anim_phase)*2) * 6),
-      255, 0, 2
-      );
 
     textAlign(LEFT);
     textFont(mplus_regular);
@@ -299,8 +313,13 @@ class ForecastFmi {
     textShaded("天気予報", margin_left + 16, height - margin_bottom - 52, 255, 0, 1);
     textFont(bungee_regular);
     textSize(19);
-    textShaded("ENNUSTE, HARMONIE", margin_left + 16, height - margin_bottom - 32, 255, 0, 1);
-    textShaded(data_times.get(2).substring(0,10), margin_left + 16, height - margin_bottom - 16, 255, 0, 1);
+    if (error == false) {
+      textShaded("ENNUSTE, HARMONIE", margin_left + 16, height - margin_bottom - 32, 255, 0, 1);
+      textShaded(data_times.get(2).substring(0,10), margin_left + 16, height - margin_bottom - 16, 255, 0, 1);
+    } else {
+      textShaded("ERROR NO DATA !", margin_left + 16, height - margin_bottom - 32, 255, 0, 1);
+    }
+    
 
 
     // TEST TEST TEST
