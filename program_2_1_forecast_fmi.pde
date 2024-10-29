@@ -1,4 +1,4 @@
-
+ 
 /*
 FMI weather xml fetcher
 By Fossa
@@ -39,6 +39,7 @@ class ForecastFmi {
   }
 
   public void update() {
+    try {
     if (last_update != hour()) {
 
       error = false;
@@ -70,6 +71,10 @@ class ForecastFmi {
       data_temperatures = getForecast("Temperature");
       data_precipitation = getForecast("PrecipitationAmount");
     }
+    } catch (Exception e) {
+      error = true;
+      harmonie = loadXML("placeholder_forecast_fmi.xml");  
+    }    
   }
 
   public String lastUpdate(){
