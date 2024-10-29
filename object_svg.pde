@@ -8,12 +8,12 @@ Inputs are, the xml file to be drawn, x, and y offset, amount of wobble.
 class ObjSvg {
 
   XML xml;
-  float xoffs, yoffs, fine;
+  float xoffs, yoffs, fine, scale;
   int rand, spd;
   PVector[][][] parsed_svg = new PVector[3][50][50];
   float[] svg_noise = new float[50];
 
-  ObjSvg (String xml_init, float xo, float yo, int rand_init, float fine_init, int spd_init) {
+  ObjSvg (String xml_init, float xo, float yo, int rand_init, float fine_init, int spd_init, float sc) {
 
     xml = loadXML(xml_init);
     xoffs = xo;
@@ -21,6 +21,7 @@ class ObjSvg {
     rand = rand_init;
     spd = spd_init;
     fine = fine_init;
+    scale = sc;
 
     svgParse();
 
@@ -131,10 +132,10 @@ class ObjSvg {
         noiseSeed(i);
 
         line(
-        parsed_svg[0][i][0].x + xoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + i*0.3 + random(0.1), 110))) * rand + random(fine),
-        parsed_svg[0][i][0].y + yoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + i*0.3 + random(0.1), 220))) * rand + random(fine),
-        parsed_svg[0][i][1].x + xoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + i*0.3 + random(0.1), 330))) * rand + random(fine),
-        parsed_svg[0][i][1].y + yoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + i*0.3 + random(0.1), 440))) * rand + random(fine)
+        parsed_svg[0][i][0].x * scale + xoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + i*0.3 + random(0.1), 110))) * rand + random(fine),
+        parsed_svg[0][i][0].y * scale + yoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + i*0.3 + random(0.1), 220))) * rand + random(fine),
+        parsed_svg[0][i][1].x * scale + xoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + i*0.3 + random(0.1), 330))) * rand + random(fine),
+        parsed_svg[0][i][1].y * scale + yoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + i*0.3 + random(0.1), 440))) * rand + random(fine)
         );
       }
     }
@@ -152,8 +153,8 @@ class ObjSvg {
           noiseSeed(k+i);
 
           vertex(
-            parsed_svg[1][i][k].x + xoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + k*0.3 + random(0.1), 550))) * rand + random(fine),
-            parsed_svg[1][i][k].y + yoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + k*0.3 + random(0.1), 660))) * rand + random(fine)
+            parsed_svg[1][i][k].x * scale + xoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + k*0.3 + random(0.1), 550))) * rand + random(fine),
+            parsed_svg[1][i][k].y * scale + yoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + k*0.3 + random(0.1), 660))) * rand + random(fine)
           );
 
         }
@@ -174,8 +175,8 @@ class ObjSvg {
           noiseSeed(k+i);
 
           vertex(
-            parsed_svg[2][i][k].x + xoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + k*0.3 + random(0.1), 550))) * rand + random(fine),
-            parsed_svg[2][i][k].y + yoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + k*0.3 + random(0.1), 660))) * rand + random(fine)
+            parsed_svg[2][i][k].x * scale + xoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + k*0.3 + random(0.1), 550))) * rand + random(fine),
+            parsed_svg[2][i][k].y * scale + yoffs + Ease.quinticBoth(Ease.quinticBoth(noise(float(millis()) / spd + k*0.3 + random(0.1), 660))) * rand + random(fine)
           );
 
         }

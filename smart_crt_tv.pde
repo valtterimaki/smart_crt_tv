@@ -209,7 +209,7 @@ void draw() {
     if (program_started == true) {
       // icon set
       weather_icon = "img/" + weather.getWeatherConditionIcon() + ".svg";
-      objWeathericon = new ObjSvg(weather_icon, 330, 40, 3, 0.6, 1833);
+      objWeathericon = new ObjSvg(weather_icon, 350, 50, 3, 0.6, 1833, 1.2);
       program_started = false;
     }
 
@@ -224,17 +224,25 @@ void draw() {
     textSize(96);
     text(round(weather.getTemperature()) + "°c", leftmargin-10, 180);
 
-    textFont(source_code_light);
-    textSize(25);
-    text("Max " + round(weather.getTemperatureMax()) + "°c", leftmargin, 220);
-    text("Min " + round(weather.getTemperatureMin()) + "°c", leftmargin, 245);
+    textFont(aspace_light);
+    textSize(40);
+    text(round(weather.getTemperatureMax()) + "°c", leftmargin, 240);
+    text(round(weather.getTemperatureMin()) + "°c", leftmargin, 285);
+    pushMatrix();
+    translate(leftmargin - 30, 230);
+    rotate(-PI/2);
+    polygon(0, 0, 15, 3);
+    translate(-40, 0);
+    rotate(PI);
+    polygon(0, 0, 15, 3);
+    popMatrix();
 
-    textFont(source_code_light);
+    textFont(bungee_regular);
     textSize(25);
-    text("Olosuhteet, " + weather.getWeatherCondition(), leftmargin, topmargin + lineheight * 1);
+    text(weather.getWeatherCondition(), leftmargin, topmargin + lineheight * 1);
     text("Kosteus " + weather.getHumidity() + " %", leftmargin, topmargin + lineheight * 2);
     //text("Paine " + weather.getPressure() + " hPa", leftmargin, topmargin + lineheight * 5);
-    text("Päivänvaloa " + minutes_to_time(get_sun_in_minutes("rise"))+ " - " + minutes_to_time(get_sun_in_minutes("set")), leftmargin, topmargin + lineheight * 3);
+    text("Valoisaa " + minutes_to_time(get_sun_in_minutes("rise"))+ " - " + minutes_to_time(get_sun_in_minutes("set")), leftmargin, topmargin + lineheight * 3);
     //text("Aurinko nousee klo " + minutes_to_time(get_sun_in_minutes("rise")), leftmargin, topmargin + lineheight * 7);
     //text("Aurinko laskee klo " + minutes_to_time(get_sun_in_minutes("set")), leftmargin, topmargin + lineheight * 8);
 
@@ -428,7 +436,7 @@ void draw() {
     }
 
     // end program after 8 seconds
-    if (counter >= 8) {
+    if (counter >= 10) {
       counter = 0;
       program_number = 0;
       program_started = true;

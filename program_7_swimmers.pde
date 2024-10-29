@@ -9,7 +9,7 @@ class SwimmerSystem {
   }
 
   void addParticle() {
-    swimmers.add(new ObjSwimmer(random(width), random(width), random(-1,1), random(-1,1), random(10, 16), random(4,5)));
+    swimmers.add(new ObjSwimmer(random(width), random(width), random(-1,1), random(-1,1), random(10, 16), random(0,5)));
   }
 
   void run() {
@@ -32,6 +32,10 @@ class ObjSwimmer {
 
   // the nodes are stored here, amount is set to 5
   PVector[] nodes;
+  // shapes for nodes, number defines regular polygon vertex amount
+  int[] shapes;
+  // offsets
+  float[] offsets;
   // length between nodes + speed
   float segLength, speed;
   // location & direction
@@ -42,14 +46,21 @@ class ObjSwimmer {
     direction = new PVector(dir_x, dir_y);
     segLength = seg;
     nodes = new PVector[6];
+    shapes = new int[6];
+    offsets = new float[6];
     speed = spd;
 
     // fill nodes with 0's in the start
+    // define random values for the shapes
+    // define random offsets
     for (int i = 0; i < nodes.length; ++i) {
       nodes[i] = new PVector();
+      shapes[i] = int(random(2,7));
+      if (shapes[i] < 3) { shapes[i] = 3; }
+      offsets[i] = random(-10,10);
     }
   }
-
+    
   void update() {
 
     stroke(255);
@@ -111,19 +122,21 @@ class ObjSwimmer {
     float angle = atan2(dy, dx);
     nodes[i].x = xin - cos(angle) * segLength;
     nodes[i].y = yin - sin(angle) * segLength;
-    segment(nodes[i].x, nodes[i].y, angle, (8-(i*2)));
+    segment(nodes[i].x, nodes[i].y, angle, i);
   }
 
   // This draws the graphics for the object
-  void segment(float x, float y, float a, float s) {
+  void segment(float x, float y, float a, int s) {
 
     pushMatrix();
     translate(x, y);
     rotate(a);
 
     //line(0, 0, segLength/2, 0);
-    ellipse(0, 0, s, s);
-    line(0, segLength/2, 0, -segLength/2);
+    //ellipse(0, 0, s, s);
+    polygon( offsets[s], offsets[s]*(float(s)/2), (7-s), shapes[s]);
+    //line(0, segLength/2, 0, -segLength/2);
+    line(2, 0, -2, 0);
 
     popMatrix();
 
