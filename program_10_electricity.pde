@@ -17,6 +17,8 @@ class ElectricityUse {
   public float anim_phase;
   int last_update = 99;
   boolean error = false;
+  float price_kwh = 0.0000853 + 0.0000191 + 0.00002253; // € per watt hour, sähkö + siirto + sähkövero 
+  float price_mon = 13.56; // € per month
 
   public ElectricityUse() {
     update();
@@ -257,17 +259,17 @@ class ElectricityUse {
 
       textFont(robotomono_light);
       textSize(22);
-      textShaded(nf(usage_now * 0.0002885 * 1.24, 0, 5) + " € / min", margin_left + 16, height - margin_bottom - 86, 255, 0, 1);
-      textShaded(nf(usage_now * 0.0002885 * 60 * 1.24, 0, 2) + " € / h", margin_left + 16, height - margin_bottom - 64, 255, 0, 1);
-      textShaded(nf(usage_now * 0.0002885 * 60 * 24 * 1.24, 0, 2) + " € / päivä", margin_left + 16, height - margin_bottom - 42, 255, 0, 1);
+      textShaded(nf(usage_now * price_kwh, 0, 5) + " € / min", margin_left + 16, height - margin_bottom - 86, 255, 0, 1);
+      textShaded(nf(usage_now * price_kwh * 60 + (price_mon / 30 / 24), 0, 2) + " € / h", margin_left + 16, height - margin_bottom - 64, 255, 0, 1);
+      textShaded(nf(usage_now * price_kwh * 60 * 24 + (price_mon / 30), 0, 2) + " € / päivä", margin_left + 16, height - margin_bottom - 42, 255, 0, 1);
 
       textShaded("Avg. " + round(usage_sum / usage_sum_len) + " Wh / min", margin_left + 300, height - margin_bottom - 64, 255, 0, 1); // 60 is the resolution of the feed
-      textShaded(nf(usage_sum * 0.0002885 * 60 * 1.24, 0, 2) + " € / viime 24h", margin_left + 300, height - margin_bottom - 42, 255, 0, 1);
-      textShaded(nf(usage_sum * 0.0002885 * 60 * 24 * 1.24, 0, 2) + " € / kk proj.", margin_left + 300, height - margin_bottom - 20, 255, 0, 1);
+      textShaded(nf(usage_sum * price_kwh * 60 + (price_mon / 30), 0, 2) + " € / viime 24h", margin_left + 300, height - margin_bottom - 42, 255, 0, 1);
+      textShaded(nf(usage_sum * price_kwh * 60 * 24 + price_mon, 0, 2) + " € / kk proj.", margin_left + 300, height - margin_bottom - 20, 255, 0, 1);
 
       textFont(robotomono_semibold);
       textSize(22);
-      textShaded(round(usage_now * 0.0002885 * 60 * 24 * 30 * 1.24) + " € / kk", margin_left + 16, height - margin_bottom - 20, 255, 0, 1);
+      textShaded(round(usage_now * price_kwh * 60 * 24 * 30 + price_mon) + " € / kk", margin_left + 16, height - margin_bottom - 20, 255, 0, 1);
 
     } else {
       textFont(lastwaerk_regular);
