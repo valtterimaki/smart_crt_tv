@@ -16,7 +16,7 @@ import java.time.temporal.ChronoUnit;
 
 // Program number
 public int program_number = 0;
-public int[] program_cycle = new int[10];
+public int[] program_cycle = new int[11];
 public int program_cycle_counter = 0;
 
 // Main counter variable that can be set inside programs
@@ -51,6 +51,7 @@ PseudoCodeOne pseudo_code_one;
 WaveSystem wave_system;
 CloudSystem cloud_system;
 SunSystem sun_system;
+CoralSystem coral_system;
 //NewSystem new_system;
 
 // Flash object
@@ -76,6 +77,13 @@ PImage tex = createImage(1024, 576, RGB);
 
 // videos
 ImageSequence vid_iss;
+
+// Better noise generator
+FastNoiseLite fastnoise = new FastNoiseLite();
+FastNoiseLite warp = new FastNoiseLite();
+float noise_z = 0;
+long noise_seed = 0;
+float noise_speed = 1.0;
 
 
 /* FONTS */
@@ -118,6 +126,7 @@ void setup() {
   wave_system = new WaveSystem(40,130);
   cloud_system = new CloudSystem();
   sun_system = new SunSystem();
+  coral_system = new CoralSystem();
   //new_system = new NewSystem();
 
   //ISS tracker
@@ -552,26 +561,48 @@ void draw() {
     }
   }
 
-   // 11 is GLITCH VIDEO
-   /*
+   // 11 is CORAL
+   
   if (program_number == 11) {
 
     // set of actions that happen in the start of the program
     if (program_started == true) {
       program_started = false;
+      
+      coral_system.addcorals();
+      
+      fastnoise.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2);
+      fastnoise.SetFractalType(FastNoiseLite.FractalType.FBm);
+      warp.SetDomainWarpType(FastNoiseLite.DomainWarpType.OpenSimplex2);
+      fastnoise.SetFrequency(0.001);
+      fastnoise.SetFractalOctaves(3);
+      fastnoise.SetFractalLacunarity(2.26);
+      fastnoise.SetFractalGain(0.62);
+      warp.SetFrequency(0.005);
+      warp.SetDomainWarpAmp(200);
+      fastnoise.SetSeed(int(random(1000)));
+      noise_speed = 1.2;
+      
+      blendMode(ADD);
     }
 
     // draw here
-
+    coral_system.run();
+    //if (millis() % 20 == 0) { //////////////!!!!!!
+      //println("bum");
+      noise_z += noise_speed; 
+    //}
 
     // end program after 20 seconds
     if (counter >= 20) {
+      blendMode(BLEND);
       counter = 0;
       program_number = 0;
       program_started = true;
+      coral_system.clear();
     }
   }
-  */
+
 
   // Draw overscan test area
   // Use this to check if everything fits the screen
