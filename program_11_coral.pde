@@ -79,9 +79,9 @@ class ObjCoral {
     direction.limit(density*3);
 
     stroke(
-      pow(vd1, 3) * 320 * (1 + pow(flic,2)), 
-      pow(vd2, 3) * 255 * (1 + pow(flic,2)), 
-      pow(vd3, 3) * 290,
+      20 + pow(vd1, 3) * 320 * (1 + pow(flic,2)), 
+      20 + pow(vd2, 3) * 255 * (1 + pow(flic,2)), 
+      20 + pow(vd3, 3) * 290,
       100
       );
     strokeWeight(3.9);
