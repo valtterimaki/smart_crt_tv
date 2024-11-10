@@ -150,10 +150,84 @@ void programChangeTest(int test1, int test2) {   // Put tested numbers here
 }
 
 
-//// manually speed up program change
+//// manual program change with GPIO
 
-void keyPressed() {
-  counter+=4;
+void keyReleased() {
+  if (key == 'a') {
+    manual_changer.release();
+  } else {
+    println("something else released");
+  }
+}
+
+
+class ManualChanger {
+
+  int millis_start;
+  int change_waiter;
+  int new_program;
+  boolean in_progress;
+  boolean armed;
+  
+  ManualChanger() {
+    change_waiter = 0;
+    millis_start = 0;
+    new_program = 0;
+    in_progress = false;
+    armed = false;
+  }
+
+  void progress() {
+    if ( (millis() - millis_start) > 1000 ) {
+      change_waiter++;
+      millis_start = millis();
+      println(change_waiter);
+    }
+    if (change_waiter == 2) {
+      armChange();
+    }
+    draw();
+  }
+
+  void release() {
+    millis_start = millis();
+    if (in_progress == false) {
+      in_progress = true;
+      new_program = 1;
+      println("START, prog " + new_program);
+    } else if (in_progress == true) {
+      new_program++;
+      if (new_program > program_cycle.length) {
+        new_program = 1;
+      } 
+      change_waiter = 0;
+      println("New press, prog " + new_program);
+    }
+  }
+
+  void armChange() {
+    change_waiter = 0;
+    in_progress = false;
+    armed = true;
+    counter = 1000;
+    println("RESULT " + new_program);
+  }
+
+  void resetArm() {
+    armed = false;
+  }
+
+  void draw() {
+    fill(0);
+    noStroke();
+    rect(width - 275, 25, 250, 70);
+    textFont(aspace_regular);
+    textSize(48);
+    textAlign(LEFT);
+    fill(0,255,0);
+    text("CH " + nf(new_program, 2), width - 250, 75, 100);
+  }
+  
 }
 
 

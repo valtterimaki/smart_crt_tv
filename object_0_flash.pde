@@ -14,7 +14,13 @@ class ObjFlash{
     else {
       phase = 0;
 
-      programChange();
+      if (manual_changer.armed == false) {
+        programChange();  
+      } else if (manual_changer.armed == true) {
+        program_number = manual_changer.new_program;
+        manual_changer.resetArm();  
+      }
+      
       //programChangeTest(3,8); // use this to test certain programs together for debugging
       //program_number = 8; // NOTE! Use this to force certain program for debugging
 

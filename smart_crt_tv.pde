@@ -11,6 +11,8 @@ import java.util.Date;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import processing.io.*;
+
 
 /* GLOBAL VARIABLES */
 
@@ -85,6 +87,9 @@ float noise_z = 0;
 long noise_seed = 0;
 float noise_speed = 1.0;
 
+// Manual changer
+ManualChanger manual_changer;
+boolean gpio_btn_state = false;
 
 /* FONTS */
 
@@ -136,6 +141,9 @@ void setup() {
   vid_iss = new ImageSequence("video_iss/iss", 250);
   vid_iss.dot_scan_settings(5, 1000, 1);
 
+  // manual changer
+  manual_changer = new ManualChanger();
+
   // Set fonts
   source_code_thin = createFont("SourceCodePro-ExtraLight.ttf", 128);
   source_code_light = createFont("SourceCodePro-Light.ttf", 24);
@@ -165,6 +173,8 @@ void setup() {
 
   //obj_iss = loadShape("3d/iss.obj");
   ortho();
+  // arm the GPIO pin 
+  GPIO.pinMode(4, GPIO.INPUT_PULLUP);
 
   frameRate(50);
 }
@@ -603,6 +613,25 @@ void draw() {
     }
   }
 
+
+  /////////
+
+  
+  // manual changer stuff
+  if (manual_changer.in_progress == true) {
+    manual_changer.progress();
+  }
+  // manual changer via GPIO
+  if (GPIO.digitalRead(4) == GPIO.LOW) {
+    if (gpio_btn_state == false) {
+      gpio_btn_state = true;
+    }
+  } else {
+    if (gpio_btn_state == true) {
+      gpio_btn_state = false;
+      manual_changer.release();
+    }
+  }
 
   // Draw overscan test area
   // Use this to check if everything fits the screen
