@@ -77,6 +77,10 @@ IssTracker iss;
 PShader noise2;
 PImage tex = createImage(1024, 576, RGB);
 
+// generic animator
+Animator gen_anim = new Animator();
+int last_sec;
+
 // videos
 ImageSequence vid_iss;
 
@@ -492,10 +496,11 @@ void draw() {
 
   // 9 is CLOCK
   if (program_number == 9) {
-
+    
     // set of actions that happen in the start of the program
     if (program_started == true) {
       program_started = false;
+      last_sec = second();
     }
 
     // draw here
@@ -509,24 +514,34 @@ void draw() {
     int cx = 200;
     int cy = height / 2;
 
+    if (last_sec != second()) {
+      gen_anim.reset();
+      gen_anim.start();
+      last_sec = second();
+    }
+
     // Angles for sin() and cos() start at 3 o'clock;
     // subtract HALF_PI to make them start at the top
-    float s = map(second(), 0, 60, 0, TWO_PI) - HALF_PI;
+    float s = map(gen_anim.animate(second() - 1, second() + 1, 0, 400, "elasticIn"), 0, 60, 0, TWO_PI) - HALF_PI;
     float m = map(minute() + norm(second(), 0, 60), 0, 60, 0, TWO_PI) - HALF_PI;
     float h = map(hour() + norm(minute(), 0, 60), 0, 24, 0, TWO_PI * 2) - HALF_PI;
 
     // Draw the hands of the clock
+    
+    strokeCap(ROUND);
     stroke(255,0,0);
     strokeWeight(2);
     line(cx, cy, cx + cos(s) * secondsRadius, cy + sin(s) * secondsRadius);
+    strokeWeight(10);
+    point(cx + cos(s) * secondsRadius, cy + sin(s) * secondsRadius);
     stroke(255);
-    strokeWeight(2);
-    line(cx, cy, cx + cos(m) * minutesRadius, cy + sin(m) * minutesRadius);
     strokeWeight(4);
+    line(cx, cy, cx + cos(m) * minutesRadius, cy + sin(m) * minutesRadius);
+    strokeWeight(8);
     line(cx, cy, cx + cos(h) * hoursRadius, cy + sin(h) * hoursRadius);
 
     // Draw the minute ticks
-    strokeWeight(4);
+    strokeWeight(9);
     beginShape(POINTS);
     for (int a = 0; a < 360; a+=30) {
       float angle = radians(a);
@@ -535,6 +550,7 @@ void draw() {
       vertex(x, y);
     }
     endShape();
+    strokeCap(SQUARE);
 
     fill(255);
     textAlign(LEFT);
