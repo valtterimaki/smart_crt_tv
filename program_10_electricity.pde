@@ -67,11 +67,13 @@ class ElectricityUse {
     }
 
     // if for some reason we cannot get the data
-    if (elect_json.getJSONArray("data") == null) {
-      error = true;
-      elect_json = loadJSONObject("placeholder_adafruit_io.json"); // FIX THIS to do something useful
-      elect_json_sum = loadJSONObject("placeholder_adafruit_io.json");
-      println("Electricity chart - Data was not gotten for some reason");
+    if (error == false) {
+      if (elect_json.getJSONArray("data") == null) {
+        error = true;
+        elect_json = loadJSONObject("placeholder_adafruit_io.json"); // FIX THIS to do something useful
+        elect_json_sum = loadJSONObject("placeholder_adafruit_io.json");
+        println("Electricity chart - Data was not gotten for some reason");
+      }
     }
 
     // parse the valus into the arrays for graphs
