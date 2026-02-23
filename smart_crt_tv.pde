@@ -606,6 +606,7 @@ void draw() {
       warp.SetFrequency(0.005);
       warp.SetDomainWarpAmp(200);
       fastnoise.SetSeed(int(random(1000)));
+      noise_z = 0;  // reset each run: prevents float precision loss after many days
       noise_speed = 1.2;
       
       blendMode(ADD);

@@ -602,9 +602,9 @@ float mapEased(float val, float lo1, float hi1, float lo2, float hi2, String typ
 
 }
 
-float setLinearAnimPhase(float start, float duration) {
-  float result = constrain(map(millis(), start, start + duration, 0, 1), 0, 1);
-  return result;
+float setLinearAnimPhase(int start, int duration) {
+  int elapsed = millis() - start; // int delta avoids float precision loss at high millis() values
+  return constrain(map(elapsed, 0, duration, 0, 1), 0, 1);
 }
 
 void drawOverscanArea(int variant) {

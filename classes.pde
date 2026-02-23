@@ -4,7 +4,11 @@
 class Animator {
 
   // variables
-  float start, phase;
+  // 'start' must be int, not float: millis() grows to ~10^9 after 11 days and
+  // a float only has ~7 significant digits, so storing it as float loses
+  // enough precision to corrupt animation timing.
+  int start;
+  float phase;
   boolean is_started;
 
   Animator () {
@@ -23,7 +27,10 @@ class Animator {
   }
 
   float getPhase(int offset, int duration, String easing) {
-    phase = constrain(map(millis(), start + offset, start + duration + offset, 0, 1), 0, 1);
+    // Compute elapsed as int arithmetic (small value, no precision loss) rather
+    // than passing the huge absolute millis values directly into map().
+    int elapsed = millis() - start - offset;
+    phase = constrain(map(elapsed, 0, duration, 0, 1), 0, 1);
     float result = 0;
 
     if (is_started == true) {
