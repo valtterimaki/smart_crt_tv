@@ -94,7 +94,7 @@ class Animator {
 
 }
 
-// Class for animating a sequence of PNG's
+// Class for animating a sequence of images
 
 class ImageSequence {
   PImage[] images;
@@ -102,13 +102,13 @@ class ImageSequence {
   int frame;
   int thresh_min, thresh_max, variance_speed;
   
-  ImageSequence(String imagePrefix, int count) {
+  ImageSequence(String imagePrefix, int count, int digits, String format) {
     imageCount = count;
     images = new PImage[imageCount];
 
     for (int i = 0; i < imageCount; i++) {
       // Use nf() to number format 'i' into four digits
-      String filename = imagePrefix + nf(i, 4) + ".png";
+      String filename = imagePrefix + nf(i, digits) + "." + format;
       images[i] = loadImage(filename);
     }
   }

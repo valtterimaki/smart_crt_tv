@@ -220,14 +220,15 @@ class IssTracker {
 
     anim1.start();
 
-    background(timeLeftBackground());
     noStroke();
 
     if (counter < 3) {
 
+      background(0);
+
       fill(anim1.animate(0, 255, 1000, 1700, "quinticBoth"), anim1.animate(0, 255, 1000, 1700, "quinticBoth"), 255);
       shape(iss_logo, 128, 176, 464, 316);
-      fill(timeLeftBackground());
+      fill(0);
       //fill(#ff0000); // for testing
       rect(128,176,32,anim1.animate(176, 0, 0, 1700, "quinticBoth"));
       rect(160,224,anim1.animate(436, 0, 50, 1700, "quinticBoth"),48);
@@ -236,6 +237,12 @@ class IssTracker {
       rect(128,493,370,anim1.animate(-125, 0, 1000, 1700, "quinticBoth"));
 
     } else if (counter < 5) {
+
+      background(
+        anim1.animate(0, red(timeLeftBackground()), 3000, 1000, "quinticBoth"),
+        anim1.animate(0, green(timeLeftBackground()), 3000, 1000, "quinticBoth"),
+        anim1.animate(0, blue(timeLeftBackground()), 3000, 1000, "quinticBoth")
+        );
 
       fill(255);
       shape(iss_logo,
@@ -248,6 +255,8 @@ class IssTracker {
       vid_iss.display_dot_scan(int(anim1.animate(width, 340, 3000, 1000, "quinticBoth")), 110);
 
     } else {
+
+      background(timeLeftBackground());
 
       fill(255);
       shape(iss_logo, os_left + 32, 150, 464/2, 316/2);

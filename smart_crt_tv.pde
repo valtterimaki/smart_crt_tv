@@ -142,7 +142,7 @@ void setup() {
   iss = new IssTracker();
 
   // video
-  vid_iss = new ImageSequence("video_iss/iss", 250);
+  vid_iss = new ImageSequence("video_iss/iss", 250, 4, "png");
   vid_iss.dot_scan_settings(5, 1000, 1);
 
   // manual changer
@@ -175,8 +175,6 @@ void setup() {
   // noise shader default settings
   noise2.set("amount", 0);
 
-  //obj_iss = loadShape("3d/iss.obj");
-  ortho();
   // arm the GPIO pin 
   GPIO.pinMode(4, GPIO.INPUT_PULLUP);
 
