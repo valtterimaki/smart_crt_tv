@@ -7,56 +7,53 @@ By Fossa
 class ForecastYr {
 
   private XML forecast;
-  private boolean reachable;
+  private volatile boolean is_fetching = false;
+  private volatile boolean reachable = false;
   private final static String URL = "https://api.met.no/weatherapi/locationforecast/2.0/classic?lat=60.478506&lon=22.270944";
-  private final static int TIMEOUT = 5000;
   public ArrayList<XML> data_conditions = new ArrayList<XML>();
-  //ArrayList<XML> data_details = new ArrayList<XML>();
   public float anim_phase;
   int last_update = 99;
 
   public ForecastYr() {
-    update();
-    println("Forecast last update YR: " + lastUpdate());
+    fetch(); // synchronous on setup – that's fine
+    println("Forecast YR - initial fetch done: " + lastUpdate());
     anim_phase = 0;
   }
 
-  /* General methods*/
-
-  public boolean checkConnection() {
-    try {
-      HttpsURLConnection connection = (HttpsURLConnection) new URL(URL).openConnection();
-      connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
-      connection.setConnectTimeout(TIMEOUT);
-      connection.setReadTimeout(TIMEOUT);
-      int responseCode = connection.getResponseCode();
-      println("yr no response " + responseCode);
-      return (200 <= responseCode && responseCode <= 399);
-    } catch (IOException exception) {
-      return false;
-    }
-  }
-
-  public void update() {
-    if (last_update != hour()) {
-
-      reachable = checkConnection();
-
-      if (reachable) {
-        forecast = loadXML(URL);
-        last_update = hour();
-      } else {
-        forecast = loadXML("placeholder_forecast_yr.xml");
-        println("Forecast YR - No connection");
-      }
-      data_conditions = getForecast("conditions");
-      //data_details = getForecast("details");
-    }
-  }
-
-  public String lastUpdate(){
+  public String lastUpdate() {
     Date date = new Date();
     return date.toString();
+  }
+
+  // ── Called on a background thread via threadForecastYrFetch() ──────────────
+  void fetch() {
+    try {
+      XML loaded = parseXML(fetchStringFromURL(URL));
+      if (loaded != null) {
+        forecast = loaded;
+        reachable = true;
+      } else {
+        throw new Exception("null response");
+      }
+    } catch (Exception e) {
+      reachable = false;
+      forecast = loadXML("placeholder_forecast_yr.xml");
+      println("Forecast YR - fetch failed: " + e.getMessage());
+    }
+
+    ArrayList<XML> new_conditions = getForecast("conditions");
+    data_conditions = new_conditions;
+
+    last_update = hour();
+    is_fetching = false;
+  }
+
+  // ── Triggers a background refresh; skips if already in-flight or still fresh
+  public void update() {
+    if (last_update != hour() && !is_fetching) {
+      is_fetching = true;
+      thread("threadForecastYrFetch");
+    }
   }
 
 

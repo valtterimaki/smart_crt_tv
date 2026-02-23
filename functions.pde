@@ -635,3 +635,37 @@ void polygon(float x, float y, float radius, int npoints) {
   }
   endShape(CLOSE);
 }
+
+// ── Background thread wrappers ───────────────────────────────────────────────
+// Processing's thread() requires a top-level sketch method by name.
+
+void threadWeatherFetch()     { weather.fetch(); }
+void threadForecastFmiFetch() { forecast_fmi.fetch(); }
+void threadForecastYrFetch()  { forecast_yr.fetch(); }
+void threadIssFetch()         { iss.fetch(); }
+void threadElectricityFetch() { electricity_use.fetch(); }
+
+
+// ── HTTP helper with explicit timeouts ───────────────────────────────────────
+// Returns the full response body as a String, or throws on any error.
+// Using this instead of loadXML(url)/loadJSONObject(url) means the 5-second
+// connect+read timeout is always respected and we only open ONE connection
+// per fetch (previously each class did a HEAD check AND a full GET).
+
+String fetchStringFromURL(String url) throws Exception {
+  HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+  conn.setConnectTimeout(5000);
+  conn.setReadTimeout(5000);
+  conn.setRequestMethod("GET");
+  conn.setRequestProperty("User-Agent", "SmartCRTTV/1.0");
+  int code = conn.getResponseCode();
+  if (code < 200 || code >= 400) throw new Exception("HTTP " + code);
+  java.io.BufferedReader reader = new java.io.BufferedReader(
+    new java.io.InputStreamReader(conn.getInputStream(), "UTF-8")
+  );
+  StringBuilder sb = new StringBuilder();
+  String line;
+  while ((line = reader.readLine()) != null) sb.append(line).append('\n');
+  reader.close();
+  return sb.toString();
+}

@@ -8,77 +8,56 @@ class ElectricityUse {
 
   private JSONObject elect_json;
   private JSONObject elect_json_sum;
-  private boolean reachable;
-  private final static int TIMEOUT = 5000;
+  private volatile boolean reachable = false;
+  private volatile boolean is_fetching = false;
   ArrayList<Float> data_values = new ArrayList<Float>();
   ArrayList<String> data_times = new ArrayList<String>();
   float usage_sum;
   int usage_sum_len;
   public float anim_phase;
   int last_update = 99;
-  boolean error = false;
+  volatile boolean error = false;
   float price_kwh = 0.0000853 + 0.0000191 + 0.00002253; // € per watt hour, sähkö + siirto + sähkövero 
   float price_mon = 13.56; // € per month
 
   public ElectricityUse() {
-    update();
+    fetch(); // synchronous on setup – that's fine
     anim_phase = 0;
   }
 
-  /* General methods*/
-
-  public boolean checkConnection() {
+  // ── Called on a background thread via threadElectricityFetch() ─────────────
+  void fetch() {
+    error = false;
+    println("Electricity - fetching stats");
     try {
-      HttpURLConnection connection = (HttpURLConnection) new URL("https://io.adafruit.com/").openConnection();
-      connection.setConnectTimeout(TIMEOUT);
-      connection.setReadTimeout(TIMEOUT);
-      int responseCode = connection.getResponseCode();
-      println("adafruit io response " + responseCode);
-      return (200 <= responseCode && responseCode <= 399);
-    } catch (IOException exception) {
-      return false;
+      JSONObject loaded_4h  = parseJSONObject(fetchStringFromURL(URL_ADAFRUIT_IO_4H));
+      JSONObject loaded_24h = parseJSONObject(fetchStringFromURL(URL_ADAFRUIT_IO_24H));
+      if (loaded_4h.getJSONArray("data") != null) {
+        elect_json     = loaded_4h;
+        elect_json_sum = loaded_24h;
+        reachable = true;
+      } else {
+        throw new Exception("No data array in response");
+      }
+    } catch (Exception e) {
+      reachable = false;
+      error = true;
+      elect_json     = loadJSONObject("placeholder_adafruit_io.json");
+      elect_json_sum = loadJSONObject("placeholder_adafruit_io.json");
+      println("Electricity - fetch failed: " + e.getMessage());
+    } finally {
+      parseData();
+      last_update = hour();
+      is_fetching = false;
     }
   }
 
+  // ── Triggers a background refresh; skips if already in-flight or still fresh
   public void update() {
-
-    error = false;
-
-    println("updating electicity use stats");
-
-    reachable = checkConnection();
-
-    if (reachable) {
-      delay(500);
-      try {
-        elect_json = loadJSONObject(URL_ADAFRUIT_IO_4H);
-        elect_json_sum = loadJSONObject(URL_ADAFRUIT_IO_24H);
-      } catch (Exception e) {
-        error = true;
-        elect_json = loadJSONObject("placeholder_adafruit_io.json");
-        elect_json_sum = loadJSONObject("placeholder_adafruit_io.json");
-      }
-      last_update = hour();
-    } else {
-      error = true;
-      elect_json = loadJSONObject("placeholder_adafruit_io.json");
-      elect_json_sum = loadJSONObject("placeholder_adafruit_io.json");
-      println("Electricity chart - No connection");
+    if (last_update != hour() && !is_fetching) {
+      is_fetching = true;
+      thread("threadElectricityFetch");
     }
-
-    // if for some reason we cannot get the data
-    if (error == false) {
-      if (elect_json.getJSONArray("data") == null) {
-        error = true;
-        elect_json = loadJSONObject("placeholder_adafruit_io.json"); // FIX THIS to do something useful
-        elect_json_sum = loadJSONObject("placeholder_adafruit_io.json");
-        println("Electricity chart - Data was not gotten for some reason");
-      }
-    }
-
-    // parse the valus into the arrays for graphs
-    parseData();
-
   }
 
   /********* TODO!! MAKE THIS PUBLIC AND GENERIC if even needed **********/

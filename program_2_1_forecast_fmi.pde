@@ -7,79 +7,64 @@ By Fossa
 class ForecastFmi {
 
   private XML harmonie;
-  private boolean reachable;
+  private volatile boolean is_fetching = false;
+  private volatile boolean reachable = false;
   private final static String URL_HARMONIE = "http://opendata.fmi.fi/wfs?service=WFS&version=2.0.0&request=getFeature&storedquery_id=fmi::forecast::harmonie::surface::point::simple&place=turku&";
-  private final static int TIMEOUT = 5000;
   ArrayList<String> data_temperatures = new ArrayList<String>();
   ArrayList<String> data_times = new ArrayList<String>();
   ArrayList<String> data_precipitation = new ArrayList<String>();
   public float anim_phase;
   int last_update = 99;
-  boolean error = false;
+  volatile boolean error = false;
 
   public ForecastFmi() {
-    update();
-    println("Forecast last update FMI: " + lastUpdate());
+    fetch(); // synchronous on setup – that's fine
+    println("Forecast FMI - initial fetch done: " + lastUpdate());
     anim_phase = 0;
   }
 
-  /* General methods*/
-
-  public boolean checkConnection() {
-    try {
-      HttpURLConnection connection = (HttpURLConnection) new URL("http://opendata.fmi.fi/").openConnection();
-      connection.setConnectTimeout(TIMEOUT);
-      connection.setReadTimeout(TIMEOUT);
-      int responseCode = connection.getResponseCode();
-      println("weather url response: " + responseCode);
-      return (200 <= responseCode && responseCode <= 399);
-    } catch (IOException exception) {
-      return false;
-    }
-  }
-
-  public void update() {
-    try {
-    if (last_update != hour()) {
-
-      error = false;
-      reachable = checkConnection();
-
-      if (reachable) {
-        delay(500);
-        try {
-          harmonie = loadXML(URL_HARMONIE);
-        } catch (Exception e) {
-          error = true;
-          harmonie = loadXML("placeholder_forecast_fmi.xml");  
-        }      
-        last_update = hour();
-      } else {
-        error = true;
-        harmonie = loadXML("placeholder_forecast_fmi.xml");
-        println("Forecast FMI - No connection");
-      }
-
-      // if for some reason we cannot get the data
-      if (harmonie.getChildren("wfs:member") == null) {
-        error = true;
-        harmonie = loadXML("placeholder_forecast_fmi.xml");
-        println("Forecast FMI - Data was not gotten for some reason");
-      }
-
-      data_times = getForecast("Time");
-      data_temperatures = getForecast("Temperature");
-      data_precipitation = getForecast("PrecipitationAmount");
-    }
-    } catch (Exception e) {
-      error = true;
-      harmonie = loadXML("placeholder_forecast_fmi.xml");  
-    }    
-  }
-
-  public String lastUpdate(){
+  public String lastUpdate() {
     Date date = new Date();
     return date.toString();
+  }
+
+  // ── Called on a background thread via threadForecastFmiFetch() ─────────────
+  void fetch() {
+    try {
+      error = false;
+      XML loaded = parseXML(fetchStringFromURL(URL_HARMONIE));
+      if (loaded != null && loaded.getChildren("wfs:member") != null) {
+        harmonie = loaded;
+        reachable = true;
+      } else {
+        throw new Exception("No wfs:member elements");
+      }
+    } catch (Exception e) {
+      reachable = false;
+      error = true;
+      harmonie = loadXML("placeholder_forecast_fmi.xml");
+      println("Forecast FMI - fetch failed: " + e.getMessage());
+    }
+
+    // Build new arrays then assign atomically so the draw thread never sees
+    // a partially-updated state
+    ArrayList<String> new_times  = getForecast("Time");
+    ArrayList<String> new_temps  = getForecast("Temperature");
+    ArrayList<String> new_precip = getForecast("PrecipitationAmount");
+    data_times        = new_times;
+    data_temperatures = new_temps;
+    data_precipitation = new_precip;
+
+    last_update = hour();
+    is_fetching = false;
+  }
+
+  // ── Triggers a background refresh; skips if already in-flight or still fresh
+  public void update() {
+    if (last_update != hour() && !is_fetching) {
+      is_fetching = true;
+      thread("threadForecastFmiFetch");
+    }
   }
 
 

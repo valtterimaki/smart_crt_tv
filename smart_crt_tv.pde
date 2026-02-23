@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.Date;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-
+import java.io.*;
 import processing.io.*;
 
 
@@ -475,6 +475,7 @@ void draw() {
     // set of actions that happen in the start of the program
     if (program_started == true) {
       iss.update();
+      forecast_yr.update(); // trigger background refresh if stale (was inside iss.update() before)
       iss.anim_phase = 0;
       forecast_yr.findIssMatch();
       program_started = false;

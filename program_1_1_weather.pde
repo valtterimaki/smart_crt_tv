@@ -7,55 +7,45 @@ By Fossa
 class Weather {
 
   private XML root;
-  private boolean reachable;
-  ////private String tempUnit;
-  private final static String  URL = "http://api.openweathermap.org/data/2.5/weather?q=Turku,fi&appid=252d087e98bfe7e2d4bfa4991e0f4671&units=metric&mode=xml&lang=fi";
-  private final static int TIMEOUT = 5000;
+  private volatile boolean is_fetching = false;
+  private volatile boolean reachable = false;
+  private int last_update = 99;
+  private final static String URL = "http://api.openweathermap.org/data/2.5/weather?q=Turku,fi&appid=252d087e98bfe7e2d4bfa4991e0f4671&units=metric&mode=xml&lang=fi";
 
-  //optional for future
   int citycode = 633679;
 
   public Weather() {
-    ////this.tempUnit = tempUnit;
-    reachable = checkConnection();
-    println("Current weather - connection: " + reachable);
-
-    if (reachable) {
-      root = loadXML("http://api.openweathermap.org/data/2.5/weather?q=Turku,fi&appid=252d087e98bfe7e2d4bfa4991e0f4671&units=metric&mode=xml&lang=fi");
-    } else {
-      root = loadXML("weather_data_placeholder.xml");
-      println("Current weather - No connection");
-    }
+    fetch(); // synchronous on setup – that's fine
+    println("Current weather - initial fetch done: " + lastUpdate());
   }
 
-  /*
-   * General methods
-   */
-  public boolean checkConnection() {
+  // ── Called on a background thread via threadWeatherFetch() ─────────────────
+  void fetch() {
     try {
-      HttpURLConnection connection = (HttpURLConnection) new URL(URL).openConnection();
-      connection.setConnectTimeout(TIMEOUT);
-      connection.setReadTimeout(TIMEOUT);
-      connection.setRequestMethod("HEAD");
-      int responseCode = connection.getResponseCode();
-      return (200 <= responseCode && responseCode <= 399);
-    } catch (IOException exception) {
-      return false;
+      XML loaded = parseXML(fetchStringFromURL(URL));
+      if (loaded != null) {
+        root = loaded;
+        reachable = true;
+        last_update = hour();
+      }
+    } catch (Exception e) {
+      reachable = false;
+      if (root == null) root = loadXML("weather_data_placeholder.xml");
+      println("Current weather - fetch failed: " + e.getMessage());
+    } finally {
+      is_fetching = false;
     }
   }
 
+  // ── Triggers a background refresh; skips if already in-flight or still fresh
   public void update() {
-    reachable = checkConnection();
-
-    if (reachable) {
-      root = loadXML("http://api.openweathermap.org/data/2.5/weather?q=Turku,fi&appid=252d087e98bfe7e2d4bfa4991e0f4671&units=metric&mode=xml&lang=fi");
-    } else {
-      root = loadXML("weather_data_placeholder.xml");
-      println("Current weather - No connection");
+    if (last_update != hour() && !is_fetching) {
+      is_fetching = true;
+      thread("threadWeatherFetch");
     }
   }
 
-  public String lastUpdate(){
+  public String lastUpdate() {
     Date date = new Date();
     return date.toString();
   }
@@ -88,23 +78,23 @@ class Weather {
   }
 
   public int getPressure() {
-    return root.getChild("pressure").getInt("value"); //unit?
+    return root.getChild("pressure").getInt("value");
   }
 
   public int getHumidity() {
-    return root.getChild("humidity").getInt("value"); //unit?
+    return root.getChild("humidity").getInt("value");
   }
 
   public float getTemperature() {
-    return root.getChild("temperature").getFloat("value"); //unit?
+    return root.getChild("temperature").getFloat("value");
   }
 
   public float getTemperatureMin() {
-    return root.getChild("temperature").getFloat("min"); //unit?
+    return root.getChild("temperature").getFloat("min");
   }
 
   public float getTemperatureMax() {
-    return root.getChild("temperature").getFloat("max"); //unit?
+    return root.getChild("temperature").getFloat("max");
   }
 
   public String getWeatherCondition() {
@@ -123,62 +113,4 @@ class Weather {
     return root.getChild("lastupdate").getString("value");
   }
 
-  /*
-
-  public String getWeekday() {
-    return channel.getChild("item").getChild(15).getString("day");
-  }
-  */
-
-  /*
-   * Tomorrow
-   */
-   /*
-  public int getTemperatureLowTomorrow() {
-    return channel.getChild("item").getChild(17).getInt("low");
-  }
-
-  public int getTemperatureHighTomorrow() {
-    return channel.getChild("item").getChild(17).getInt("high");
-  }
-
-
-  public String getWeatherConditionTomorrow() {
-    return channel.getChild("item").getChild(17).getString("text");
-  }
-
-  public int getWeatherConditionCodeTomorrow(){
-    return channel.getChild("item").getChild(17).getInt("code");
-  }
-
-
-  public String getWeekdayTomorrow() {
-    return channel.getChild("item").getChild(17).getString("day");
-  }
-  */
-  /*
-   * Day After Tomorrow
-   *//*
-  public int getTemperatureLowDayAfterTomorrow() {
-    return channel.getChild("item").getChild(19).getInt("low");
-  }
-
-  public int getTemperatureHighDayAfterTomorrow() {
-    return channel.getChild("item").getChild(19).getInt("high");
-  }
-
-
-  public String getWeatherConditionDayAfterTomorrow() {
-    return channel.getChild("item").getChild(19).getString("text");
-  }
-
-  public int getWeatherConditionCodeDayAfterTomorrow(){
-    return channel.getChild("item").getChild(19).getInt("code");
-  }
-
-
-  public String getWeekdayDayAfterTomorrow() {
-    return channel.getChild("item").getChild(19).getString("day");
-  }
-*/
 }

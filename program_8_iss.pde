@@ -2,11 +2,11 @@
 
 class IssTracker {
 
-  private XML iss_data;
+  private volatile XML iss_data;
   private XML[] sightings;
-  private boolean reachable;
+  private volatile boolean reachable = false;
+  private volatile boolean is_fetching = false;
   private final static String URL = "https://spotthestation.nasa.gov/sightings/xml_files/Finland_None_Turku.xml";
-  private final static int TIMEOUT = 5000;
   public float anim_phase;
   int last_update = 99;
   String condition;
@@ -17,63 +17,65 @@ class IssTracker {
   Animator anim1 = new Animator();
 
   public IssTracker() {
-    update();
-    println("ISS last update: " + lastUpdate());
+    fetch(); // synchronous on setup – that's fine
+    // Populate sighting index from initial data
+    current_time = LocalDateTime.now();
+    sightings = iss_data.getChildren("item");
+    for (int i = 0; i < sightings.length; ++i) {
+      if (current_time.compareTo(parseData(i)) < 0) { current_sighting_no = i; break; }
+    }
+    if (sightings.length > 0) next_sighting = parseData(current_sighting_no);
+    else next_sighting = current_time;
+    println("ISS - initial fetch done: " + lastUpdate());
     iss_logo = loadShape("img/iss_logo2.svg");
     iss_logo.disableStyle();
   }
 
-  /* General methods*/
-
-  public boolean checkConnection() {
-    try {
-      HttpURLConnection connection = (HttpURLConnection) new URL(URL).openConnection();
-      connection.setConnectTimeout(TIMEOUT);
-      connection.setReadTimeout(TIMEOUT);
-      int responseCode = connection.getResponseCode();
-      println("iss response " + responseCode);
-      return (200 <= responseCode && responseCode <= 399);
-    } catch (IOException exception) {
-      return false;
-    }
-  }
-
-  public String lastUpdate(){
+  public String lastUpdate() {
     Date date = new Date();
     return date.toString();
   }
 
+  // ── Called on a background thread via threadIssFetch() ─────────────────────
+  void fetch() {
+    try {
+      XML root = parseXML(fetchStringFromURL(URL));
+      XML loaded = (root != null) ? root.getChild("channel") : null;
+      if (loaded != null) {
+        iss_data = loaded;
+        reachable = true;
+      } else {
+        throw new Exception("No channel element");
+      }
+    } catch (Exception e) {
+      reachable = false;
+      iss_data = loadXML("iss_data_placeholder.xml").getChild("channel");
+      println("ISS - fetch failed: " + e.getMessage());
+    } finally {
+      last_update = hour();
+      is_fetching = false;
+    }
+  }
+
+  // ── Triggers background fetch if stale; also refreshes the sighting index
+  // from whatever data is currently loaded (no network call here).
   public void update() {
-
     anim1.reset();
-
     current_time = LocalDateTime.now();
 
-    if (last_update != hour()) {
-
-      reachable = checkConnection();
-
-      if (reachable) {
-        iss_data = loadXML(URL).getChild("channel");
-        //iss_data = loadXML("iss_data_placeholder.xml").getChild("channel"); // test
-        last_update = hour();
-      } else {
-        //////////// TODO make better placeholders here and for weather ///////////
-        iss_data = loadXML("iss_data_placeholder.xml").getChild("channel");
-        println("ISS - no connection");
-      }
+    if (last_update != hour() && !is_fetching) {
+      is_fetching = true;
+      thread("threadIssFetch");
     }
+
+    // Refresh sighting index from current (possibly stale) data – fast, no I/O
     sightings = iss_data.getChildren("item");
     for (int i = 0; i < sightings.length; ++i) {
-      if (current_time.compareTo(parseData(i)) < 0 ) {
-        current_sighting_no = i;
-        break;
-      }
+      if (current_time.compareTo(parseData(i)) < 0) { current_sighting_no = i; break; }
     }
-    if (sightings.length > 0) {
-      next_sighting = parseData(current_sighting_no);
-    } else {next_sighting = current_time; } // if there are nosightings data, save some effort for too much code and just set a placeholder datetime of the current time to avoid nullpointerexceptions
-    forecast_yr.update();
+    if (sightings.length > 0) next_sighting = parseData(current_sighting_no);
+    else next_sighting = current_time;
+    // forecast_yr is now updated independently in smart_crt_tv.pde
   }
 
   String getData(int sighting_no, String input) {
