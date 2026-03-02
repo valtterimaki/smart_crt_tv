@@ -11,6 +11,7 @@ import java.util.Date;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.io.*;
+import processing.video.*;
 import processing.io.*;
 
 
@@ -18,7 +19,7 @@ import processing.io.*;
 
 // Program number
 public int program_number = 0;
-public int[] program_cycle = new int[11];
+public int[] program_cycle = new int[12];
 public int program_cycle_counter = 0;
 
 // Main counter variable that can be set inside programs
@@ -44,6 +45,9 @@ public int os_height = height - os_top - os_bottom;
 //PShape obj_iss;
 
 /* OBJECTS */
+
+// main general use movie
+Movie genMovie;
 
 // Initialize particle systems / other graphics object collections
 SwimmerSystem swimmer_system;
@@ -83,6 +87,8 @@ int last_sec;
 
 // videos
 ImageSequence vid_iss;
+MovieScan vid_gen;
+PGraphics vid_gen_buffer;
 
 // Better noise generator
 FastNoiseLite fastnoise = new FastNoiseLite();
@@ -144,6 +150,10 @@ void setup() {
   // video
   vid_iss = new ImageSequence("video_iss/iss", 250, 4, "png");
   vid_iss.dot_scan_settings(5, 1000, 1);
+
+  vid_gen = new MovieScan();
+  vid_gen.dot_scan_settings(5, 1000, 1, 0);
+  vid_gen_buffer = createGraphics(width, width, P2D); // Create an offscreen buffer
 
   // manual changer
   manual_changer = new ManualChanger();
@@ -626,6 +636,52 @@ void draw() {
       program_number = 0;
       program_started = true;
       coral_system.clear();
+    }
+  }
+
+  // 12 is VIDEO
+  if (program_number == 12) {
+
+    // set of actions that happen in the start of the program
+    if (program_started == true) {
+      program_started = false;
+      switch (int(random(1,3))) {
+        case 1:
+          genMovie = new Movie(this, "dance1.mp4"); 
+          println("mov 1");
+          break;
+        case 2:
+          genMovie = new Movie(this, "skate.mp4"); 
+          println("mov 2");
+          break;
+        default:
+          genMovie = new Movie(this, "dance1.mp4");
+          break	;
+      }
+      
+      genMovie.play();
+      genMovie.jump(random(genMovie.duration()));
+      vid_gen.dot_scan_settings(5, 2000, 1, random(0,360));
+    }
+
+    // draw here
+    //image(genMovie, 0,0);
+    background(0);
+    vid_gen.display_dot_scan(0, 0);
+    //image(vid_gen_buffer, 0, 0);
+
+    // Restart before GStreamer hits EOF (loop() is unreliable on macOS)
+    if (genMovie.duration() > 0 && genMovie.time() >= genMovie.duration() - 0.1) {
+      genMovie.jump(0);
+      genMovie.play();
+    }
+
+    // end program after 20 seconds
+    if (counter >= 20) {
+      counter = 0;
+      program_number = 0;
+      program_started = true;
+      genMovie.stop();
     }
   }
 

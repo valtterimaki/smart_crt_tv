@@ -159,3 +159,78 @@ class ImageSequence {
   }
   
 }
+
+// Class for movie with dot scan
+
+class MovieScan {
+
+  // defaults for scan
+  int thresh_min, thresh_max, variance_speed;
+  float line_rotation;
+
+  MovieScan() {
+    // defaults for scan
+    thresh_min = 5;
+    thresh_max = 1000; 
+    variance_speed = 1;
+    line_rotation = 0;
+  }
+
+  void display(float xpos, float ypos) {
+    image(genMovie, xpos, xpos);
+  }
+
+  void dot_scan_settings(int t_min, int t_max, int v_spd, float l_rot) {
+    thresh_min = t_min;
+    thresh_max = t_max;
+    variance_speed = v_spd;
+    line_rotation = radians(l_rot);
+  }
+
+  void display_dot_scan(float xpos, float ypos) {
+
+    vid_gen_buffer.beginDraw();
+    vid_gen_buffer.translate(vid_gen_buffer.width / 2, vid_gen_buffer.height / 2); // Move to the center
+    vid_gen_buffer.rotate(line_rotation); // Rotate based on frame count
+    vid_gen_buffer.imageMode(CENTER); // Draw image from center
+    vid_gen_buffer.image(genMovie, 0,0);
+    vid_gen_buffer.loadPixels();
+    vid_gen_buffer.endDraw();
+
+    colorMode(HSB, 360, 100, 100);
+    strokeWeight(1);
+    int thresh = int(map(noise(float(millis()) * (0.001 * variance_speed)), 0, 1, thresh_min, thresh_max));
+
+    pushMatrix();
+    translate(width / 2, height / 2);
+    rotate(-line_rotation); 
+    //image(vid_gen_buffer, 0, 0);
+
+    for (int y = 0; y < vid_gen_buffer.height; ++y) {
+      int cumul = 0;
+
+      for (int x = 0; x < vid_gen_buffer.width; ++x) {
+
+        color col = vid_gen_buffer.pixels[y * vid_gen_buffer.width + x];
+        
+        /*if (random(0,1000) < 1) {
+          col = col + color(random(200,255), random(200,255), random(200,255));
+        }*/
+
+        if(brightness(col) > 0) {
+          cumul += brightness(col);
+        }
+
+        if (cumul >= thresh) {
+          col = color(hue(col), map(saturation(col), 0, 100, 0, 100), 100);
+          stroke(col);
+          point(x + xpos - (vid_gen_buffer.width/2), y + ypos - (vid_gen_buffer.height/2));
+          cumul = 0;
+        }
+      }
+    }
+    popMatrix();
+    colorMode(RGB, 255, 255, 255);
+  }
+  
+}
