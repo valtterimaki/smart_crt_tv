@@ -177,7 +177,7 @@ class MovieScan {
   }
 
   void display(float xpos, float ypos) {
-    image(genMovie, xpos, xpos);
+    image(genMovie, xpos, ypos);
   }
 
   void dot_scan_settings(int t_min, int t_max, int v_spd, float l_rot) {
@@ -188,6 +188,8 @@ class MovieScan {
   }
 
   void display_dot_scan(float xpos, float ypos) {
+
+    if (genMovie == null) return;
 
     vid_gen_buffer.beginDraw();
     vid_gen_buffer.translate(vid_gen_buffer.width / 2, vid_gen_buffer.height / 2); // Move to the center

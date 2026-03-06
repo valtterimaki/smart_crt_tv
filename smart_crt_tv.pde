@@ -645,6 +645,12 @@ void draw() {
     // set of actions that happen in the start of the program
     if (program_started == true) {
       program_started = false;
+      // Dispose any previous movie to avoid GStreamer callback race conditions
+      if (genMovie != null) {
+        genMovie.stop();
+        genMovie.dispose();
+        genMovie = null;
+      }
       switch (int(random(1,3))) {
         case 1:
           genMovie = new Movie(this, "dance1.mp4"); 
@@ -671,7 +677,7 @@ void draw() {
     //image(vid_gen_buffer, 0, 0);
 
     // Restart before GStreamer hits EOF (loop() is unreliable on macOS)
-    if (genMovie.duration() > 0 && genMovie.time() >= genMovie.duration() - 0.1) {
+    if (genMovie != null && genMovie.duration() > 0 && genMovie.time() >= genMovie.duration() - 0.1) {
       genMovie.jump(0);
       genMovie.play();
     }
@@ -681,7 +687,11 @@ void draw() {
       counter = 0;
       program_number = 0;
       program_started = true;
+      if (genMovie != null) {
       genMovie.stop();
+        genMovie.dispose();
+        genMovie = null;
+      }
     }
   }
 
