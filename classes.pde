@@ -108,16 +108,22 @@ class ImageSequence {
   int imageCount;
   int frame;
   int thresh_min, thresh_max, variance_speed;
-  
+  float line_rotation;
+  PGraphics buffer;
+
   ImageSequence(String imagePrefix, int count, int digits, String format) {
+    this(imagePrefix, 0, count, digits, format);
+  }
+
+  ImageSequence(String imagePrefix, int startFrame, int count, int digits, String format) {
     imageCount = count;
     images = new PImage[imageCount];
 
     for (int i = 0; i < imageCount; i++) {
-      // Use nf() to number format 'i' into four digits
-      String filename = imagePrefix + nf(i, digits) + "." + format;
+      String filename = imagePrefix + nf(i + startFrame, digits) + "." + format;
       images[i] = loadImage(filename);
     }
+    buffer = createGraphics(images[0].width, images[0].height, P2D);
   }
 
   void display(float xpos, float ypos) {
@@ -129,55 +135,7 @@ class ImageSequence {
     thresh_min = t_min;
     thresh_max = t_max;
     variance_speed = v_spd;
-  }
-
-  void display_dot_scan(float xpos, float ypos) {
-    frame = (frame+1) % imageCount;
-
-    colorMode(HSB, 360, 100, 100);
-    strokeWeight(1);
-    int thresh = int(map(noise(float(millis()) * (0.001 * variance_speed)), 0, 1, thresh_min, thresh_max));
-
-    for (int y = 0; y < images[frame].height; ++y) {
-      int cumul = 0;
-
-      for (int x = 0; x < images[frame].width; ++x) {
-        color col = images[frame].pixels[y * images[frame].width + x];
-        if(brightness(col) > 0) {
-          cumul += brightness(col);
-        }
-
-        if (cumul >= thresh) {
-          col = color(hue(col), map(saturation(col), 0, 100, 0, 100), 100);
-          stroke(col);
-          point(x + xpos, y + ypos);
-          cumul = 0;
-        }
-      }
-    }
-    colorMode(RGB, 255, 255, 255);
-  }
-  
-}
-
-// Class for movie with dot scan
-
-class MovieScan {
-
-  // defaults for scan
-  int thresh_min, thresh_max, variance_speed;
-  float line_rotation;
-
-  MovieScan() {
-    // defaults for scan
-    thresh_min = 5;
-    thresh_max = 1000; 
-    variance_speed = 1;
     line_rotation = 0;
-  }
-
-  void display(float xpos, float ypos) {
-    image(genMovie, xpos, ypos);
   }
 
   void dot_scan_settings(int t_min, int t_max, int v_spd, float l_rot) {
@@ -188,37 +146,30 @@ class MovieScan {
   }
 
   void display_dot_scan(float xpos, float ypos) {
+    frame = (frame+1) % imageCount;
 
-    if (genMovie == null) return;
-
-    vid_gen_buffer.beginDraw();
-    vid_gen_buffer.translate(vid_gen_buffer.width / 2, vid_gen_buffer.height / 2); // Move to the center
-    vid_gen_buffer.rotate(line_rotation); // Rotate based on frame count
-    vid_gen_buffer.imageMode(CENTER); // Draw image from center
-    vid_gen_buffer.image(genMovie, 0,0);
-    vid_gen_buffer.loadPixels();
-    vid_gen_buffer.endDraw();
+    buffer.beginDraw();
+    buffer.background(0);
+    buffer.translate(buffer.width / 2, buffer.height / 2);
+    buffer.rotate(line_rotation);
+    buffer.imageMode(CENTER);
+    buffer.image(images[frame], 0, 0);
+    buffer.loadPixels();
+    buffer.endDraw();
 
     colorMode(HSB, 360, 100, 100);
     strokeWeight(1);
     int thresh = int(map(noise(float(millis()) * (0.001 * variance_speed)), 0, 1, thresh_min, thresh_max));
 
     pushMatrix();
-    translate(width / 2, height / 2);
-    rotate(-line_rotation); 
-    //image(vid_gen_buffer, 0, 0);
+    translate(xpos + buffer.width / 2, ypos + buffer.height / 2);
+    rotate(-line_rotation);
 
-    for (int y = 0; y < vid_gen_buffer.height; ++y) {
+    for (int y = 0; y < buffer.height; ++y) {
       int cumul = 0;
 
-      for (int x = 0; x < vid_gen_buffer.width; ++x) {
-
-        color col = vid_gen_buffer.pixels[y * vid_gen_buffer.width + x];
-        
-        /*if (random(0,1000) < 1) {
-          col = col + color(random(200,255), random(200,255), random(200,255));
-        }*/
-
+      for (int x = 0; x < buffer.width; ++x) {
+        color col = buffer.pixels[y * buffer.width + x];
         if(brightness(col) > 0) {
           cumul += brightness(col);
         }
@@ -226,7 +177,7 @@ class MovieScan {
         if (cumul >= thresh) {
           col = color(hue(col), map(saturation(col), 0, 100, 0, 100), 100);
           stroke(col);
-          point(x + xpos - (vid_gen_buffer.width/2), y + ypos - (vid_gen_buffer.height/2));
+          point(x - buffer.width / 2, y - buffer.height / 2);
           cumul = 0;
         }
       }
@@ -234,5 +185,5 @@ class MovieScan {
     popMatrix();
     colorMode(RGB, 255, 255, 255);
   }
-  
+
 }

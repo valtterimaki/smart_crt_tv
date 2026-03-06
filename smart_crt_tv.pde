@@ -11,7 +11,7 @@ import java.util.Date;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.io.*;
-import processing.video.*;
+
 import processing.io.*;
 
 
@@ -45,9 +45,6 @@ public int os_height = height - os_top - os_bottom;
 //PShape obj_iss;
 
 /* OBJECTS */
-
-// main general use movie
-Movie genMovie;
 
 // Initialize particle systems / other graphics object collections
 SwimmerSystem swimmer_system;
@@ -87,8 +84,8 @@ int last_sec;
 
 // videos
 ImageSequence vid_iss;
-MovieScan vid_gen;
-PGraphics vid_gen_buffer;
+ImageSequence[] vid_gen_seqs;
+int vid_gen_idx;
 
 // Better noise generator
 FastNoiseLite fastnoise = new FastNoiseLite();
@@ -151,9 +148,9 @@ void setup() {
   vid_iss = new ImageSequence("video_iss/iss", 250, 4, "png");
   vid_iss.dot_scan_settings(5, 1000, 1);
 
-  vid_gen = new MovieScan();
-  vid_gen.dot_scan_settings(5, 1000, 1, 0);
-  vid_gen_buffer = createGraphics(width, width, P2D); // Create an offscreen buffer
+  vid_gen_seqs = new ImageSequence[2];
+  vid_gen_seqs[0] = new ImageSequence("video_dance/dance", 1, 1217, 4, "jpg");
+  vid_gen_seqs[1] = new ImageSequence("video_skate/skate", 1, 819, 4, "jpg");
 
   // manual changer
   manual_changer = new ManualChanger();
@@ -645,53 +642,23 @@ void draw() {
     // set of actions that happen in the start of the program
     if (program_started == true) {
       program_started = false;
-      // Dispose any previous movie to avoid GStreamer callback race conditions
-      if (genMovie != null) {
-        genMovie.stop();
-        genMovie.dispose();
-        genMovie = null;
-      }
-      switch (int(random(1,3))) {
-        case 1:
-          genMovie = new Movie(this, "dance1.mp4"); 
-          println("mov 1");
-          break;
-        case 2:
-          genMovie = new Movie(this, "skate.mp4"); 
-          println("mov 2");
-          break;
-        default:
-          genMovie = new Movie(this, "dance1.mp4");
-          break	;
-      }
-      
-      genMovie.play();
-      genMovie.jump(random(genMovie.duration()));
-      vid_gen.dot_scan_settings(5, 2000, 1, random(0,360));
+      vid_gen_idx = int(random(2));
+      vid_gen_seqs[vid_gen_idx].frame = int(random(vid_gen_seqs[vid_gen_idx].imageCount));
+      vid_gen_seqs[vid_gen_idx].dot_scan_settings(5, 2000, 1, random(0, 360));
     }
 
-    // draw here
-    //image(genMovie, 0,0);
     background(0);
-    vid_gen.display_dot_scan(0, 0);
-    //image(vid_gen_buffer, 0, 0);
-
-    // Restart before GStreamer hits EOF (loop() is unreliable on macOS)
-    if (genMovie != null && genMovie.duration() > 0 && genMovie.time() >= genMovie.duration() - 0.1) {
-      genMovie.jump(0);
-      genMovie.play();
-    }
+    ImageSequence seq = vid_gen_seqs[vid_gen_idx];
+    seq.display_dot_scan(
+      (width - seq.images[0].width) / 2,
+      (height - seq.images[0].height) / 2
+    );
 
     // end program after 20 seconds
     if (counter >= 20) {
       counter = 0;
       program_number = 0;
       program_started = true;
-      if (genMovie != null) {
-      genMovie.stop();
-        genMovie.dispose();
-        genMovie = null;
-      }
     }
   }
 

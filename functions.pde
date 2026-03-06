@@ -636,11 +636,6 @@ void polygon(float x, float y, float radius, int npoints) {
   endShape(CLOSE);
 }
 
-// Called every time a new frame is available to read
-void movieEvent(Movie m) {
-  m.read();
-}
-
 
 // ── Background thread wrappers ───────────────────────────────────────────────
 // Processing's thread() requires a top-level sketch method by name.
