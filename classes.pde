@@ -114,7 +114,6 @@ class ImageSequence {
   int thresh_min, thresh_max, variance_speed;
   float line_rotation;
   float scale;
-  PGraphics buffer;
   PImage outputImg;
 
   volatile long displaySeqPos;
@@ -137,7 +136,6 @@ class ImageSequence {
     ringBuf[0] = loadImage(filenames[0]);
     imageWidth = ringBuf[0].width;
     imageHeight = ringBuf[0].height;
-    buffer = createGraphics(imageWidth, imageHeight, JAVA2D);
     outputImg = createImage(width, height, RGB);
     displaySeqPos = 0;
     nextLoadPos = 1;
@@ -236,56 +234,57 @@ class ImageSequence {
     PImage img = currentImg();
     if (img == null) return;
 
-    // Render source frame (possibly rotated) into CPU-side buffer — loadPixels() is free with JAVA2D
-    buffer.beginDraw();
-    buffer.background(0);
-    buffer.translate(buffer.width / 2, buffer.height / 2);
-    buffer.rotate(line_rotation);
-    buffer.imageMode(CENTER);
-    buffer.image(img, 0, 0);
-    buffer.loadPixels();
-    buffer.endDraw();
+    img.loadPixels();
+    int iw = img.width, ih = img.height;
 
-    // Threshold in 0-255 brightness units (original used 0-100 HSB brightness, so scale by 2.55)
+    // Threshold scaled to 0-255 brightness (original was 0-100 HSB)
     int thresh = (int)map(noise(millis() * 0.001 * variance_speed), 0, 1, thresh_min * 2.55, thresh_max * 2.55);
 
-    float cosA = cos(-line_rotation);
-    float sinA = sin(-line_rotation);
-    float cx = xpos + buffer.width * 0.5;
-    float cy = ypos + buffer.height * 0.5;
-    int bw = buffer.width, bh = buffer.height;
+    // Precompute rotation coefficients (constant for entire frame)
+    float cosLR = cos(line_rotation);
+    float sinLR = sin(line_rotation);
+    float halfW = iw * 0.5f, halfH = ih * 0.5f;
+    float cx = xpos + halfW;
+    float cy = ypos + halfH;
     int sw = width, sh = height;
 
-    // Write dots directly into pixel buffer — avoids N individual OpenGL point() calls
     outputImg.loadPixels();
     java.util.Arrays.fill(outputImg.pixels, 0xFF000000);
 
-    for (int y = 0; y < bh; y++) {
+    for (int y = 0; y < ih; y++) {
       int cumul = 0;
-      float ly = (y - bh * 0.5) * scale;
-      int rowStart = y * bw;
+      float by_c = y - halfH;
+      // Row-constant rotation terms (avoids 2 multiplications per inner pixel)
+      float by_sinLR = by_c * sinLR;
+      float by_cosLR = by_c * cosLR;
 
-      for (int x = 0; x < bw; x++) {
-        int col = buffer.pixels[rowStart + x];
+      for (int x = 0; x < iw; x++) {
+        float bx_c = x - halfW;
+        // Rotate (bx_c, by_c) by line_rotation to get source image sample point
+        float rot_x = bx_c * cosLR + by_sinLR;
+        float rot_y = by_cosLR - bx_c * sinLR;
+        int srcX = (int)(rot_x + halfW);
+        int srcY = (int)(rot_y + halfH);
+
+        int col = (srcX >= 0 && srcX < iw && srcY >= 0 && srcY < ih)
+                  ? img.pixels[srcY * iw + srcX] : 0;
+
         int r = (col >> 16) & 0xFF;
         int g = (col >>  8) & 0xFF;
         int b =  col        & 0xFF;
-        // Inline brightness = max(r,g,b), avoids RGB→HSB conversion
         int br = r > g ? (r > b ? r : b) : (g > b ? g : b);
 
         cumul += br;
 
         if (cumul >= thresh) {
-          // Normalize to full brightness (equivalent to HSB brightness=100%)
           if (br > 0) {
             r = r * 255 / br;
             g = g * 255 / br;
             b = b * 255 / br;
           }
-          // Apply inverse rotation to get screen coordinates
-          float lx = (x - bw * 0.5) * scale;
-          int px = (int)(cx + lx * cosA - ly * sinA);
-          int py = (int)(cy + lx * sinA + ly * cosA);
+          // Screen position: same rotation applied at scale (rot_x,rot_y already computed)
+          int px = (int)(cx + rot_x * scale);
+          int py = (int)(cy + rot_y * scale);
           if (px >= 0 && px < sw && py >= 0 && py < sh) {
             outputImg.pixels[py * sw + px] = 0xFF000000 | (r << 16) | (g << 8) | b;
           }
