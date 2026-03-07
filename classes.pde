@@ -105,14 +105,21 @@ class Animator {
 
 class ImageSequence {
   String[] filenames;
-  PImage currentImage;
+  PImage[] ringBuf;
+  final int BUF_SIZE = 60;   // more headroom for parallel loaders
+  final int NUM_LOADERS = 3; // use 3 of Pi4's 4 cores for decoding
   int imageWidth, imageHeight;
   int imageCount;
-  int frame;
+  int frame; // current file index, kept for compatibility
   int thresh_min, thresh_max, variance_speed;
   float line_rotation;
   float scale;
   PGraphics buffer;
+
+  volatile long displaySeqPos;
+  long nextLoadPos;          // guarded by synchronized(this)
+  Thread[] loaderThreads;
+  volatile boolean preloaderRunning;
 
   ImageSequence(String imagePrefix, int count, int digits, String format) {
     this(imagePrefix, 0, count, digits, format);
@@ -124,21 +131,86 @@ class ImageSequence {
     for (int i = 0; i < imageCount; i++) {
       filenames[i] = imagePrefix + nf(i + startFrame, digits) + "." + format;
     }
-    // Load only the first frame to get dimensions
-    currentImage = loadImage(filenames[0]);
-    imageWidth = currentImage.width;
-    imageHeight = currentImage.height;
+    ringBuf = new PImage[BUF_SIZE];
+    // Load only frame 0 synchronously to get dimensions; threads fill the rest
+    ringBuf[0] = loadImage(filenames[0]);
+    imageWidth = ringBuf[0].width;
+    imageHeight = ringBuf[0].height;
     buffer = createGraphics(imageWidth, imageHeight, P2D);
+    displaySeqPos = 0;
+    nextLoadPos = 1;
+    frame = 0;
+    loaderThreads = new Thread[NUM_LOADERS];
+    startPreloader();
   }
 
-  void loadFrame() {
-    currentImage = loadImage(filenames[frame]);
+  void startPreloader() {
+    preloaderRunning = true;
+    final ImageSequence self = this;
+    for (int i = 0; i < NUM_LOADERS; i++) {
+      loaderThreads[i] = new Thread(new Runnable() {
+        public void run() {
+          while (self.preloaderRunning) {
+            long myPos;
+            synchronized(self) {
+              if (self.nextLoadPos - self.displaySeqPos >= self.BUF_SIZE) {
+                myPos = -1; // buffer full
+              } else {
+                myPos = self.nextLoadPos++;
+              }
+            }
+            if (myPos < 0) {
+              try { Thread.sleep(5); } catch (InterruptedException e) { break; }
+              continue;
+            }
+            int slot = (int)(myPos % self.BUF_SIZE);
+            int fi   = (int)(myPos % self.imageCount);
+            PImage img = loadImage(self.filenames[fi]);
+            if (img != null) self.ringBuf[slot] = img;
+          }
+        }
+      });
+      loaderThreads[i].setDaemon(true);
+      loaderThreads[i].start();
+    }
+  }
+
+  void stopLoaders() {
+    preloaderRunning = false;
+    for (int i = 0; i < NUM_LOADERS; i++) {
+      if (loaderThreads[i] != null) {
+        loaderThreads[i].interrupt();
+        try { loaderThreads[i].join(200); } catch (InterruptedException e) {}
+      }
+    }
+  }
+
+  // Seek to a new start position (next display() call will show fileIdx+1)
+  void seek(int fileIdx) {
+    stopLoaders();
+    displaySeqPos = fileIdx;
+    frame = fileIdx;
+    // Load only the one frame that will be shown immediately after advance()
+    int firstSlot = (int)((fileIdx + 1) % BUF_SIZE);
+    int firstFile = (int)((fileIdx + 1) % imageCount);
+    ringBuf[firstSlot] = loadImage(filenames[firstFile]);
+    nextLoadPos = fileIdx + 2;
+    startPreloader();
+  }
+
+  PImage currentImg() {
+    return ringBuf[(int)(displaySeqPos % BUF_SIZE)];
+  }
+
+  void advance() {
+    displaySeqPos++;
+    frame = (int)(displaySeqPos % imageCount);
   }
 
   void display(float xpos, float ypos) {
-    frame = (frame+1) % imageCount;
-    loadFrame();
-    image(currentImage, xpos, ypos);
+    advance();
+    PImage img = currentImg();
+    if (img != null) image(img, xpos, ypos);
   }
 
   void dot_scan_settings(int t_min, int t_max, int v_spd) {
@@ -158,15 +230,16 @@ class ImageSequence {
   }
 
   void display_dot_scan(float xpos, float ypos) {
-    frame = (frame+1) % imageCount;
-    loadFrame();
+    advance();
+    PImage img = currentImg();
+    if (img == null) return;
 
     buffer.beginDraw();
     buffer.background(0);
     buffer.translate(buffer.width / 2, buffer.height / 2);
     buffer.rotate(line_rotation);
     buffer.imageMode(CENTER);
-    buffer.image(currentImage, 0, 0);
+    buffer.image(img, 0, 0);
     buffer.loadPixels();
     buffer.endDraw();
 
