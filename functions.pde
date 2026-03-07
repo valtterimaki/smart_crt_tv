@@ -225,7 +225,7 @@ class ManualChanger {
     textSize(48);
     textAlign(LEFT);
     fill(0,255,0);
-    text("CH " + nf(new_program, 2), width - 250, 75, 100);
+    text("CH " + nf(new_program, 2), width - 250, 75);
   }
   
 }
