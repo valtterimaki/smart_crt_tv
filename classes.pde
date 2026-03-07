@@ -115,6 +115,7 @@ class ImageSequence {
   float line_rotation;
   float scale;
   PGraphics buffer;
+  PImage outputImg;
 
   volatile long displaySeqPos;
   long nextLoadPos;          // guarded by synchronized(this)
@@ -136,7 +137,8 @@ class ImageSequence {
     ringBuf[0] = loadImage(filenames[0]);
     imageWidth = ringBuf[0].width;
     imageHeight = ringBuf[0].height;
-    buffer = createGraphics(imageWidth, imageHeight, P2D);
+    buffer = createGraphics(imageWidth, imageHeight, JAVA2D);
+    outputImg = createImage(width, height, RGB);
     displaySeqPos = 0;
     nextLoadPos = 1;
     frame = 0;
@@ -234,6 +236,7 @@ class ImageSequence {
     PImage img = currentImg();
     if (img == null) return;
 
+    // Render source frame (possibly rotated) into CPU-side buffer — loadPixels() is free with JAVA2D
     buffer.beginDraw();
     buffer.background(0);
     buffer.translate(buffer.width / 2, buffer.height / 2);
@@ -243,33 +246,56 @@ class ImageSequence {
     buffer.loadPixels();
     buffer.endDraw();
 
-    colorMode(HSB, 360, 100, 100);
-    strokeWeight(1);
-    int thresh = int(map(noise(float(millis()) * (0.001 * variance_speed)), 0, 1, thresh_min, thresh_max));
+    // Threshold in 0-255 brightness units (original used 0-100 HSB brightness, so scale by 2.55)
+    int thresh = (int)map(noise(millis() * 0.001 * variance_speed), 0, 1, thresh_min * 2.55, thresh_max * 2.55);
 
-    pushMatrix();
-    translate(xpos + buffer.width / 2, ypos + buffer.height / 2);
-    rotate(-line_rotation);
+    float cosA = cos(-line_rotation);
+    float sinA = sin(-line_rotation);
+    float cx = xpos + buffer.width * 0.5;
+    float cy = ypos + buffer.height * 0.5;
+    int bw = buffer.width, bh = buffer.height;
+    int sw = width, sh = height;
 
-    for (int y = 0; y < buffer.height; ++y) {
+    // Write dots directly into pixel buffer — avoids N individual OpenGL point() calls
+    outputImg.loadPixels();
+    java.util.Arrays.fill(outputImg.pixels, 0xFF000000);
+
+    for (int y = 0; y < bh; y++) {
       int cumul = 0;
+      float ly = (y - bh * 0.5) * scale;
+      int rowStart = y * bw;
 
-      for (int x = 0; x < buffer.width; ++x) {
-        color col = buffer.pixels[y * buffer.width + x];
-        if(brightness(col) > 0) {
-          cumul += brightness(col);
-        }
+      for (int x = 0; x < bw; x++) {
+        int col = buffer.pixels[rowStart + x];
+        int r = (col >> 16) & 0xFF;
+        int g = (col >>  8) & 0xFF;
+        int b =  col        & 0xFF;
+        // Inline brightness = max(r,g,b), avoids RGB→HSB conversion
+        int br = r > g ? (r > b ? r : b) : (g > b ? g : b);
+
+        cumul += br;
 
         if (cumul >= thresh) {
-          col = color(hue(col), map(saturation(col), 0, 100, 0, 100), 100);
-          stroke(col);
-          point(x * scale - buffer.width / (2 / scale), y * scale - buffer.height / (2 / scale));
+          // Normalize to full brightness (equivalent to HSB brightness=100%)
+          if (br > 0) {
+            r = r * 255 / br;
+            g = g * 255 / br;
+            b = b * 255 / br;
+          }
+          // Apply inverse rotation to get screen coordinates
+          float lx = (x - bw * 0.5) * scale;
+          int px = (int)(cx + lx * cosA - ly * sinA);
+          int py = (int)(cy + lx * sinA + ly * cosA);
+          if (px >= 0 && px < sw && py >= 0 && py < sh) {
+            outputImg.pixels[py * sw + px] = 0xFF000000 | (r << 16) | (g << 8) | b;
+          }
           cumul = 0;
         }
       }
     }
-    popMatrix();
-    colorMode(RGB, 255, 255, 255);
+
+    outputImg.updatePixels();
+    image(outputImg, 0, 0);
   }
 
 }

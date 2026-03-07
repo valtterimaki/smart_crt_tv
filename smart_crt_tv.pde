@@ -643,7 +643,7 @@ void draw() {
     if (program_started == true) {
       program_started = false;
       vid_gen_idx = int(random(2));
-      vid_gen_seqs[vid_gen_idx].frame = int(random(vid_gen_seqs[vid_gen_idx].imageCount));
+      vid_gen_seqs[vid_gen_idx].seek(int(random(vid_gen_seqs[vid_gen_idx].imageCount)));
       vid_gen_seqs[vid_gen_idx].dot_scan_settings(5, 2000, 1, random(0, 360), 1.333);
     }
 
