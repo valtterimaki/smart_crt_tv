@@ -136,7 +136,7 @@ class ImageSequence {
     ringBuf[0] = loadImage(filenames[0]);
     imageWidth = ringBuf[0].width;
     imageHeight = ringBuf[0].height;
-    outputImg = createImage(width, height, RGB);
+    outputImg = createImage(width, height, ARGB);
     displaySeqPos = 0;
     nextLoadPos = 1;
     frame = 0;
@@ -249,7 +249,7 @@ class ImageSequence {
     int sw = width, sh = height;
 
     outputImg.loadPixels();
-    java.util.Arrays.fill(outputImg.pixels, 0xFF000000);
+    java.util.Arrays.fill(outputImg.pixels, 0x00000000); // transparent background
 
     for (int y = 0; y < ih; y++) {
       int cumul = 0;
