@@ -104,11 +104,14 @@ class Animator {
 // Class for animating a sequence of images
 
 class ImageSequence {
-  PImage[] images;
+  String[] filenames;
+  PImage currentImage;
+  int imageWidth, imageHeight;
   int imageCount;
   int frame;
   int thresh_min, thresh_max, variance_speed;
   float line_rotation;
+  float scale;
   PGraphics buffer;
 
   ImageSequence(String imagePrefix, int count, int digits, String format) {
@@ -117,18 +120,25 @@ class ImageSequence {
 
   ImageSequence(String imagePrefix, int startFrame, int count, int digits, String format) {
     imageCount = count;
-    images = new PImage[imageCount];
-
+    filenames = new String[imageCount];
     for (int i = 0; i < imageCount; i++) {
-      String filename = imagePrefix + nf(i + startFrame, digits) + "." + format;
-      images[i] = loadImage(filename);
+      filenames[i] = imagePrefix + nf(i + startFrame, digits) + "." + format;
     }
-    buffer = createGraphics(images[0].width, images[0].height, P2D);
+    // Load only the first frame to get dimensions
+    currentImage = loadImage(filenames[0]);
+    imageWidth = currentImage.width;
+    imageHeight = currentImage.height;
+    buffer = createGraphics(imageWidth, imageHeight, P2D);
+  }
+
+  void loadFrame() {
+    currentImage = loadImage(filenames[frame]);
   }
 
   void display(float xpos, float ypos) {
     frame = (frame+1) % imageCount;
-    image(images[frame], xpos, ypos);
+    loadFrame();
+    image(currentImage, xpos, ypos);
   }
 
   void dot_scan_settings(int t_min, int t_max, int v_spd) {
@@ -136,24 +146,27 @@ class ImageSequence {
     thresh_max = t_max;
     variance_speed = v_spd;
     line_rotation = 0;
+    scale = 1;
   }
 
-  void dot_scan_settings(int t_min, int t_max, int v_spd, float l_rot) {
+  void dot_scan_settings(int t_min, int t_max, int v_spd, float l_rot, float scl) {
     thresh_min = t_min;
     thresh_max = t_max;
     variance_speed = v_spd;
     line_rotation = radians(l_rot);
+    scale = scl;
   }
 
   void display_dot_scan(float xpos, float ypos) {
     frame = (frame+1) % imageCount;
+    loadFrame();
 
     buffer.beginDraw();
     buffer.background(0);
     buffer.translate(buffer.width / 2, buffer.height / 2);
     buffer.rotate(line_rotation);
     buffer.imageMode(CENTER);
-    buffer.image(images[frame], 0, 0);
+    buffer.image(currentImage, 0, 0);
     buffer.loadPixels();
     buffer.endDraw();
 
@@ -177,7 +190,7 @@ class ImageSequence {
         if (cumul >= thresh) {
           col = color(hue(col), map(saturation(col), 0, 100, 0, 100), 100);
           stroke(col);
-          point(x - buffer.width / 2, y - buffer.height / 2);
+          point(x * scale - buffer.width / (2 / scale), y * scale - buffer.height / (2 / scale));
           cumul = 0;
         }
       }

@@ -644,14 +644,14 @@ void draw() {
       program_started = false;
       vid_gen_idx = int(random(2));
       vid_gen_seqs[vid_gen_idx].frame = int(random(vid_gen_seqs[vid_gen_idx].imageCount));
-      vid_gen_seqs[vid_gen_idx].dot_scan_settings(5, 2000, 1, random(0, 360));
+      vid_gen_seqs[vid_gen_idx].dot_scan_settings(5, 2000, 1, random(0, 360), 1.333);
     }
 
     background(0);
     ImageSequence seq = vid_gen_seqs[vid_gen_idx];
     seq.display_dot_scan(
-      (width - seq.images[0].width) / 2,
-      (height - seq.images[0].height) / 2
+      (width - seq.imageWidth) / 2,
+      (height - seq.imageHeight) / 2
     );
 
     // end program after 20 seconds
