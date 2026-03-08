@@ -2,11 +2,12 @@
 
 class IssTracker {
 
-  private volatile XML iss_data;
-  private XML[] sightings;
+  private volatile JSONObject iss_data;
+  private volatile JSONArray passes;
   private volatile boolean reachable = false;
   private volatile boolean is_fetching = false;
-  private final static String URL = "https://spotthestation.nasa.gov/sightings/xml_files/Finland_None_Turku.xml";
+  private String api_key = "";
+  private final static String URL_BASE = "https://api.n2yo.com/rest/v1/satellite/visualpasses/25544/60.4518/22.2486/10/10/15/&apiKey=";
   public float anim_phase;
   int last_update = 99;
   String condition;
@@ -17,15 +18,11 @@ class IssTracker {
   Animator anim1 = new Animator();
 
   public IssTracker() {
+    String[] keys = loadStrings("n2yo_api_key.txt");
+    if (keys != null && keys.length > 0) api_key = keys[0].trim();
     fetch(); // synchronous on setup – that's fine
-    // Populate sighting index from initial data
     current_time = LocalDateTime.now();
-    sightings = iss_data.getChildren("item");
-    for (int i = 0; i < sightings.length; ++i) {
-      if (current_time.compareTo(parseData(i)) < 0) { current_sighting_no = i; break; }
-    }
-    if (sightings.length > 0) next_sighting = parseData(current_sighting_no);
-    else next_sighting = current_time;
+    updateSightingIndex();
     println("ISS - initial fetch done: " + lastUpdate());
     iss_logo = loadShape("img/iss_logo2.svg");
     iss_logo.disableStyle();
@@ -39,22 +36,33 @@ class IssTracker {
   // ── Called on a background thread via threadIssFetch() ─────────────────────
   void fetch() {
     try {
-      XML root = parseXML(fetchStringFromURL(URL));
-      XML loaded = (root != null) ? root.getChild("channel") : null;
-      if (loaded != null) {
-        iss_data = loaded;
+      String response = fetchStringFromURL(URL_BASE + api_key);
+      JSONObject json = parseJSONObject(response);
+      if (json != null && json.hasKey("passes")) {
+        iss_data = json;
+        passes = json.getJSONArray("passes");
         reachable = true;
       } else {
-        throw new Exception("No channel element");
+        throw new Exception("No passes in response");
       }
     } catch (Exception e) {
       reachable = false;
-      iss_data = loadXML("iss_data_placeholder.xml").getChild("channel");
+      iss_data = loadJSONObject("iss_data_placeholder.json");
+      passes = iss_data.getJSONArray("passes");
       println("ISS - fetch failed: " + e.getMessage());
     } finally {
       last_update = hour();
       is_fetching = false;
     }
+  }
+
+  void updateSightingIndex() {
+    current_sighting_no = 0;
+    for (int i = 0; i < passes.size(); ++i) {
+      if (current_time.compareTo(parseData(i)) < 0) { current_sighting_no = i; break; }
+    }
+    if (passes.size() > 0) next_sighting = parseData(current_sighting_no);
+    else next_sighting = current_time;
   }
 
   // ── Triggers background fetch if stale; also refreshes the sighting index
@@ -69,68 +77,65 @@ class IssTracker {
     }
 
     // Refresh sighting index from current (possibly stale) data – fast, no I/O
-    sightings = iss_data.getChildren("item");
-    for (int i = 0; i < sightings.length; ++i) {
-      if (current_time.compareTo(parseData(i)) < 0) { current_sighting_no = i; break; }
-    }
-    if (sightings.length > 0) next_sighting = parseData(current_sighting_no);
-    else next_sighting = current_time;
+    passes = iss_data.getJSONArray("passes");
+    updateSightingIndex();
     // forecast_yr is now updated independently in smart_crt_tv.pde
   }
 
-  String getData(int sighting_no, String input) {
+  String getData(int idx, String field) {
     try {
-      if (input.equals("raw_date")) {
-        return sightings[sighting_no].getChild("title").getContent().substring(0, 10);
+      JSONObject pass = passes.getJSONObject(idx);
+      switch (field) {
+        case "Date":      return formatDate(pass.getLong("startUTC"));
+        case "Time":      return formatTime(pass.getLong("startUTC"));
+        case "Duration":  return formatDuration(pass.getInt("duration"));
+        case "Maximum Elevation":
+          return "Maximum Elevation: " + nf(pass.getFloat("maxEl"), 0, 1) + "\u00b0";
+        case "Approach":
+          return "Approach: " + nf(pass.getFloat("startEl"), 0, 1) + "\u00b0 above " + pass.getString("startAzCompass");
+        case "Departure":
+          return "Departure: " + nf(pass.getFloat("endEl"), 0, 1) + "\u00b0 above " + pass.getString("endAzCompass");
+        case "Magnitude":
+          return "Magnitude: " + nf(pass.getFloat("mag"), 0, 1);
+        default:
+          return field + ": N/A";
       }
-      String data = sightings[sighting_no].getChild("description").getContent().substring(
-        sightings[sighting_no].getChild("description").getContent().indexOf(input) /*+ input.length() + 2*/,
-        sightings[sighting_no].getChild("description").getContent().indexOf("<br/>", sightings[sighting_no].getChild("description").getContent().indexOf(input))
-      );
-      println(data);
-      return data;
-    } catch(ArrayIndexOutOfBoundsException e) {
+    } catch (Exception e) {
       println("error in sighting number");
-      //if error for debugging
-      println(iss_data);
-      String data = "Time: ee:ee AM ";
-      return data;
-
+      return field + ": error";
     }
   }
 
-  LocalDateTime parseData(int index) {
-
-    int corrected_hour, corrected_minute;
-
-    if (getData(index, "Time").substring(7,8).equals(":")) {
-      corrected_hour = int(getData(index, "Time").substring(6,7));
-      corrected_minute = int(getData(index, "Time").substring(8,10));
-    } else {
-      corrected_hour = int(getData(index, "Time").substring(6,8));
-      corrected_minute = int(getData(index, "Time").substring(9,11));
-    }
-
-    if (getData(index, "Time").substring(12,14).equals("PM") || getData(index, "Time").substring(11,13).equals("PM")) {
-      corrected_hour += 12;
-    }
-    else if (corrected_hour == 12) {
-      corrected_hour = 0;
-    }
-
-
-    if (corrected_hour == 24) { corrected_hour = 0; }
-
-    LocalDateTime parsed_date = LocalDateTime.of(
-      int(getData(index, "raw_date").substring(0,4)),
-      int(getData(index, "raw_date").substring(5,7)),
-      int(getData(index, "raw_date").substring(8,10)),
-      corrected_hour,
-      corrected_minute
+  LocalDateTime parseData(int idx) {
+    long utc = passes.getJSONObject(idx).getLong("startUTC");
+    return LocalDateTime.ofInstant(
+      java.time.Instant.ofEpochSecond(utc),
+      java.time.ZoneId.systemDefault()
     );
+  }
 
-    //println("parsetest !!! "+parsed_date);
-    return parsed_date;
+  String formatDate(long utc) {
+    LocalDateTime dt = LocalDateTime.ofInstant(
+      java.time.Instant.ofEpochSecond(utc),
+      java.time.ZoneId.systemDefault()
+    );
+    return "Date: " + dt.getMonth().getDisplayName(java.time.format.TextStyle.FULL, java.util.Locale.ENGLISH)
+      + " " + dt.getDayOfMonth() + ", " + dt.getYear();
+  }
+
+  String formatTime(long utc) {
+    LocalDateTime dt = LocalDateTime.ofInstant(
+      java.time.Instant.ofEpochSecond(utc),
+      java.time.ZoneId.systemDefault()
+    );
+    return "Time: " + nf(dt.getHour(), 2) + ":" + nf(dt.getMinute(), 2);
+  }
+
+  String formatDuration(int seconds) {
+    int mins = seconds / 60;
+    int secs = seconds % 60;
+    if (mins > 0) return "Duration: " + mins + " min " + secs + " sec";
+    return "Duration: " + secs + " sec";
   }
 
   int urgency() {
@@ -198,7 +203,7 @@ class IssTracker {
 
   color timeLeftBackground() {
     color result = color(0);
-    if (sightings.length > 0) {
+    if (passes.size() > 0) {
       if (likeliness().equals("Likely visible") == true) {
         if (urgency() == 2) {
           result = color(30, 100, 200);
@@ -268,7 +273,7 @@ class IssTracker {
       textSize(16);
 
       if (reachable) {
-        if ( sightings.length > 0 && current_time.compareTo(next_sighting) < 0 ) {
+        if ( passes.size() > 0 && current_time.compareTo(next_sighting) < 0 ) {
           text("Next sighting",                                     os_left + 32, height - 230);
           text(getData(current_sighting_no, "Date"),                os_left + 32, height - 190);
           text(getData(current_sighting_no, "Time"),                os_left + 32, height - 170);
@@ -277,6 +282,7 @@ class IssTracker {
           text(getData(current_sighting_no, "Approach"),            os_left + 32, height - 110);
           text(getData(current_sighting_no, "Departure"),           os_left + 32, height - 90);
           text("Condition: " + condition,                           os_left + 32, height - 70);
+          text(getData(current_sighting_no, "Magnitude"),           os_left + 32, height - 50);
           textSize(24);
           text(timeLeft(),                                          os_left + 32, 100);
           if ( (urgency() == 2 && int(millis() / 500) % 4 != 0) || (urgency() == 3 && int(millis() / 300) % 4 != 0) )  {

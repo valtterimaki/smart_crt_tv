@@ -2,3 +2,4 @@ userpass.txt
 adafruit_io.pde
 build-tmp/
 out/
+data/n2yo_api_key.txt
