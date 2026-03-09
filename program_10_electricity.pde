@@ -126,11 +126,17 @@ class ElectricityUse {
 
   public void drawElect() {
 
+    if (data_values.size() == 0) {
+      error = true;
+    }
+
     float margin_left = os_left + 48;
     float margin_right = os_right + 40;
     float margin_top = os_top + 24;
     float margin_bottom = os_bottom + 40;
-    float horiz_density = ((width - margin_right - margin_left) / data_values.size());
+    float horiz_density = data_values.size() > 0
+      ? ((width - margin_right - margin_left) / data_values.size())
+      : 1.0;
     float graph_height = (height - margin_top - margin_bottom ) * 0.6;
     float value_scale = 200;
     float multiplier = graph_height / value_scale;
@@ -139,7 +145,9 @@ class ElectricityUse {
     int scale_size = 15;
     int gap = 10;
     int dash_gap = 9;
-    float usage_now = data_values.get(data_values.size() - 1);
+    float usage_now = data_values.size() > 0
+      ? data_values.get(data_values.size() - 1)
+      : 0;
 
 
     // very simple advance animation phase
