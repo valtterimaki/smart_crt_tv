@@ -110,6 +110,9 @@ PFont rajdhani_light;
 PFont mplus_thin, mplus_regular;
 PFont robotomono_light, robotomono_regular, robotomono_semibold;
 
+boolean diagnostics = true; // change this to see fps and frame render time
+int frameStartMs;
+
 
 
 // SETUP //////////////////////////////////////////////////////////////////////
@@ -193,6 +196,8 @@ void setup() {
 
 
 void draw() {
+  if (diagnostics == true) { frameStartMs = millis(); }
+
 
   // main counter to count seconds
   if ( (millis() - counterstart) > 1000 ) {
@@ -688,6 +693,18 @@ void draw() {
   // Use this to check if everything fits the screen
   //drawOverscanArea(1);
 
+  // Frame timing overlay
+  if (diagnostics == true) {
+    int frameMs = millis() - frameStartMs;
+    noStroke();
+    fill(0, 160);
+    rect(4, 4, 130, 28);
+    fill(0, 255, 0);
+    textFont(robotomono_light);
+    textSize(12);
+    textAlign(LEFT);
+    text(frameMs + "ms  " + nf(frameRate, 0, 1) + "fps", 8, 20);
+  }
 
   // TEMPLATE FOR A NEW SYSTEM
 
