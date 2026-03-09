@@ -637,6 +637,15 @@ void polygon(float x, float y, float radius, int npoints) {
 }
 
 
+// ── millis() overflow-safe absolute value ────────────────────────────────────
+// Processing's millis() wraps to negative after ~24.8 days. Use this wherever
+// millis() is passed as an absolute value (e.g. to noise() or a shader).
+// Subtraction-based timers (millis() - start) are already safe and don't need it.
+int msAbs() {
+  return millis() & 0x7FFFFFFF;
+}
+
+
 // ── Background thread wrappers ───────────────────────────────────────────────
 // Processing's thread() requires a top-level sketch method by name.
 
