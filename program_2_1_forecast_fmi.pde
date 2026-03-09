@@ -10,9 +10,9 @@ class ForecastFmi {
   private volatile boolean is_fetching = false;
   private volatile boolean reachable = false;
   private final static String URL_HARMONIE = "http://opendata.fmi.fi/wfs?service=WFS&version=2.0.0&request=getFeature&storedquery_id=fmi::forecast::harmonie::surface::point::simple&place=turku&";
-  ArrayList<String> data_temperatures = new ArrayList<String>();
-  ArrayList<String> data_times = new ArrayList<String>();
-  ArrayList<String> data_precipitation = new ArrayList<String>();
+  private volatile FmiDataSnapshot fmi_data = new FmiDataSnapshot(
+    new ArrayList<String>(), new ArrayList<String>(), new ArrayList<String>()
+  );
   public float anim_phase;
   int last_update = 99;
   volatile boolean error = false;
@@ -46,14 +46,12 @@ class ForecastFmi {
       println("Forecast FMI - fetch failed: " + e.getMessage());
     }
 
-    // Build new arrays then assign atomically so the draw thread never sees
-    // a partially-updated state
+    // Build new arrays then swap atomically with a single volatile reference write
+    // so the draw thread never sees a mix of old/new list contents.
     ArrayList<String> new_times  = getForecast("Time");
     ArrayList<String> new_temps  = getForecast("Temperature");
     ArrayList<String> new_precip = getForecast("PrecipitationAmount");
-    data_times        = new_times;
-    data_temperatures = new_temps;
-    data_precipitation = new_precip;
+    fmi_data = new FmiDataSnapshot(new_times, new_temps, new_precip);
 
     last_update = hour();
     is_fetching = false;
@@ -92,7 +90,7 @@ class ForecastFmi {
       type_test = forecast_data[i].getChild("BsWfs:BsWfsElement").getChild("BsWfs:ParameterName").getContent();
 
       // Get all unique times
-      if (type == "Time" && type_test.equals("Temperature")) {
+      if (type.equals("Time") && type_test.equals("Temperature")) {
         value = forecast_data[i].getChild("BsWfs:BsWfsElement").getChild("BsWfs:Time").getContent();
         if (count >= start_at && count <= end_at) {
           result.add(value);
@@ -116,6 +114,13 @@ class ForecastFmi {
   /* Draw forecast graph */
 
   public void drawForecast() {
+
+    // Take a consistent snapshot so all reads below see the same version
+    // even if the fetch thread swaps fmi_data mid-frame.
+    FmiDataSnapshot _snap = fmi_data;
+    ArrayList<String> data_times = _snap.times;
+    ArrayList<String> data_temperatures = _snap.temperatures;
+    ArrayList<String> data_precipitation = _snap.precipitation;
 
     float margin_left = os_left + 48;
     float margin_right = os_right + 40;
@@ -317,5 +322,15 @@ class ForecastFmi {
     //rectStriped(0, height, 20, -200, 4, radians(millis()/50));
 
 
+  }
+}
+
+// Immutable holder so all three lists can be swapped with one volatile write.
+class FmiDataSnapshot {
+  final ArrayList<String> times, temperatures, precipitation;
+  FmiDataSnapshot(ArrayList<String> t, ArrayList<String> temp, ArrayList<String> p) {
+    times = t;
+    temperatures = temp;
+    precipitation = p;
   }
 }

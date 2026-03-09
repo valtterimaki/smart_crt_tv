@@ -17,14 +17,14 @@ class SunSystem {
   PVector rayposition(int number, String startend) {
     PVector result = new PVector();
 
-    if (startend == "start") {
+    if (startend.equals("start")) {
       result.set(
         origo.x - sqrt(sq(radius)-sq(step*number-radius + offset)),
         origo.y - radius + step*number - step + offset
         );
     }
 
-    if (startend == "end") {
+    if (startend.equals("end")) {
       result.set(
         origo.x + sqrt(sq(radius)-sq(step*number-radius + offset)),
         origo.y - radius + step*number - gap + offset

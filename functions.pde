@@ -297,11 +297,11 @@ int getHiOrLoIndexString(ArrayList<String> src, String which, int from, int to) 
 
   for (int i = from + 1; i < to; ++i) {
     val2 = float(source.get(i));
-    if (val2 > val1 && which == "highest") {
+    if (val2 > val1 && which.equals("highest")) {
       val1 = val2;
       index = i;
     }
-    if (val2 < val1 && which == "lowest") {
+    if (val2 < val1 && which.equals("lowest")) {
       val1 = val2;
       index = i;
     }
@@ -320,11 +320,11 @@ int getHiOrLoIndexFloat(ArrayList<Float> src, String which, int from, int to) {
 
   for (int i = from + 1; i < to; ++i) {
     val2 = source.get(i);
-    if (val2 > val1 && which == "highest") {
+    if (val2 > val1 && which.equals("highest")) {
       val1 = val2;
       index = i;
     }
-    if (val2 < val1 && which == "lowest") {
+    if (val2 < val1 && which.equals("lowest")) {
       val1 = val2;
       index = i;
     }
@@ -343,11 +343,11 @@ float getHiOrLoValueFloat(ArrayList<Float> src, String which, int from, int to) 
 
   for (int i = from + 1; i < to; ++i) {
     val2 = source.get(i);
-    if (val2 > val1 && which == "highest") {
+    if (val2 > val1 && which.equals("highest")) {
       val1 = val2;
       index = i;
     }
-    if (val2 < val1 && which == "lowest") {
+    if (val2 < val1 && which.equals("lowest")) {
       val1 = val2;
       index = i;
     }
@@ -660,13 +660,23 @@ String fetchStringFromURL(String url) throws Exception {
   conn.setRequestMethod("GET");
   conn.setRequestProperty("User-Agent", "SmartCRTTV/1.0");
   int code = conn.getResponseCode();
-  if (code < 200 || code >= 400) throw new Exception("HTTP " + code);
-  java.io.BufferedReader reader = new java.io.BufferedReader(
-    new java.io.InputStreamReader(conn.getInputStream(), "UTF-8")
-  );
-  StringBuilder sb = new StringBuilder();
-  String line;
-  while ((line = reader.readLine()) != null) sb.append(line).append('\n');
-  reader.close();
-  return sb.toString();
+  if (code < 200 || code >= 400) {
+    conn.disconnect();
+    throw new Exception("HTTP " + code);
+  }
+  try {
+    java.io.BufferedReader reader = new java.io.BufferedReader(
+      new java.io.InputStreamReader(conn.getInputStream(), "UTF-8")
+    );
+    try {
+      StringBuilder sb = new StringBuilder();
+      String line;
+      while ((line = reader.readLine()) != null) sb.append(line).append('\n');
+      return sb.toString();
+    } finally {
+      reader.close();
+    }
+  } finally {
+    conn.disconnect();
+  }
 }

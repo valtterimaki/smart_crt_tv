@@ -315,7 +315,9 @@ void draw() {
   // 3 is CONDITION
   if (program_number == 3) {
 
-    if (str(weather.getWeatherConditionID()).charAt(0) == '5' || str(weather.getWeatherConditionID()).charAt(0) == '3' || str(weather.getWeatherConditionID()).charAt(0) == '2') {
+    String cond_id = str(weather.getWeatherConditionID());
+
+    if (cond_id.charAt(0) == '5' || cond_id.charAt(0) == '3' || cond_id.charAt(0) == '2') {
       //println("drizzle or rain or thunder");
       // set of actions that happen in the start of the program
       if (program_started == true) {
@@ -333,7 +335,7 @@ void draw() {
       rain_system.run();
     }
 
-    if (str(weather.getWeatherConditionID()).charAt(0) == '6') {
+    if (cond_id.charAt(0) == '6') {
       //println("snow");
       // set of actions that happen in the start of the program
       if (program_started == true) {
@@ -350,7 +352,7 @@ void draw() {
       println("atmo");
     }*/
 
-    if (str(weather.getWeatherConditionID()).equals("800")) {
+    if (cond_id.equals("800")) {
       //println("clear");
       // set of actions that happen in the start of the program
       if (program_started == true) {
@@ -361,7 +363,7 @@ void draw() {
       sun_system.run();
     }
 
-    if ((str(weather.getWeatherConditionID()).charAt(0) == '8' && str(weather.getWeatherConditionID()).charAt(2) != '0') || str(weather.getWeatherConditionID()).charAt(0) == '7') {
+    if ((cond_id.charAt(0) == '8' && cond_id.length() >= 3 && cond_id.charAt(2) != '0') || cond_id.charAt(0) == '7') {
       //println("clouds or foggy");
       // set of actions that happen in the start of the program
       if (program_started == true) {

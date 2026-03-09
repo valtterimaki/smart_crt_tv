@@ -110,12 +110,12 @@ int get_sun_in_minutes(String which) {
   int result = 0;
   int timezone_offset =  int(weather.getTimezone()) / 60; // in minutes
 
-  if (which == "rise") {
+  if (which.equals("rise")) {
     String sunrise = weather.getSunrise().substring(weather.getSunrise().indexOf("T") + 1);
     result = int(sunrise.substring(0, 2)) * 60 + int(sunrise.substring(3, 5)) + timezone_offset;
   }
 
-  if (which == "set") {
+  if (which.equals("set")) {
     String sunset = weather.getSunset().substring(weather.getSunset().indexOf("T") + 1);
     result = int(sunset.substring(0, 2)) * 60 + int(sunset.substring(3, 5)) + timezone_offset;
   }
