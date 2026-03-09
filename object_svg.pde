@@ -10,8 +10,9 @@ class ObjSvg {
   XML xml;
   float xoffs, yoffs, fine, scale;
   int rand, spd;
-  PVector[][][] parsed_svg = new PVector[3][50][50];
-  float[] svg_noise = new float[50];
+  final int SVG_MAX = 50;
+  PVector[][][] parsed_svg = new PVector[3][SVG_MAX][SVG_MAX];
+  float[] svg_noise = new float[SVG_MAX];
 
   ObjSvg (String xml_init, float xo, float yo, int rand_init, float fine_init, int spd_init, float sc) {
 
@@ -35,13 +36,13 @@ class ObjSvg {
     // Go through all paths
     XML[] paths = xml.getChildren("g/path");
 
-    for (int i = 0; i < paths.length; ++i) {
+    for (int i = 0; i < min(paths.length, SVG_MAX); ++i) {
       String path = paths[i].getString("d");
       path = path.replace(" Z", "");
       String[] points = split(path, ' ');
 
       // find coordinates for each path
-      for (int k = 0; k < points.length; ++k) {
+      for (int k = 0; k < min(points.length, SVG_MAX); ++k) {
 
         String point = points[k];
         point = point.replace("M", "");
@@ -60,13 +61,13 @@ class ObjSvg {
     // Go through all polys
     XML[] polys = xml.getChildren("g/polygon");
 
-    for (int i = 0; i < polys.length; ++i) {
+    for (int i = 0; i < min(polys.length, SVG_MAX); ++i) {
       String poly = polys[i].getString("points");
       String[] points = split(poly, ' ');
 
       int dividercounter = 0;
 
-      for (int k = 0; k < points.length; k += 2) {
+      for (int k = 0; k < points.length - 1 && dividercounter < SVG_MAX; k += 2) {
 
         float xCoord = Float.parseFloat(points[k]);
         float yCoord = Float.parseFloat(points[k+1]);
@@ -82,13 +83,13 @@ class ObjSvg {
       // Go through all polylines
     XML[] polylines = xml.getChildren("g/polyline");
 
-    for (int i = 0; i < polylines.length; ++i) {
+    for (int i = 0; i < min(polylines.length, SVG_MAX); ++i) {
       String polyline = polylines[i].getString("points");
       String[] points = split(polyline, ' ');
 
       int dividercounter = 0;
 
-      for (int k = 0; k < points.length; k += 2) {
+      for (int k = 0; k < points.length - 1 && dividercounter < SVG_MAX; k += 2) {
 
         float xCoord = Float.parseFloat(points[k]);
         float yCoord = Float.parseFloat(points[k+1]);
