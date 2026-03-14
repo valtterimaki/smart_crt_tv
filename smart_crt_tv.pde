@@ -698,12 +698,12 @@ void draw() {
     int frameMs = millis() - frameStartMs;
     noStroke();
     fill(0, 160);
-    rect(4, 4, 130, 28);
-    fill(0, 255, 0);
+    rect(0, 0, 130, 20);
+    fill(255, 255, 255);
     textFont(robotomono_light);
     textSize(12);
     textAlign(LEFT);
-    text(frameMs + "ms  " + nf(frameRate, 0, 1) + "fps", 8, 20);
+    text(frameMs + "ms  " + nf(frameRate, 0, 1) + "fps", 4, 20);
   }
 
   // TEMPLATE FOR A NEW SYSTEM
