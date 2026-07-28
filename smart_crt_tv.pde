@@ -768,7 +768,7 @@ void draw() {
     textSize(diag_size);
     text(nf(frameRate, 0, 1), diag_x, diag_y);
     textSize(diag_label_size);
-    text("fps  " + nf(bodyMsAvg, 0, 1) + "ms  p" + program_number, diag_x, diag_y + diag_label_size);
+    //text("fps  " + nf(bodyMsAvg, 0, 1) + "ms  p" + program_number, diag_x, diag_y + diag_label_size);  // Not needed but saved anyway
   }
 
   // TEMPLATE FOR A NEW SYSTEM
