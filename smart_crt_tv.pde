@@ -32,13 +32,17 @@ public boolean program_started = true;
 // Animator helpers
 public float anim_1_start, anim_1_duration, anim_1_phase = 0;
 
-// Variables for setting overscan safe areas
+// Variables for setting overscan safe areas.
+// These are only the fallback defaults - the live values come from
+// overscan.txt, re-read while the sketch runs. See reloadOverscanConfig()
+// in functions.pde.
 public int os_left = 48;
 public int os_right = 28;
 public int os_top = 10;
 public int os_bottom = 8;
-public int os_width = width - os_left - os_right;
-public int os_height = height - os_top - os_bottom;
+// Derived in reloadOverscanConfig(): width/height are still 0 at field-init
+// time, so these cannot be initialised here.
+public int os_width, os_height;
 
 // 3d objects
 // NOTE! CANNOT DO THIS WITHOUT BETTER GEAR (PI4)
@@ -110,7 +114,9 @@ PFont rajdhani_light;
 PFont mplus_thin, mplus_regular;
 PFont robotomono_light, robotomono_regular, robotomono_semibold;
 
-boolean diagnostics = true; // change this to see fps and frame render time
+// Both of these are overridden by overscan.txt on every reload.
+boolean diagnostics = true; // fps and frame render time, drawn in the overscan band
+boolean calibrate = false;  // paint the overscan band white to calibrate os_* over SSH
 int frameStartMs;
 
 
@@ -188,6 +194,10 @@ void setup() {
   // arm the GPIO pin 
   GPIO.pinMode(4, GPIO.INPUT_PULLUP);
 
+  // Overscan values and the diagnostics/calibrate flags from overscan.txt.
+  // Must run after size(), since os_width/os_height derive from width/height.
+  reloadOverscanConfig(true);
+
   frameRate(50);
 }
 
@@ -196,6 +206,11 @@ void setup() {
 
 
 void draw() {
+
+  // Pick up SSH edits to overscan.txt roughly twice a second. This is only a
+  // file stat until the timestamp actually changes.
+  if (frameCount % 25 == 0) { reloadOverscanConfig(false); }
+
   if (diagnostics == true) { frameStartMs = millis(); }
 
 
@@ -210,6 +225,13 @@ void draw() {
   if ( program_number != 0 ){
     background(0);
   }
+
+
+  // Confine every program to the part of the frame the CRT actually shows.
+  // The clear above has to stay outside this: background() is a glClear and is
+  // subject to the scissor test, so clipping first would leave stale pixels in
+  // the overscan band - visible the moment the reveal button is pressed.
+  clip(os_left, os_top, os_width, os_height);
 
 
   /* "PROGRAMS" */
@@ -689,21 +711,32 @@ void draw() {
     }
   }
 
-  // Draw overscan test area
-  // Use this to check if everything fits the screen
-  //drawOverscanArea(1);
+  // Everything from here on is allowed to draw into the overscan band.
+  noClip();
 
-  // Frame timing overlay
+  // Draw overscan test area
+  // Set calibrate=1 in overscan.txt to check what fits the screen
+  if (calibrate == true) {
+    drawOverscanArea(2);
+  }
+
+  // Frame timing overlay.
+  // Parked in the overscan band, so it only shows when the reveal button on the
+  // set is pressed. The os_* readout confirms an SSH edit actually took.
   if (diagnostics == true) {
     int frameMs = millis() - frameStartMs;
     noStroke();
-    fill(0, 160);
-    rect(0, 0, 130, 20);
-    fill(255, 255, 255);
-    textFont(robotomono_light);
+    if (calibrate == true) {
+      fill(0); // black on the white calibration band
+    } else {
+      fill(0, 160);
+      fill(255, 255, 255);
+    }
+    textFont(robotomono_regular);
     textSize(12);
     textAlign(LEFT);
-    text(frameMs + "ms  " + nf(frameRate, 0, 1) + "fps", 4, 20);
+    text(frameMs + "ms " + nf(frameRate, 0, 1) + "fps  "
+      + os_left + "/" + os_right + "/" + os_top + "/" + os_bottom, 4, 8);
   }
 
   // TEMPLATE FOR A NEW SYSTEM

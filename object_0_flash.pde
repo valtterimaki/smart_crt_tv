@@ -48,6 +48,7 @@ class ObjFlash{
       */
     } else {
       background(0);
+      tex = get();
     }
     
   }

@@ -607,6 +607,84 @@ float setLinearAnimPhase(int start, int duration) {
   return constrain(map(elapsed, 0, duration, 0, 1), 0, 1);
 }
 
+// ── Live overscan configuration ──────────────────────────────────────────────
+// The CRT overscans, so a border band of the frame is never visible in normal
+// viewing (the button on the set reveals the whole frame). Finding the exact
+// band is trial and error on the device, and the Pi is headless, so the four
+// values live in a plain text file that the sketch re-reads while running:
+// edit it over SSH and the change lands on the CRT within half a second, no
+// rebuild and no re-upload.
+//
+//   overscan.txt, in the sketch folder
+//     os_left=48
+//     os_right=28
+//     os_top=10
+//     os_bottom=8
+//     calibrate=1     # paint the overscan band white to see where it lands
+//     diagnostics=1   # fps / frame time overlay
+//
+// Anything missing or unparseable keeps its previous value, so a file caught
+// half-written mid-save can't take the sketch down.
+
+long overscan_config_stamp = -1;
+
+void reloadOverscanConfig(boolean force) {
+
+  try {
+    File f = new File(sketchPath("overscan.txt"));
+    long stamp = f.exists() ? f.lastModified() : 0;
+
+    // Stat only until the file actually changes — this runs from draw().
+    if (!force && stamp == overscan_config_stamp) return;
+    overscan_config_stamp = stamp;
+
+    if (stamp == 0) {
+      println("Overscan config not found at " + f.getAbsolutePath() + " - keeping current values");
+    } else {
+      String[] lines = loadStrings(f);
+      if (lines != null) {
+        for (String line : lines) {
+          String s = line.trim();
+          if (s.length() == 0 || s.startsWith("#")) continue;
+
+          int eq = s.indexOf('=');
+          if (eq < 1) continue;
+
+          String key = s.substring(0, eq).trim();
+          String val = s.substring(eq + 1).trim();
+
+          int hash = val.indexOf('#'); // allow a trailing comment
+          if (hash >= 0) val = val.substring(0, hash).trim();
+
+          int n;
+          try {
+            n = Integer.parseInt(val);
+          }
+          catch (NumberFormatException nfe) {
+            continue; // partially written line, or a typo - ignore it
+          }
+
+          if      (key.equals("os_left"))     os_left     = constrain(n, 0, width / 2);
+          else if (key.equals("os_right"))    os_right    = constrain(n, 0, width / 2);
+          else if (key.equals("os_top"))      os_top      = constrain(n, 0, height / 2);
+          else if (key.equals("os_bottom"))   os_bottom   = constrain(n, 0, height / 2);
+          else if (key.equals("calibrate"))   calibrate   = (n != 0);
+          else if (key.equals("diagnostics")) diagnostics = (n != 0);
+        }
+      }
+    }
+  }
+  catch (Exception e) {
+    println("Overscan config read failed: " + e.getMessage());
+  }
+
+  // Always recompute: these can't be field initialisers because width/height
+  // are still 0 before size() runs.
+  os_width  = max(1, width  - os_left - os_right);
+  os_height = max(1, height - os_top  - os_bottom);
+
+}
+
 void drawOverscanArea(int variant) {
 
   if (variant == 0) {
@@ -621,6 +699,22 @@ void drawOverscanArea(int variant) {
     strokeWeight(1);
     noFill();
     rect(os_left-1, os_top-1, width-os_left-os_right+1, height-os_top-os_bottom+1);
+  } else if (variant == 2) {
+    // Calibration. The band goes solid white, so any white creeping into the
+    // picture means that side's value is still too small - raise it over SSH.
+    noStroke();
+    fill(255,0,0);
+    rect(0, 0, os_left, height);
+    rect(0, 0, width, os_top);
+    rect(width, 0, -os_right, height);
+    rect(0, height, width, -os_bottom);
+    // Hairline on the first row/column of the safe area. Tuned correctly it
+    // sits right at the edge of the visible picture: still visible, with no
+    // white beyond it.
+    noFill();
+    stroke(255, 255, 255);
+    strokeWeight(1);
+    rect(os_left, os_top, os_width - 1, os_height - 1);
   }
 
 }
