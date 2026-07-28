@@ -128,7 +128,8 @@ int diag_x = 4;             // left edge of both lines
 int diag_y = 26;            // baseline of the fps number
 int diag_size = 20;         // text size of the fps number
 int diag_label_size = 16;   // text size of the "fps" label, and its offset below diag_y
-int frameStartMs;
+long frameStartNs;         // start of the current draw() body, for the ms readout
+float bodyMsAvg;           // smoothed draw() body time, excluding the buffer swap
 
 
 
@@ -235,7 +236,7 @@ void draw() {
   // file stat until the timestamp actually changes.
   if (frameCount % 25 == 0) { reloadOverscanConfig(false); }
 
-  if (diagnostics == true) { frameStartMs = millis(); }
+  if (diagnostics == true) { frameStartNs = System.nanoTime(); }
 
 
   // main counter to count seconds
@@ -749,6 +750,14 @@ void draw() {
   // set is pressed. Position and text size come from overscan.txt, so they can
   // be nudged over SSH without a rebuild.
   if (diagnostics == true) {
+
+    // Cost of the draw() body alone, sampled before this overlay is drawn. The
+    // buffer swap happens after draw() returns, so this number excludes any
+    // wait for vblank: body well under 20 ms while fps sits at 25 means the
+    // frame is finishing in time and the swap is what costs us the other half.
+    float bodyMs = (System.nanoTime() - frameStartNs) / 1e6;
+    bodyMsAvg = (frameCount < 2) ? bodyMs : bodyMsAvg * 0.9 + bodyMs * 0.1;
+
     noStroke();
     if (calibrate == true) {
       fill(0); // black on the red calibration band
@@ -758,9 +767,9 @@ void draw() {
     textFont(robotomono_regular);
     textAlign(LEFT);
     textSize(diag_size);
-    text(int(frameRate), diag_x, diag_y);
+    text(nf(frameRate, 0, 1), diag_x, diag_y);
     textSize(diag_label_size);
-    text("fps", diag_x, diag_y + diag_label_size);
+    text("fps  " + nf(bodyMsAvg, 0, 1) + "ms  p" + program_number, diag_x, diag_y + diag_label_size);
   }
 
   // TEMPLATE FOR A NEW SYSTEM
