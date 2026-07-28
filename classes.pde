@@ -116,6 +116,10 @@ class ImageSequence {
   float scale;
   PImage outputImg;
 
+  // display_dot_scan() row bands, one worker per core. Built on first scan.
+  BandWorker[] bandWorkers;
+  Future[] bandFutures;
+
   volatile long displaySeqPos;
   long nextLoadPos;          // guarded by synchronized(this)
   Thread[] loaderThreads;
@@ -229,6 +233,24 @@ class ImageSequence {
     scale = scl;
   }
 
+  // Rows are independent (cumul resets every row), so the scan is split into
+  // contiguous row bands across the cores. Two rows can land on the same output
+  // pixel under rotation/scale; that write is left unsynchronized - an int store
+  // is atomic so the worst case is last-writer-wins on a single dot's color.
+  void ensureBandWorkers(int iw, int ih) {
+    int bands = max(1, dotScanBands);
+    int cap = ceil(ih / (float)bands) * iw; // at most one dot per inner iteration
+    if (bandWorkers != null && bandWorkers.length == bands
+      && bandWorkers[0].dirty.length >= cap) return;
+
+    bandWorkers = new BandWorker[bands];
+    for (int i = 0; i < bands; i++) bandWorkers[i] = new BandWorker(cap);
+    bandFutures = new Future[bands];
+    // Any old dirty lists are gone, so the incremental clear cannot undo the
+    // previous frame's dots - wipe the whole buffer this once.
+    java.util.Arrays.fill(outputImg.pixels, 0x00000000);
+  }
+
   void display_dot_scan(float xpos, float ypos) {
     advance();
     PImage img = currentImg();
@@ -249,9 +271,87 @@ class ImageSequence {
     int sw = width, sh = height;
 
     outputImg.loadPixels();
-    java.util.Arrays.fill(outputImg.pixels, 0x00000000); // transparent background
+    ensureBandWorkers(iw, ih);
+    int bands = bandWorkers.length;
 
-    for (int y = 0; y < ih; y++) {
+    // Clear only the dots written last frame (a few thousand stores instead of a
+    // 414k-int memset). Done here on the draw thread and before any worker is
+    // dispatched, so no worker can zero a dot another worker just wrote.
+    for (int i = 0; i < bands; i++) bandWorkers[i].clearDirty(outputImg.pixels);
+
+    for (int i = 0; i < bands; i++) {
+      bandWorkers[i].setup(
+        img.pixels, outputImg.pixels,
+        i * ih / bands, (i + 1) * ih / bands,
+        iw, ih, sw, sh,
+        thresh, cosLR, sinLR, halfW, halfH, cx, cy, scale
+      );
+    }
+
+    // Workers 1..n-1 go to the pool, band 0 runs here so all cores are busy.
+    for (int i = 1; i < bands; i++) bandFutures[i] = dotScanPool.submit(bandWorkers[i]);
+    bandWorkers[0].run();
+    for (int i = 1; i < bands; i++) {
+      // get() is also the memory barrier that publishes the workers' writes here
+      try {
+        bandFutures[i].get();
+      }
+      catch (Exception e) {
+        // A dropped band must cost a slow frame, not the whole display
+        println("dot scan band " + i + " failed: " + e);
+        bandWorkers[i].run();
+      }
+    }
+
+    outputImg.updatePixels();
+    image(outputImg, 0, 0);
+  }
+
+}
+
+// One row band of ImageSequence.display_dot_scan(). Pure array math - must not
+// touch any Processing API, since it runs off the draw thread.
+class BandWorker implements Runnable {
+  int[] src, out;
+  int[] dirty;      // out[] indices written last run, for the next clear
+  int dirtyCount;
+  int y0, y1, iw, ih, sw, sh, thresh;
+  float cosLR, sinLR, halfW, halfH, cx, cy, scl;
+
+  BandWorker(int capacity) {
+    dirty = new int[capacity];
+    dirtyCount = 0;
+  }
+
+  void clearDirty(int[] pixels) {
+    for (int i = 0; i < dirtyCount; i++) pixels[dirty[i]] = 0x00000000;
+    dirtyCount = 0;
+  }
+
+  void setup(int[] src_, int[] out_, int y0_, int y1_,
+    int iw_, int ih_, int sw_, int sh_,
+    int thresh_, float cosLR_, float sinLR_,
+    float halfW_, float halfH_, float cx_, float cy_, float scl_) {
+    src = src_;
+    out = out_;
+    y0 = y0_;
+    y1 = y1_;
+    iw = iw_;
+    ih = ih_;
+    sw = sw_;
+    sh = sh_;
+    thresh = thresh_;
+    cosLR = cosLR_;
+    sinLR = sinLR_;
+    halfW = halfW_;
+    halfH = halfH_;
+    cx = cx_;
+    cy = cy_;
+    scl = scl_;
+  }
+
+  public void run() {
+    for (int y = y0; y < y1; y++) {
       int cumul = 0;
       float by_c = y - halfH;
       // Row-constant rotation terms (avoids 2 multiplications per inner pixel)
@@ -267,7 +367,7 @@ class ImageSequence {
         int srcY = (int)(rot_y + halfH);
 
         int col = (srcX >= 0 && srcX < iw && srcY >= 0 && srcY < ih)
-                  ? img.pixels[srcY * iw + srcX] : 0;
+          ? src[srcY * iw + srcX] : 0;
 
         int r = (col >> 16) & 0xFF;
         int g = (col >>  8) & 0xFF;
@@ -283,18 +383,16 @@ class ImageSequence {
             b = b * 255 / br;
           }
           // Screen position: same rotation applied at scale (rot_x,rot_y already computed)
-          int px = (int)(cx + rot_x * scale);
-          int py = (int)(cy + rot_y * scale);
+          int px = (int)(cx + rot_x * scl);
+          int py = (int)(cy + rot_y * scl);
           if (px >= 0 && px < sw && py >= 0 && py < sh) {
-            outputImg.pixels[py * sw + px] = 0xFF000000 | (r << 16) | (g << 8) | b;
+            int idx = py * sw + px;
+            out[idx] = 0xFF000000 | (r << 16) | (g << 8) | b;
+            if (dirtyCount < dirty.length) dirty[dirtyCount++] = idx;
           }
           cumul = 0;
         }
       }
     }
-
-    outputImg.updatePixels();
-    image(outputImg, 0, 0);
   }
-
 }

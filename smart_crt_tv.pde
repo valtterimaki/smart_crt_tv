@@ -11,7 +11,7 @@ import java.util.Date;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.io.*;
-
+import java.util.concurrent.*;
 import processing.io.*;
 
 
@@ -91,6 +91,11 @@ ImageSequence vid_iss;
 ImageSequence[] vid_gen_seqs;
 int vid_gen_idx;
 
+// Worker pool for the ImageSequence.display_dot_scan() row bands.
+// Sized cores-1: the draw thread takes one band itself, so all cores work.
+ExecutorService dotScanPool;
+int dotScanBands;
+
 // Better noise generator
 FastNoiseLite fastnoise = new FastNoiseLite();
 FastNoiseLite warp = new FastNoiseLite();
@@ -158,6 +163,19 @@ void setup() {
 
   //ISS tracker
   iss = new IssTracker();
+
+  // dot scan workers - must exist before any ImageSequence is constructed
+  dotScanBands = max(1, Runtime.getRuntime().availableProcessors()); // 4 on Pi4
+  if (dotScanBands > 1) {
+    dotScanPool = Executors.newFixedThreadPool(dotScanBands - 1, new ThreadFactory() {
+      public Thread newThread(Runnable r) {
+        Thread t = new Thread(r, "dotscan");
+        t.setDaemon(true); // must be daemon or the sketch will not exit
+        return t;
+      }
+    }
+    );
+  }
 
   // video
   vid_iss = new ImageSequence("video_iss/iss", 250, 4, "png");
