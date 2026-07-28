@@ -9,11 +9,11 @@ os_bottom=4
 
 # 1 = fill the hidden band red, white hairline on the safe-area edge.
 # Tuned right: no red in the picture, hairline just visible at its edge.
-calibrate=1
+calibrate=0
 
 # fps readout, drawn in the band - only visible via the reveal button.
 diagnostics=1
-diag_x=4            # left edge of both lines
+diag_x=16            # left edge of both lines
 diag_y=26           # baseline of the number
 diag_size=20
 diag_label_size=16  # "fps" label size, and its offset below diag_y
