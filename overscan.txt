@@ -1,29 +1,19 @@
-# Live overscan configuration for smart_crt_tv.
-#
-# The running sketch re-reads this file about twice a second, so editing it
-# over SSH shows up on the CRT immediately - no rebuild, no re-upload. Blank
-# lines and # comments are ignored, and unparseable values keep their previous
-# value, so saving a half-written file is harmless.
+# Live config, re-read about twice a second. Edit over SSH, no rebuild.
+# Unparseable values keep their previous value, so a half-saved file is harmless.
 
-# Pixels cropped by the CRT on each side. Everything else is drawn only inside
-# the remaining area; the band itself is used for hidden diagnostics.
-os_left=48
-os_right=28
+# Pixels hidden by the CRT on each side.
+os_left=53
+os_right=26
 os_top=10
-os_bottom=8
+os_bottom=4
 
-# 1 = paint the overscan band solid white, with a magenta hairline on the first
-# row/column of the safe area.
-#
-# How to calibrate, watching the TV in NORMAL (non-reveal) mode:
-#   - White visible along an edge  -> that side's value is too small, raise it.
-#   - Tuned correctly              -> no white at all, and the magenta hairline
-#                                     sits right at the edge of the picture.
-#   - No hairline visible either   -> the value has overshot and is wasting
-#                                     screen area, lower it.
-# Adjust one side at a time, save, look. Set back to 0 when done.
+# 1 = fill the hidden band red, white hairline on the safe-area edge.
+# Tuned right: no red in the picture, hairline just visible at its edge.
 calibrate=1
 
-# 1 = frame time / fps / current os_* values, drawn top-left inside the band.
-# Only visible while the reveal button on the set is held.
+# fps readout, drawn in the band - only visible via the reveal button.
 diagnostics=1
+diag_x=4            # left edge of both lines
+diag_y=26           # baseline of the number
+diag_size=20
+diag_label_size=16  # "fps" label size, and its offset below diag_y

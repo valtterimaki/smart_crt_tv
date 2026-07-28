@@ -114,9 +114,15 @@ PFont rajdhani_light;
 PFont mplus_thin, mplus_regular;
 PFont robotomono_light, robotomono_regular, robotomono_semibold;
 
-// Both of these are overridden by overscan.txt on every reload.
-boolean diagnostics = true; // fps and frame render time, drawn in the overscan band
-boolean calibrate = false;  // paint the overscan band white to calibrate os_* over SSH
+// Everything below is overridden by overscan.txt on every reload.
+boolean diagnostics = true; // fps readout, drawn in the overscan band
+boolean calibrate = false;  // fill the overscan band red to calibrate os_* over SSH
+// Placement and text size of the fps readout. Fits in the left band by default,
+// which is the widest one - tune these live rather than editing them here.
+int diag_x = 4;             // left edge of both lines
+int diag_y = 26;            // baseline of the fps number
+int diag_size = 20;         // text size of the fps number
+int diag_label_size = 16;   // text size of the "fps" label, and its offset below diag_y
 int frameStartMs;
 
 
@@ -720,24 +726,23 @@ void draw() {
     drawOverscanArea(2);
   }
 
-  // Frame timing overlay.
+  // Frame rate overlay.
   // Parked in the overscan band, so it only shows when the reveal button on the
-  // set is pressed. The os_* readout confirms an SSH edit actually took.
+  // set is pressed. Position and text size come from overscan.txt, so they can
+  // be nudged over SSH without a rebuild.
   if (diagnostics == true) {
-    int frameMs = millis() - frameStartMs;
     noStroke();
     if (calibrate == true) {
-      fill(0); // black on the white calibration band
+      fill(0); // black on the red calibration band
     } else {
-      fill(0, 160);
       fill(255, 255, 255);
     }
     textFont(robotomono_regular);
     textAlign(LEFT);
-    textSize(20);
-    text(int(frameRate), 4, 26);
-    textSize(16);
-    text("fps", 4, 42);
+    textSize(diag_size);
+    text(int(frameRate), diag_x, diag_y);
+    textSize(diag_label_size);
+    text("fps", diag_x, diag_y + diag_label_size);
   }
 
   // TEMPLATE FOR A NEW SYSTEM

@@ -609,22 +609,12 @@ float setLinearAnimPhase(int start, int duration) {
 
 // ── Live overscan configuration ──────────────────────────────────────────────
 // The CRT overscans, so a border band of the frame is never visible in normal
-// viewing (the button on the set reveals the whole frame). Finding the exact
-// band is trial and error on the device, and the Pi is headless, so the four
-// values live in a plain text file that the sketch re-reads while running:
-// edit it over SSH and the change lands on the CRT within half a second, no
-// rebuild and no re-upload.
-//
-//   overscan.txt, in the sketch folder
-//     os_left=48
-//     os_right=28
-//     os_top=10
-//     os_bottom=8
-//     calibrate=1     # paint the overscan band white to see where it lands
-//     diagnostics=1   # fps / frame time overlay
-//
-// Anything missing or unparseable keeps its previous value, so a file caught
-// half-written mid-save can't take the sketch down.
+// viewing (the button on the set reveals the whole frame). The Pi is headless,
+// so rather than rebuilding to try each value, the settings live in
+// overscan.txt in the sketch folder and are re-read while running: edit over
+// SSH and the change lands on the CRT within half a second. That file
+// documents the keys. Anything missing or unparseable keeps its previous
+// value, so a file caught half-written mid-save can't take the sketch down.
 
 long overscan_config_stamp = -1;
 
@@ -664,12 +654,16 @@ void reloadOverscanConfig(boolean force) {
             continue; // partially written line, or a typo - ignore it
           }
 
-          if      (key.equals("os_left"))     os_left     = constrain(n, 0, width / 2);
-          else if (key.equals("os_right"))    os_right    = constrain(n, 0, width / 2);
-          else if (key.equals("os_top"))      os_top      = constrain(n, 0, height / 2);
-          else if (key.equals("os_bottom"))   os_bottom   = constrain(n, 0, height / 2);
-          else if (key.equals("calibrate"))   calibrate   = (n != 0);
-          else if (key.equals("diagnostics")) diagnostics = (n != 0);
+          if      (key.equals("os_left"))         os_left         = constrain(n, 0, width / 2);
+          else if (key.equals("os_right"))        os_right        = constrain(n, 0, width / 2);
+          else if (key.equals("os_top"))          os_top          = constrain(n, 0, height / 2);
+          else if (key.equals("os_bottom"))       os_bottom       = constrain(n, 0, height / 2);
+          else if (key.equals("calibrate"))       calibrate       = (n != 0);
+          else if (key.equals("diagnostics"))     diagnostics     = (n != 0);
+          else if (key.equals("diag_x"))          diag_x          = constrain(n, 0, width);
+          else if (key.equals("diag_y"))          diag_y          = constrain(n, 0, height);
+          else if (key.equals("diag_size"))       diag_size       = constrain(n, 1, 200);
+          else if (key.equals("diag_label_size")) diag_label_size = constrain(n, 1, 200);
         }
       }
     }
@@ -700,7 +694,7 @@ void drawOverscanArea(int variant) {
     noFill();
     rect(os_left-1, os_top-1, width-os_left-os_right+1, height-os_top-os_bottom+1);
   } else if (variant == 2) {
-    // Calibration. The band goes solid white, so any white creeping into the
+    // Calibration. The band goes solid red, so any red creeping into the
     // picture means that side's value is still too small - raise it over SSH.
     noStroke();
     fill(255,0,0);
@@ -710,7 +704,7 @@ void drawOverscanArea(int variant) {
     rect(0, height, width, -os_bottom);
     // Hairline on the first row/column of the safe area. Tuned correctly it
     // sits right at the edge of the visible picture: still visible, with no
-    // white beyond it.
+    // red beyond it.
     noFill();
     stroke(255, 255, 255);
     strokeWeight(1);
