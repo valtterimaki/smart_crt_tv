@@ -733,10 +733,11 @@ void draw() {
       fill(255, 255, 255);
     }
     textFont(robotomono_regular);
-    textSize(12);
     textAlign(LEFT);
-    text(frameMs + "ms " + nf(frameRate, 0, 1) + "fps  "
-      + os_left + "/" + os_right + "/" + os_top + "/" + os_bottom, 4, 8);
+    textSize(20);
+    text(int(frameRate), 4, 26);
+    textSize(16);
+    text("fps", 4, 42);
   }
 
   // TEMPLATE FOR A NEW SYSTEM
