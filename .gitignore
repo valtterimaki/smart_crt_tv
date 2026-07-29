@@ -3,3 +3,4 @@ adafruit_io.pde
 build-tmp/
 out/
 data/n2yo_api_key.txt
+data/owm_api_key.txt

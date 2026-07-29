@@ -14,8 +14,10 @@ class Weather {
   private volatile boolean reachable = false;
   // Tracks the hour when data was last successfully fetched (99 = never)
   private int last_update = 99;
+  // Loaded from data/owm_api_key.txt (gitignored) – never hardcode the key
+  private String api_key = "";
   // OpenWeatherMap API endpoint – Turku, FI, metric units, XML format, Finnish language
-  private final static String URL = "http://api.openweathermap.org/data/2.5/weather?q=Turku,fi&appid=252d087e98bfe7e2d4bfa4991e0f4671&units=metric&mode=xml&lang=fi";
+  private final static String URL_BASE = "http://api.openweathermap.org/data/2.5/weather?q=Turku,fi&units=metric&mode=xml&lang=fi&appid=";
 
   // OWM city ID for Turku (used as a reference, not in the URL above)
   int citycode = 633679;
@@ -23,6 +25,8 @@ class Weather {
   // Constructor: performs an immediate synchronous fetch on startup so data is
   // available before the first draw() call
   public Weather() {
+    String[] keys = loadStrings("owm_api_key.txt");
+    if (keys != null && keys.length > 0) api_key = keys[0].trim();
     fetch(); // synchronous on setup – that's fine
     println("Current weather - initial fetch done: " + lastUpdate());
   }
@@ -33,7 +37,7 @@ class Weather {
   // falls back to a local placeholder XML file so the UI still has data.
   void fetch() {
     try {
-      XML loaded = parseXML(fetchStringFromURL(URL));
+      XML loaded = parseXML(fetchStringFromURL(URL_BASE + api_key));
       if (loaded != null) {
         root = loaded;
         reachable = true;
