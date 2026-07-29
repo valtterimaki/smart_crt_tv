@@ -12,7 +12,7 @@ interlaced composite mode (`video=Composite-1:720x576@50i`) a fullscreen page-fl
 permitted on full-frame boundaries — every 2 fields — which caps the sketch at a hard 25 fps
 no matter how little it draws. With `--run` it holds 50 fps.
 
-`setup()` must have `size(720, 576, P2D)` active for this (not `fullScreen()`). No window
+`setup()` must have `size(720, 576, P3D)` active for this (not `fullScreen()`). No window
 manager runs under `startx`, so the window sits undecorated at 0,0 on a 720×576 display and
 looks identical to fullscreen.
 

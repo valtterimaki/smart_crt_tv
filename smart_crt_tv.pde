@@ -138,7 +138,7 @@ float bodyMsAvg;           // smoothed draw() body time, excluding the buffer sw
 
 void setup() {
 
-  size(720, 576, P2D);
+  size(720, 576, P3D);
   smooth(1);
 
   // Flash object after each program
