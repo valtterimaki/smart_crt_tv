@@ -766,9 +766,12 @@ void draw() {
     textFont(robotomono_regular);
     textAlign(LEFT);
     textSize(diag_size);
-    text(nf(frameRate, 0, 1), diag_x, diag_y);
+    text(int(frameRate), diag_x, diag_y);
     textSize(diag_label_size);
     //text("fps  " + nf(bodyMsAvg, 0, 1) + "ms  p" + program_number, diag_x, diag_y + diag_label_size);  // Not needed but saved anyway
+    text("fps", diag_x, diag_y + diag_label_size);
+    textSize(diag_size);
+    text("P" + program_number, diag_x, diag_y + diag_label_size*3);
   }
 
   // TEMPLATE FOR A NEW SYSTEM
