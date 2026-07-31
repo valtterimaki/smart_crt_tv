@@ -12,8 +12,20 @@ os_bottom=4
 calibrate=0
 
 # fps readout, drawn in the band - only visible via the reveal button.
+# Stacked, one value per line: fps, P<program>, pk, buf, un.
+#   pk  = worst draw() body time in ms over the last 2 s window
+#   buf = frames the video loaders are ahead of the playhead (60 = full)
+#   un  = ring buffer underruns since this program started
+# buf near 60 with a high pk means loading is fine and the hitch is GC or core
+# contention. buf collapsing toward 0 means frames really aren't arriving.
 diagnostics=1
 diag_x=16            # left edge of both lines
 diag_y=26           # baseline of the number
 diag_size=20
 diag_label_size=16  # "fps" label size, and its offset below diag_y
+
+# Source playback speed of the program 12 video, percent of realtime, 10-100.
+# The dot scan always runs at the full frame rate, so the noise artefacts stay
+# at 50 Hz and only the subject slows down - which also cuts the decode rate in
+# proportion. 100 = realtime.
+vid_rate_pct=60

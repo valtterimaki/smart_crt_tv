@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.io.*;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.*;
 import processing.io.*;
 
 
@@ -130,6 +131,14 @@ int diag_size = 20;         // text size of the fps number
 int diag_label_size = 16;   // text size of the "fps" label, and its offset below diag_y
 long frameStartNs;         // start of the current draw() body, for the ms readout
 float bodyMsAvg;           // smoothed draw() body time, excluding the buffer swap
+float bodyMsPeak;          // worst body time in the window being filled
+float bodyMsPeakShown;     // worst body time in the last complete window
+
+// Source playback speed of the program 12 video, in percent of realtime. The
+// dot scan keeps running at the full frame rate whatever this is set to, so the
+// noise artefacts stay at 50 Hz while the subject moves slower and the decoder
+// has proportionally less to do. 100 = the old behaviour.
+int vid_rate_pct = 60;
 
 
 
@@ -702,6 +711,7 @@ void draw() {
 
     background(0);
     ImageSequence seq = vid_gen_seqs[vid_gen_idx];
+    seq.playbackRate = vid_rate_pct / 100.0;
     seq.display_dot_scan(
       (width - seq.imageWidth) / 2,
       (height - seq.imageHeight) / 2
@@ -757,6 +767,26 @@ void draw() {
     float bodyMs = (System.nanoTime() - frameStartNs) / 1e6;
     bodyMsAvg = (frameCount < 2) ? bodyMs : bodyMsAvg * 0.9 + bodyMs * 0.1;
 
+    // A periodic pause is a handful of slow frames in a hundred, which the
+    // average above smooths away entirely. Track the worst frame per 2 s window
+    // and display the previous complete window, so the number stays still long
+    // enough to read off the CRT instead of flickering every frame.
+    bodyMsPeak = max(bodyMsPeak, bodyMs);
+    if (frameCount % 100 == 0) {
+      bodyMsPeakShown = bodyMsPeak;
+      bodyMsPeak = 0;
+    }
+
+    // Ring buffer state of whichever sequence is on screen. Depth near BUF_SIZE
+    // with a high peak means decoding keeps up and the hitch is GC or core
+    // contention; depth collapsing toward 0 means genuine starvation.
+    ImageSequence diag_seq = null;
+    if (program_number == 12) {
+      diag_seq = vid_gen_seqs[vid_gen_idx];
+    } else if (program_number == 8) {
+      diag_seq = vid_iss;
+    }
+
     noStroke();
     if (calibrate == true) {
       fill(0); // black on the red calibration band
@@ -772,6 +802,24 @@ void draw() {
     text("fps", diag_x, diag_y + diag_label_size);
     textSize(diag_size);
     text("P" + program_number, diag_x, diag_y + diag_label_size*3);
+
+    // The visible band is only os_left wide, so these stack one value per line
+    // rather than sitting side by side. Vertical room is the whole frame height.
+    textSize(diag_size);
+    text(int(bodyMsPeakShown), diag_x, diag_y + diag_label_size*4.5);
+    textSize(diag_label_size);
+    text("pk", diag_x, diag_y + diag_label_size*5.5);
+
+    if (diag_seq != null) {
+      textSize(diag_size);
+      text(diag_seq.bufDepth(), diag_x, diag_y + diag_label_size*7);
+      textSize(diag_label_size);
+      text("buf", diag_x, diag_y + diag_label_size*8);
+      textSize(diag_size);
+      text(diag_seq.underruns, diag_x, diag_y + diag_label_size*9.5);
+      textSize(diag_label_size);
+      text("un", diag_x, diag_y + diag_label_size*10.5);
+    }
   }
 
   // TEMPLATE FOR A NEW SYSTEM

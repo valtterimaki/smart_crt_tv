@@ -106,8 +106,9 @@ class Animator {
 class ImageSequence {
   String[] filenames;
   PImage[] ringBuf;
-  final int BUF_SIZE = 60;   // more headroom for parallel loaders
-  final int NUM_LOADERS = 3; // use 3 of Pi4's 4 cores for decoding
+  final int BUF_SIZE = 60;    // more headroom for parallel loaders
+  final int NUM_LOADERS = 3;  // use 3 of Pi4's 4 cores for decoding
+  final int PRIME_FRAMES = 8; // decoded synchronously by seek() before playback
   int imageWidth, imageHeight;
   int imageCount;
   int frame; // current file index, kept for compatibility
@@ -116,12 +117,29 @@ class ImageSequence {
   float scale;
   PImage outputImg;
 
+  // Source frames advance at playbackRate per drawn frame, while the dot scan
+  // still runs every draw. thresh is driven by noise(millis()), so a held frame
+  // re-scatters all of its dots each draw: the 50 Hz shimmer survives even
+  // though the subject moves in slow motion. Halves the decode/allocation rate.
+  float playbackRate = 1.0;
+  float posAccum = 0;
+
+  // Which sequence position each ring slot currently holds, -1 for "empty".
+  // The loader stores ringBuf[slot] and *then* publishes slotPos; the draw
+  // thread reads slotPos and *then* ringBuf. Those two volatile accesses are
+  // what make the image handoff safe - a plain long[] would be racy on ARM.
+  AtomicLongArray slotPos;
+  PImage lastGoodImg;   // shown instead of a stale slot on an underrun
+  int underruns;        // since the last seek(), for the diagnostics overlay
+
   // display_dot_scan() row bands, one worker per core. Built on first scan.
   BandWorker[] bandWorkers;
   Future[] bandFutures;
 
   volatile long displaySeqPos;
-  long nextLoadPos;          // guarded by synchronized(this)
+  // Mutated only inside synchronized(this), but volatile so the draw thread can
+  // read bufDepth() without taking the lock the three loaders are fighting over.
+  volatile long nextLoadPos;
   Thread[] loaderThreads;
   volatile boolean preloaderRunning;
 
@@ -136,8 +154,12 @@ class ImageSequence {
       filenames[i] = imagePrefix + nf(i + startFrame, digits) + "." + format;
     }
     ringBuf = new PImage[BUF_SIZE];
+    slotPos = new AtomicLongArray(BUF_SIZE);
+    for (int i = 0; i < BUF_SIZE; i++) slotPos.set(i, -1);
     // Load only frame 0 synchronously to get dimensions; threads fill the rest
     ringBuf[0] = loadImage(filenames[0]);
+    slotPos.set(0, 0);
+    lastGoodImg = ringBuf[0];
     imageWidth = ringBuf[0].width;
     imageHeight = ringBuf[0].height;
     outputImg = createImage(width, height, ARGB);
@@ -170,7 +192,10 @@ class ImageSequence {
             int slot = (int)(myPos % self.BUF_SIZE);
             int fi   = (int)(myPos % self.imageCount);
             PImage img = loadImage(self.filenames[fi]);
-            if (img != null) self.ringBuf[slot] = img;
+            if (img != null) {
+              self.ringBuf[slot] = img;
+              self.slotPos.set(slot, myPos); // publishes the store above
+            }
           }
         }
       });
@@ -189,25 +214,65 @@ class ImageSequence {
     }
   }
 
-  // Seek to a new start position (next display() call will show fileIdx+1)
+  // Seek to a new start position. The next display() shows fileIdx+1 at
+  // playbackRate 1.0, or holds fileIdx for a draw or two below that, so the
+  // priming burst below has to start at fileIdx itself, not fileIdx+1.
   void seek(int fileIdx) {
     stopLoaders();
     displaySeqPos = fileIdx;
     frame = fileIdx;
-    // Load only the one frame that will be shown immediately after advance()
-    int firstSlot = (int)((fileIdx + 1) % BUF_SIZE);
-    int firstFile = (int)((fileIdx + 1) % imageCount);
-    ringBuf[firstSlot] = loadImage(filenames[firstFile]);
-    nextLoadPos = fileIdx + 2;
+    posAccum = 0;
+    underruns = 0;
+
+    // Everything buffered belongs to the old playhead. Drop it, so a shortfall
+    // reads as an underrun instead of silently displaying some earlier frame.
+    for (int i = 0; i < BUF_SIZE; i++) slotPos.set(i, -1);
+
+    // Prime a burst instead of the single frame this used to load. draw() drains
+    // the buffer at 50/s, so starting at depth 1 meant program 12 underran every
+    // time it began. ~30 ms, spent under the flash transition where it can't be
+    // seen. PRIME_FRAMES < BUF_SIZE, so these can't collide in the ring.
+    long pos = fileIdx;
+    for (int i = 0; i < PRIME_FRAMES; i++, pos++) {
+      int slot = (int)(pos % BUF_SIZE);
+      int fi   = (int)(pos % imageCount);
+      PImage img = loadImage(filenames[fi]);
+      if (img != null) {
+        ringBuf[slot] = img;
+        slotPos.set(slot, pos);
+      }
+    }
+    nextLoadPos = pos;
     startPreloader();
   }
 
   PImage currentImg() {
-    return ringBuf[(int)(displaySeqPos % BUF_SIZE)];
+    int slot = (int)(displaySeqPos % BUF_SIZE);
+    if (slotPos.get(slot) == displaySeqPos) { // volatile read, then the image
+      PImage img = ringBuf[slot];
+      if (img != null) {
+        lastGoodImg = img;
+        return img;
+      }
+    }
+    // The slot still holds an older frame. Hold the last good one instead:
+    // repeating a frame is a far smaller artefact than jumping back 60 frames.
+    underruns++;
+    return lastGoodImg;
+  }
+
+  // Frames the loaders are ahead of the playhead. Near BUF_SIZE means decoding
+  // is keeping up and any hitch is elsewhere; near 0 means real starvation.
+  int bufDepth() {
+    return (int)(nextLoadPos - displaySeqPos);
   }
 
   void advance() {
-    displaySeqPos++;
+    posAccum += playbackRate;
+    while (posAccum >= 1.0) {
+      posAccum -= 1.0;
+      displaySeqPos++;
+    }
     frame = (int)(displaySeqPos % imageCount);
   }
 

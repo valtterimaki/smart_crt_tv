@@ -664,6 +664,7 @@ void reloadOverscanConfig(boolean force) {
           else if (key.equals("diag_y"))          diag_y          = constrain(n, 0, height);
           else if (key.equals("diag_size"))       diag_size       = constrain(n, 1, 200);
           else if (key.equals("diag_label_size")) diag_label_size = constrain(n, 1, 200);
+          else if (key.equals("vid_rate_pct"))    vid_rate_pct    = constrain(n, 10, 100);
         }
       }
     }
